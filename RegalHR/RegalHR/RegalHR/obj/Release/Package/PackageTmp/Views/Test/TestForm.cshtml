@@ -1,0 +1,123 @@
+﻿@using RegalHRModel
+@using RegalHR.ModelFactory
+@{
+    string Ver = GeneralModelFactory.Version;
+    Layout = "~/Views/Layout/LayoutLogin.AnguLarjs.cshtml";
+
+    AppOutgoingModel obj = new AppOutgoingModel();
+    obj.Location = "桃園";
+    obj.OutMan = "00159";
+    obj.OutDescription = "";
+    obj.OutManCompany = "TPE";
+    obj.SDate = "2016-06-15";
+    obj.STime = "09:00";
+    obj.CustomerName = "test中文";
+    obj.GoOutTime = "09:30";
+
+    
+    
+    AppOutgoingModel Editobj = new AppOutgoingModel();
+    Editobj.OutId= "20160513004";
+    Editobj.Location = "test";
+    Editobj.OutMan = "00159";
+    Editobj.OutDescription = "";
+    Editobj.OutManCompany = "TPE";
+    Editobj.SDate = "2016-06-10";
+    Editobj.STime = "09:30";
+    Editobj.CustomerName = "test";
+    Editobj.GoOutTime = "09:30";
+
+}
+<script>
+
+
+
+
+    function T1() {
+
+        //http://192.168.0.12:81/App/GetCalendarAllList?SDATE=20160601&EDATE=20160630
+        $.ajax({
+            type: "GET",
+            url: "../App/GetCalendarAllList",
+            data: 'SDATE=20160601&EDATE=20160630',
+            async: true,
+            success: function (data) {
+                alert("ok");
+            }
+        });
+    }
+
+
+
+    function T2() {
+
+
+        $.ajax({
+            type: "GET",
+            url: "http://192.168.0.12:81/App/GetCalendarAllList",
+            data: 'SDATE=20160601&EDATE=20160630',
+            async: true,
+            success: function (data) {
+                alert( JSON.stringify(data));
+            }
+        });
+    }
+
+
+
+
+    function DeleteOutgoing() {
+        $.ajax({
+            type: "GET",
+            url: "../App/DeleteOutgoing",
+            data: 'OutId=20160304001&EmpNo=00159',
+            async: false,
+            success: function (data) {
+                alert("ok");
+            }
+        });
+    }
+
+
+
+    function InsertOutgoing() {
+        
+        var JSON = '@Html.Raw(Json.Encode(obj))';
+
+
+        $.ajax({
+            type: "POST",
+            url: "../App/InsertOutgoing",
+            contentType: "application/json; charset=utf-8",
+            data: '@Html.Raw(Json.Encode(obj))',
+            async: false,
+            success: function (data) {
+                alert("ok" + data);
+            }
+        });
+    }
+
+    function EditOutgoing() {
+
+        var JSON = '@Html.Raw(Json.Encode(obj))';
+
+
+            $.ajax({
+                type: "POST",
+                url: "../App/EditOutgoing",
+                contentType: "application/json; charset=utf-8",
+                data: '@Html.Raw(Json.Encode(Editobj))',
+            async: false,
+            success: function (data) {
+                alert("ok" + data);
+            }
+        });
+    }
+
+</script>
+
+
+
+
+
+

@@ -1,0 +1,461 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <assembly>
+    <name>System.Web.Helpers</name>
+  </assembly>
+  <members>
+    <member name="T:System.Web.Helpers.Chart">
+      <summary>以圖表影像形式顯示資料。</summary>
+    </member>
+    <member name="M:System.Web.Helpers.Chart.#ctor(System.Int32,System.Int32,System.String,System.String)">
+      <summary>初始化 <see cref="T:System.Web.Helpers.Chart" /> 類別的新執行個體。</summary>
+      <param name="width">整個圖表影像的寬度 (以像素為單位)。</param>
+      <param name="height">整個圖表影像的高度 (以像素為單位)。</param>
+      <param name="theme">要套用到圖表的範本。</param>
+      <param name="themePath">要套用到圖表之範本的路徑和檔案名稱。</param>
+    </member>
+    <member name="M:System.Web.Helpers.Chart.AddLegend(System.String,System.String)">
+      <summary>表示圖表影像的圖例。</summary>
+      <returns>傳回 <see cref="T:System.Web.Helpers.Chart" />。</returns>
+      <param name="title">圖例標題的文字。</param>
+      <param name="name">圖例的名稱。</param>
+    </member>
+    <member name="M:System.Web.Helpers.Chart.AddSeries(System.String,System.String,System.String,System.String,System.String,System.Int32,System.Collections.IEnumerable,System.String,System.Collections.IEnumerable,System.String)">
+      <summary>提供圖表的資料點與數列屬性。</summary>
+      <returns>傳回 <see cref="T:System.Web.Helpers.Chart" />。</returns>
+      <param name="name">數列的唯一名稱。</param>
+      <param name="chartType">數列的圖表類型。</param>
+      <param name="chartArea">用來繪製資料數列之圖表區域的名稱。</param>
+      <param name="axisLabel">數列的座標軸標籤文字。</param>
+      <param name="legend">與圖例相關聯之數列的名稱。</param>
+      <param name="markerStep">值，決定資料點標記的顯示頻率。</param>
+      <param name="xValue">沿著 X 軸繪製的值。</param>
+      <param name="xField">X 值欄位的名稱。</param>
+      <param name="yValues">沿著 Y 軸繪製的值。</param>
+      <param name="yFields">Y 值欄位名稱的逗號分隔清單。</param>
+    </member>
+    <member name="M:System.Web.Helpers.Chart.AddTitle(System.String,System.String)">
+      <summary>表示整個圖表影像的標題。</summary>
+      <returns>傳回 <see cref="T:System.Web.Helpers.Chart" />。</returns>
+      <param name="text">指定的標題文字。</param>
+      <param name="name">標題的唯一名稱。</param>
+    </member>
+    <member name="M:System.Web.Helpers.Chart.DataBindCrossTable(System.Collections.IEnumerable,System.String,System.String,System.String,System.String,System.String)">
+      <summary>將圖表資料繫結至資料表，會為資料行中每一個唯一值建立數列。</summary>
+      <returns>傳回 <see cref="T:System.Web.Helpers.Chart" />。</returns>
+      <param name="dataSource">圖表資料來源。</param>
+      <param name="groupByField">用來將資料分組成數列之資料行的名稱。</param>
+      <param name="xField">X 資料點的資料行名稱。</param>
+      <param name="yFields">以逗號分隔之 Y 值資料行名稱清單。</param>
+      <param name="otherFields">其他可以繫結的資料點屬性。</param>
+      <param name="pointSortOrder">指定的順序，數列會根據此順序排序。 預設值為 "Ascending"。</param>
+    </member>
+    <member name="M:System.Web.Helpers.Chart.DataBindTable(System.Collections.IEnumerable,System.String)">
+      <summary>建立數列資料並將其繫結到指定的資料表，並且選擇性地填入多個 Y 值。</summary>
+      <returns>傳回 <see cref="T:System.Web.Helpers.Chart" />。</returns>
+      <param name="dataSource">圖表資料來源。</param>
+      <param name="xField">用於數列 X 值之資料表資料行的名稱。</param>
+    </member>
+    <member name="P:System.Web.Helpers.Chart.FileName">
+      <summary>取得或設定包含圖表影像的檔案名稱。</summary>
+      <returns>傳回 <see cref="T:System.String" />。</returns>
+    </member>
+    <member name="M:System.Web.Helpers.Chart.GetBytes(System.String)">
+      <summary>以位元組陣列傳回圖表影像。</summary>
+      <returns>傳回 <see cref="T:System.Byte" />。</returns>
+      <param name="format">影像格式。 預設值為 "jpeg"。</param>
+    </member>
+    <member name="M:System.Web.Helpers.Chart.GetFromCache(System.String)">
+      <summary>從快取擷取指定的圖表。</summary>
+      <returns>傳回 <see cref="T:System.Web.Helpers.Chart" />。</returns>
+      <param name="key">包含圖表之快取項目的索引鍵。</param>
+    </member>
+    <member name="P:System.Web.Helpers.Chart.Height">
+      <summary>取得或設定圖表影像的高度。</summary>
+      <returns>傳回 <see cref="T:System.Int32" />。</returns>
+    </member>
+    <member name="M:System.Web.Helpers.Chart.Save(System.String,System.String)">
+      <summary>將圖表影像儲存至指定的路徑和檔案名稱。</summary>
+      <returns>傳回 <see cref="T:System.Web.Helpers.Chart" />。</returns>
+      <param name="path">影像檔的位置和名稱。</param>
+      <param name="format">影像檔格式。</param>
+    </member>
+    <member name="M:System.Web.Helpers.Chart.SaveToCache(System.String,System.Int32,System.Boolean)">
+      <summary>將圖表儲存至快取。</summary>
+      <returns>傳回 <see cref="T:System.String" />。</returns>
+      <param name="key">值，用來參考快取中的圖表。</param>
+      <param name="minutesToCache">分鐘數，在這段時間要保存快取的圖表。</param>
+      <param name="slidingExpiration">值，指定快取的圖表在存取後，是否應該繼續儲存在記憶體，多保存一段時間 (<see cref="minutesToCache" />)。</param>
+    </member>
+    <member name="M:System.Web.Helpers.Chart.SaveXml(System.String)">
+      <summary>將圖表另存為 XML 檔案。</summary>
+      <returns>傳回 <see cref="T:System.Web.Helpers.Chart" />。</returns>
+      <param name="path">用來儲存 XML 檔的路徑和檔案名稱。</param>
+    </member>
+    <member name="M:System.Web.Helpers.Chart.SetXAxis(System.String,System.Double,System.Double)">
+      <summary>設定水平軸的值。</summary>
+      <returns>傳回 <see cref="T:System.Web.Helpers.Chart" />。</returns>
+      <param name="title">水平軸的標題。</param>
+      <param name="min">水平軸的最小值。</param>
+      <param name="max">水平軸的最大值。</param>
+    </member>
+    <member name="M:System.Web.Helpers.Chart.SetYAxis(System.String,System.Double,System.Double)">
+      <summary>設定垂直軸的值。</summary>
+      <returns>傳回 <see cref="T:System.Web.Helpers.Chart" />。</returns>
+      <param name="title">垂直軸的標題。</param>
+      <param name="min">垂直軸的最小值。</param>
+      <param name="max">垂直軸的最小值。</param>
+    </member>
+    <member name="M:System.Web.Helpers.Chart.ToWebImage(System.String)">
+      <summary>根據目前 <see cref="T:System.Web.Helpers.Chart" /> 物件建立一個 <see cref="T:System.Web.Helpers.WebImage" /> 物件。</summary>
+      <returns>傳回 <see cref="T:System.Web.Helpers.WebImage" />。</returns>
+      <param name="format">
+        <see cref="T:System.Web.Helpers.WebImage" /> 類別所包含之影像的格式。 預設值為 "jpeg"。</param>
+    </member>
+    <member name="P:System.Web.Helpers.Chart.Width">
+      <summary>取得或設定圖表影像的寬度。</summary>
+      <returns>傳回 <see cref="T:System.Int32" />。</returns>
+    </member>
+    <member name="M:System.Web.Helpers.Chart.Write(System.String)">
+      <summary>呈現 <see cref="T:System.Web.Helpers.Chart" /> 物件的輸出做為影像。</summary>
+      <returns>傳回 <see cref="T:System.Web.Helpers.Chart" />。</returns>
+      <param name="format">影像的格式。 預設值為 "jpeg"。</param>
+    </member>
+    <member name="M:System.Web.Helpers.Chart.WriteFromCache(System.String,System.String)">
+      <summary>呈現已快取為影像之 <see cref="T:System.Web.Helpers.Chart" /> 物件的輸出。</summary>
+      <returns>傳回 <see cref="T:System.Web.Helpers.Chart" />。</returns>
+      <param name="key">值，用來從快取中擷取圖表。</param>
+      <param name="format">影像的格式。 預設值為 "jpeg"。</param>
+    </member>
+    <member name="T:System.Web.Helpers.ChartTheme"></member>
+    <member name="F:System.Web.Helpers.ChartTheme.Blue"></member>
+    <member name="F:System.Web.Helpers.ChartTheme.Green"></member>
+    <member name="F:System.Web.Helpers.ChartTheme.Vanilla"></member>
+    <member name="F:System.Web.Helpers.ChartTheme.Vanilla3D"></member>
+    <member name="F:System.Web.Helpers.ChartTheme.Yellow"></member>
+    <member name="T:System.Web.Helpers.Crypto"></member>
+    <member name="M:System.Web.Helpers.Crypto.GenerateSalt(System.Int32)"></member>
+    <member name="M:System.Web.Helpers.Crypto.Hash(System.Byte[],System.String)"></member>
+    <member name="M:System.Web.Helpers.Crypto.Hash(System.String,System.String)"></member>
+    <member name="M:System.Web.Helpers.Crypto.HashPassword(System.String)"></member>
+    <member name="M:System.Web.Helpers.Crypto.SHA1(System.String)"></member>
+    <member name="M:System.Web.Helpers.Crypto.SHA256(System.String)"></member>
+    <member name="M:System.Web.Helpers.Crypto.VerifyHashedPassword(System.String,System.String)"></member>
+    <member name="T:System.Web.Helpers.DynamicJsonArray"></member>
+    <member name="M:System.Web.Helpers.DynamicJsonArray.#ctor(System.Object[])"></member>
+    <member name="M:System.Web.Helpers.DynamicJsonArray.GetEnumerator"></member>
+    <member name="P:System.Web.Helpers.DynamicJsonArray.Item(System.Int32)"></member>
+    <member name="P:System.Web.Helpers.DynamicJsonArray.Length"></member>
+    <member name="M:System.Web.Helpers.DynamicJsonArray.op_Implicit(System.Web.Helpers.DynamicJsonArray)~System.Array"></member>
+    <member name="M:System.Web.Helpers.DynamicJsonArray.op_Implicit(System.Web.Helpers.DynamicJsonArray)~System.Object[]"></member>
+    <member name="M:System.Web.Helpers.DynamicJsonArray.System#Collections#Generic#IEnumerable{T}#GetEnumerator"></member>
+    <member name="M:System.Web.Helpers.DynamicJsonArray.TryConvert(System.Dynamic.ConvertBinder,System.Object@)"></member>
+    <member name="M:System.Web.Helpers.DynamicJsonArray.TryGetMember(System.Dynamic.GetMemberBinder,System.Object@)"></member>
+    <member name="T:System.Web.Helpers.DynamicJsonObject"></member>
+    <member name="M:System.Web.Helpers.DynamicJsonObject.#ctor(System.Collections.Generic.IDictionary{System.String,System.Object})"></member>
+    <member name="M:System.Web.Helpers.DynamicJsonObject.GetDynamicMemberNames"></member>
+    <member name="M:System.Web.Helpers.DynamicJsonObject.TryConvert(System.Dynamic.ConvertBinder,System.Object@)"></member>
+    <member name="M:System.Web.Helpers.DynamicJsonObject.TryGetIndex(System.Dynamic.GetIndexBinder,System.Object[],System.Object@)"></member>
+    <member name="M:System.Web.Helpers.DynamicJsonObject.TryGetMember(System.Dynamic.GetMemberBinder,System.Object@)"></member>
+    <member name="M:System.Web.Helpers.DynamicJsonObject.TrySetIndex(System.Dynamic.SetIndexBinder,System.Object[],System.Object)"></member>
+    <member name="M:System.Web.Helpers.DynamicJsonObject.TrySetMember(System.Dynamic.SetMemberBinder,System.Object)"></member>
+    <member name="T:System.Web.Helpers.Json"></member>
+    <member name="M:System.Web.Helpers.Json.Decode``1(System.String)">
+      <typeparam name="T"></typeparam>
+    </member>
+    <member name="M:System.Web.Helpers.Json.Decode(System.String)"></member>
+    <member name="M:System.Web.Helpers.Json.Decode(System.String,System.Type)"></member>
+    <member name="M:System.Web.Helpers.Json.Encode(System.Object)"></member>
+    <member name="M:System.Web.Helpers.Json.Write(System.Object,System.IO.TextWriter)"></member>
+    <member name="T:System.Web.Helpers.ObjectInfo"></member>
+    <member name="M:System.Web.Helpers.ObjectInfo.Print(System.Object,System.Int32,System.Int32)"></member>
+    <member name="T:System.Web.Helpers.ServerInfo">
+      <summary>顯示裝載目前網頁之 Web 伺服器環境的相關資訊。</summary>
+    </member>
+    <member name="M:System.Web.Helpers.ServerInfo.GetHtml">
+      <summary>顯示 Web 伺服器環境的相關資訊。</summary>
+      <returns>名稱/值組的字串，這個字串內含 Web 伺服器的相關資訊。 </returns>
+    </member>
+    <member name="T:System.Web.Helpers.SortDirection">
+      <summary>指定項目清單的排序方向。</summary>
+    </member>
+    <member name="F:System.Web.Helpers.SortDirection.Ascending">
+      <summary>由小到大排序。 例如，從 A 到 Z。</summary>
+    </member>
+    <member name="F:System.Web.Helpers.SortDirection.Descending">
+      <summary>由大到小排序。 例如，從 Z 到 A。</summary>
+    </member>
+    <member name="T:System.Web.Helpers.WebCache"></member>
+    <member name="M:System.Web.Helpers.WebCache.Get(System.String)"></member>
+    <member name="M:System.Web.Helpers.WebCache.Remove(System.String)"></member>
+    <member name="M:System.Web.Helpers.WebCache.Set(System.String,System.Object,System.Int32,System.Boolean)"></member>
+    <member name="T:System.Web.Helpers.WebGrid">
+      <summary>提供可以從資料來源顯示項目的資料表。</summary>
+    </member>
+    <member name="M:System.Web.Helpers.WebGrid.#ctor(System.Collections.Generic.IEnumerable{System.Object},System.Collections.Generic.IEnumerable{System.String},System.String,System.Int32,System.Boolean,System.Boolean,System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
+      <summary>初始化 <see cref="T:System.Web.Helpers.WebGrid" /> 類別的新執行個體。</summary>
+      <param name="source">資料來源。</param>
+      <param name="columnNames">資料來源資料行名稱的集合。 預設會自動填入。</param>
+      <param name="defaultSort">預設用來排序資料表的資料行名稱。</param>
+      <param name="rowsPerPage">顯示分頁時會顯示的資料列數。 預設值為 10。</param>
+      <param name="canPage">如果 <see cref="T:System.Web.Helpers.WebGrid" /> 可以顯示分頁，則為 true，否則為 false。 預設值為 true。 </param>
+      <param name="canSort">如果 <see cref="T:System.Web.Helpers.WebGrid" /> 可以根據資料行排序，則為 true。 預設值為 true。</param>
+      <param name="ajaxUpdateContainerId">
+        <see cref="T:System.Web.Helpers.WebGrid" /> 中用來進行部分頁面更新 (Ajax 支援) 之 HTML 項目的 ID。</param>
+      <param name="ajaxUpdateCallback">要在 (<see cref="P:System.Web.Helpers.WebGrid.AjaxUpdateContainerId" />) 所指定之 HTML 項目更新後呼叫的函式。</param>
+      <param name="fieldNamePrefix">querystring 欄位的前置字元，用來支援多方格。</param>
+      <param name="pageFieldName">頁碼的 querystring 欄位名稱。</param>
+      <param name="selectionFieldName">所選資料列編號的 querystring 欄位名稱。</param>
+      <param name="sortFieldName">排序資料行的 querystring 欄位名稱。</param>
+      <param name="sortDirectionFieldName">排序方向的 querystring 欄位名稱。</param>
+    </member>
+    <member name="P:System.Web.Helpers.WebGrid.AjaxUpdateCallback">
+      <summary>取得要在 <see cref="P:System.Web.Helpers.WebGrid.AjaxUpdateCallback" /> 所指定的 HTML 項目更新之後呼叫的函式名稱。</summary>
+      <returns>傳回 <see cref="T:System.String" />。</returns>
+    </member>
+    <member name="P:System.Web.Helpers.WebGrid.AjaxUpdateContainerId">
+      <summary>取得 <see cref="T:System.Web.Helpers.WebGrid" /> 中用來進行部分頁面更新 (Ajax 支援) 之 HTML 項目的 ID。</summary>
+      <returns>傳回 <see cref="T:System.String" />。</returns>
+    </member>
+    <member name="M:System.Web.Helpers.WebGrid.Bind(System.Collections.Generic.IEnumerable{System.Object},System.Collections.Generic.IEnumerable{System.String},System.Boolean,System.Int32)"></member>
+    <member name="M:System.Web.Helpers.WebGrid.Column(System.String,System.String,System.Func`2,System.Boolean,System.Object)">
+      <summary>將資料行物件加入至 <see cref="T:System.Web.Helpers.WebGrid" /> 物件。</summary>
+      <returns>傳回 <see cref="T:System.Web.Helpers.WebGridColumn" />。</returns>
+      <param name="columnName">資料行名稱。</param>
+      <param name="header">資料行行首。</param>
+      <param name="format">字串，指定資料行的格式。</param>
+      <param name="style">字串，指定資料行的樣式。</param>
+      <param name="canSort">如果可以排序資料行，則為 true，否則為 false。 預設值為 true。</param>
+    </member>
+    <member name="P:System.Web.Helpers.WebGrid.ColumnNames">
+      <summary>取得擷取自資料來源的資料行名稱集合。</summary>
+      <returns>傳回 <see cref="T:System.Collections.Generic.IEnumerable`1" />。</returns>
+    </member>
+    <member name="M:System.Web.Helpers.WebGrid.Columns(System.Web.Helpers.WebGridColumn[])">
+      <summary>將資料行物件集合加入至 <see cref="T:System.Web.Helpers.WebGrid" /> 物件。</summary>
+      <returns>傳回 <see cref="T:System.Web.Helpers.WebGridColumn" />。</returns>
+      <param name="columnSet">
+        <see cref="M:System.Web.Helpers.WebGrid.Columns(System.Web.Helpers.WebGridColumn[])" /> 物件，表示 <see cref="T:System.Web.Helpers.WebGrid" /> 的資料行。</param>
+    </member>
+    <member name="P:System.Web.Helpers.WebGrid.FieldNamePrefix">
+      <summary>取得查詢字串欄位的前置字元。</summary>
+      <returns>傳回 <see cref="T:System.String" />。</returns>
+    </member>
+    <member name="M:System.Web.Helpers.WebGrid.GetContainerUpdateScript(System.String)">
+      <summary>根據指定的路徑更新 <see cref="T:System.Web.Helpers.WebGrid" />。</summary>
+      <returns>傳回 <see cref="T:System.Web.IHtmlString" />。</returns>
+    </member>
+    <member name="M:System.Web.Helpers.WebGrid.GetHtml(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Boolean,System.Boolean,System.String,System.Collections.Generic.IEnumerable{System.Web.Helpers.WebGridColumn},System.Collections.Generic.IEnumerable{System.String},System.Web.Helpers.WebGridPagerModes,System.String,System.String,System.String,System.String,System.Int32,System.Object)">
+      <summary>提供用來呈現 <see cref="T:System.Web.Helpers.WebGrid" /> 的 HTML。</summary>
+      <returns>傳回 <see cref="T:System.Web.IHtmlString" />。</returns>
+      <param name="tableStyle">用來設定資料表樣式的 CSS 類別。</param>
+      <param name="headerStyle">用來設定資料表標頭資料列樣式的 CSS 類別。</param>
+      <param name="footerStyle">用來設定資料表頁尾資料列樣式的 CSS 類別。</param>
+      <param name="rowStyle">用來設定資料表每個資料列樣式的 CSS 類別。</param>
+      <param name="alternatingRowStyle">用來設定資料表偶數資料列樣式的 CSS 類別。</param>
+      <param name="selectedRowStyle">用來設定資料表所選資料列樣式的 CSS 類別。</param>
+      <param name="caption">資料表的標題。</param>
+      <param name="displayHeader">如果要顯示資料表標頭，則為 true，否則為 false。 預設值為 true。</param>
+      <param name="fillEmptyRows">如果資料表可以新增資料列以確保維持 <see cref="P:System.Web.Helpers.WebGrid.RowsPerPage" /> 資料列計數，則為 true，否則為 false。 預設值為 false。</param>
+      <param name="emptyRowCellValue">用來填入空白資料列的文字。 fillEmptyRows 參數必須設定為 true 以顯示此值。</param>
+      <param name="columns">資料行模型，用來自訂資料行的呈現。</param>
+      <param name="exclusions">自動填入資料行時要排除的資料行。</param>
+      <param name="mode">用來呈現分頁支援的模式。</param>
+      <param name="firstText">結果的首頁連結文字。</param>
+      <param name="previousText">結果的上一頁連結文字。</param>
+      <param name="nextText">結果的下一頁連結文字。</param>
+      <param name="lastText">結果的最後一頁連結文字。</param>
+      <param name="numericLinksCount">顯示的數字連結數。</param>
+      <param name="htmlAttributes">物件，包含要針對項目設定的 HTML 屬性。</param>
+    </member>
+    <member name="M:System.Web.Helpers.WebGrid.GetPageUrl(System.Int32)">
+      <summary>提供 <see cref="T:System.Web.Helpers.WebGrid" /> 會根據頁面索引顯示之頁面的 URL。</summary>
+      <returns>傳回 <see cref="T:System.String" />。</returns>
+      <param name="pageIndex">值，表示要顯示的頁面。</param>
+    </member>
+    <member name="M:System.Web.Helpers.WebGrid.GetSortUrl(System.String)">
+      <summary>提供 URL，用來根據資料行名稱排序 <see cref="T:System.Web.Helpers.WebGrid" /> 所包含的資料。</summary>
+      <returns>傳回 <see cref="T:System.String" />。</returns>
+      <param name="column">要排序的資料行。</param>
+    </member>
+    <member name="P:System.Web.Helpers.WebGrid.HasSelection">
+      <summary>取得值，這個值決定是否已選取 <see cref="T:System.Web.Helpers.WebGrid" /> 的任何資料列。</summary>
+      <returns>傳回 <see cref="T:System.Boolean" />。</returns>
+    </member>
+    <member name="P:System.Web.Helpers.WebGrid.PageCount">
+      <summary>取得 <see cref="T:System.Web.Helpers.WebGrid" /> 可以顯示的頁數。</summary>
+      <returns>傳回 <see cref="T:System.Int32" />。</returns>
+    </member>
+    <member name="P:System.Web.Helpers.WebGrid.PageFieldName">
+      <summary>取得頁面的資料行名稱。</summary>
+      <returns>傳回 <see cref="T:System.String" />。</returns>
+    </member>
+    <member name="P:System.Web.Helpers.WebGrid.PageIndex">
+      <summary>取得或設定頁面巡覽區的索引。</summary>
+      <returns>傳回 <see cref="T:System.Int32" />。</returns>
+    </member>
+    <member name="M:System.Web.Helpers.WebGrid.Pager(System.Web.Helpers.WebGridPagerModes,System.String,System.String,System.String,System.String,System.Int32)">
+      <summary>提供分頁支援所需的 HTML。</summary>
+      <returns>傳回 <see cref="T:System.Web.WebPages.HelperResult" />。</returns>
+      <param name="mode">用來呈現分頁支援的模式。</param>
+      <param name="firstText">首頁連結文字。</param>
+      <param name="previousText">上一頁連結文字。</param>
+      <param name="nextText">下一頁連結文字。</param>
+      <param name="lastText">最後一頁連結文字。</param>
+      <param name="numericLinksCount">顯示的數字連結數。</param>
+    </member>
+    <member name="P:System.Web.Helpers.WebGrid.Rows">
+      <summary>取得 <see cref="T:System.Web.Helpers.WebGrid" /> 中所包含的資料列清單。</summary>
+      <returns>傳回 <see cref="T:System.Collections.Generic.IList`1" />。</returns>
+    </member>
+    <member name="P:System.Web.Helpers.WebGrid.RowsPerPage">
+      <summary>取得每個頁面上顯示的資料列數目。</summary>
+      <returns>傳回 <see cref="T:System.Int32" />。</returns>
+    </member>
+    <member name="P:System.Web.Helpers.WebGrid.SelectedIndex">
+      <summary>取得或設定所選資料列的索引。</summary>
+      <returns>傳回 <see cref="T:System.Int32" />。</returns>
+    </member>
+    <member name="P:System.Web.Helpers.WebGrid.SelectedRow">
+      <summary>取得選取之 <see cref="T:System.Web.Helpers.WebGrid" /> 的資料列。</summary>
+      <returns>傳回 <see cref="T:System.Web.Helpers.WebGridRow" />。</returns>
+    </member>
+    <member name="P:System.Web.Helpers.WebGrid.SelectionFieldName">
+      <summary>取得選取的資料行名稱。</summary>
+      <returns>傳回 <see cref="T:System.String" />。</returns>
+    </member>
+    <member name="P:System.Web.Helpers.WebGrid.SortColumn">
+      <summary>取得或設定用來排序 <see cref="T:System.Web.Helpers.WebGrid" /> 的資料行名稱。</summary>
+      <returns>傳回 <see cref="T:System.String" />。</returns>
+    </member>
+    <member name="P:System.Web.Helpers.WebGrid.SortDirection">
+      <summary>取得或設定 <see cref="T:System.Web.Helpers.WebGrid" /> 的排序方向。</summary>
+      <returns>傳回 <see cref="T:System.Web.Helpers.SortDirection" />。</returns>
+    </member>
+    <member name="P:System.Web.Helpers.WebGrid.SortDirectionFieldName">
+      <summary>取得字串，這個字串表示資料行前置詞，以及目前依方向排序之資料行的名稱。</summary>
+      <returns>傳回 <see cref="T:System.String" />。</returns>
+    </member>
+    <member name="P:System.Web.Helpers.WebGrid.SortFieldName">
+      <summary>取得字串，這個字串表示資料行前置詞，以及目前排序之資料行的名稱。</summary>
+      <returns>傳回 <see cref="T:System.String" />。</returns>
+    </member>
+    <member name="M:System.Web.Helpers.WebGrid.Table(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Boolean,System.Boolean,System.String,System.Collections.Generic.IEnumerable{System.Web.Helpers.WebGridColumn},System.Collections.Generic.IEnumerable{System.String},System.Func`2,System.Boolean)">
+      <summary>提供支援分頁之資料表的 HTML。</summary>
+      <returns>傳回 <see cref="T:System.Web.IHtmlString" />。</returns>
+      <param name="tableStyle">資料表類別。</param>
+      <param name="headerStyle">標頭資料列類別。</param>
+      <param name="footerStyle">頁尾資料列類別。</param>
+      <param name="rowStyle">奇數資料列的資料列類別。</param>
+      <param name="alternatingRowStyle">偶數資料列的資料列類別。</param>
+      <param name="selectedRowStyle">用來設定所選資料列樣式的 CSS 類別。</param>
+      <param name="caption">顯示做為 <see cref="T:System.Web.Helpers.WebGrid" /> 中資料表標題的文字。</param>
+      <param name="displayHeader">值，用來決定 <see cref="T:System.Web.Helpers.WebGrid" /> 中的資料表是否會顯示標頭資料列。</param>
+      <param name="fillEmptyRows">值，用來決定資料表是否可以新增空白資料列以確保 <see cref="P:System.Web.Helpers.WebGrid.RowsPerPage" /> 資料列計數。</param>
+      <param name="emptyRowCellValue">用來填入空白資料列的文字。</param>
+      <param name="columns">資料行模型，用來自訂資料行的呈現。</param>
+      <param name="exclusions">自動填入資料行時要排除的資料行。</param>
+      <param name="footer">資料表頁尾範本。</param>
+      <param name="htmlAttributes">物件，包含要針對項目設定的 HTML 屬性。</param>
+    </member>
+    <member name="P:System.Web.Helpers.WebGrid.TotalRowCount">
+      <summary>取得 <see cref="T:System.Web.Helpers.WebGrid" /> 的資料列總數。</summary>
+      <returns>傳回 <see cref="T:System.Int32" />。</returns>
+    </member>
+    <member name="T:System.Web.Helpers.WebGridColumn"></member>
+    <member name="M:System.Web.Helpers.WebGridColumn.#ctor"></member>
+    <member name="P:System.Web.Helpers.WebGridColumn.CanSort"></member>
+    <member name="P:System.Web.Helpers.WebGridColumn.ColumnName"></member>
+    <member name="P:System.Web.Helpers.WebGridColumn.Format"></member>
+    <member name="P:System.Web.Helpers.WebGridColumn.Header"></member>
+    <member name="P:System.Web.Helpers.WebGridColumn.Style"></member>
+    <member name="T:System.Web.Helpers.WebGridPagerModes"></member>
+    <member name="F:System.Web.Helpers.WebGridPagerModes.Numeric">
+      <summary />
+    </member>
+    <member name="F:System.Web.Helpers.WebGridPagerModes.NextPrevious">
+      <summary />
+    </member>
+    <member name="F:System.Web.Helpers.WebGridPagerModes.FirstLast">
+      <summary />
+    </member>
+    <member name="F:System.Web.Helpers.WebGridPagerModes.All">
+      <summary />
+    </member>
+    <member name="T:System.Web.Helpers.WebGridRow"></member>
+    <member name="M:System.Web.Helpers.WebGridRow.GetEnumerator"></member>
+    <member name="M:System.Web.Helpers.WebGridRow.GetSelectLink(System.String)"></member>
+    <member name="M:System.Web.Helpers.WebGridRow.GetSelectUrl"></member>
+    <member name="P:System.Web.Helpers.WebGridRow.Item(System.Int32)"></member>
+    <member name="P:System.Web.Helpers.WebGridRow.Item(System.String)"></member>
+    <member name="M:System.Web.Helpers.WebGridRow.System#Collections#IEnumerable#GetEnumerator"></member>
+    <member name="M:System.Web.Helpers.WebGridRow.ToString"></member>
+    <member name="M:System.Web.Helpers.WebGridRow.TryGetMember(System.Dynamic.GetMemberBinder,System.Object@)"></member>
+    <member name="P:System.Web.Helpers.WebGridRow.Value"></member>
+    <member name="P:System.Web.Helpers.WebGridRow.WebGrid"></member>
+    <member name="T:System.Web.Helpers.WebImage"></member>
+    <member name="M:System.Web.Helpers.WebImage.#ctor(System.Byte[])"></member>
+    <member name="M:System.Web.Helpers.WebImage.#ctor(System.IO.Stream)"></member>
+    <member name="M:System.Web.Helpers.WebImage.#ctor(System.String)"></member>
+    <member name="M:System.Web.Helpers.WebImage.AddImageWatermark(System.String,System.Int32,System.Int32,System.String,System.String,System.Int32,System.Int32)"></member>
+    <member name="M:System.Web.Helpers.WebImage.AddImageWatermark(System.Web.Helpers.WebImage,System.Int32,System.Int32,System.String,System.String,System.Int32,System.Int32)"></member>
+    <member name="M:System.Web.Helpers.WebImage.AddTextWatermark(System.String,System.String,System.Int32,System.String,System.String,System.String,System.String,System.Int32,System.Int32)"></member>
+    <member name="M:System.Web.Helpers.WebImage.Clone"></member>
+    <member name="M:System.Web.Helpers.WebImage.Crop(System.Int32,System.Int32,System.Int32,System.Int32)"></member>
+    <member name="P:System.Web.Helpers.WebImage.FileName"></member>
+    <member name="M:System.Web.Helpers.WebImage.FlipHorizontal"></member>
+    <member name="M:System.Web.Helpers.WebImage.FlipVertical"></member>
+    <member name="M:System.Web.Helpers.WebImage.GetBytes(System.String)"></member>
+    <member name="M:System.Web.Helpers.WebImage.GetImageFromRequest(System.String)"></member>
+    <member name="P:System.Web.Helpers.WebImage.Height"></member>
+    <member name="P:System.Web.Helpers.WebImage.ImageFormat"></member>
+    <member name="M:System.Web.Helpers.WebImage.Resize(System.Int32,System.Int32,System.Boolean,System.Boolean)"></member>
+    <member name="M:System.Web.Helpers.WebImage.RotateLeft"></member>
+    <member name="M:System.Web.Helpers.WebImage.RotateRight"></member>
+    <member name="M:System.Web.Helpers.WebImage.Save(System.String,System.String,System.Boolean)"></member>
+    <member name="P:System.Web.Helpers.WebImage.Width"></member>
+    <member name="M:System.Web.Helpers.WebImage.Write(System.String)"></member>
+    <member name="T:System.Web.Helpers.WebMail">
+      <summary>提供使用 Simple Mail Transfer Protocol (SMTP) 建構並傳送電子郵件訊息的方法。</summary>
+    </member>
+    <member name="P:System.Web.Helpers.WebMail.EnableSsl">
+      <summary>取得或設定是否在傳送電子郵件時使用 Secure Sockets Layer (SSL) 來加密連線。</summary>
+      <returns>如果使用 SSL 加密連線，則為 true，否則為 false。</returns>
+    </member>
+    <member name="P:System.Web.Helpers.WebMail.From">
+      <summary>取得或設定寄件者的電子郵件地址。</summary>
+      <returns>寄件者的電子郵件地址。</returns>
+    </member>
+    <member name="P:System.Web.Helpers.WebMail.Password">
+      <summary>根據使用的電子郵件帳戶，取得或設定寄件者的密碼。</summary>
+      <returns>寄件者的密碼。</returns>
+    </member>
+    <member name="M:System.Web.Helpers.WebMail.Send(System.String,System.String,System.String,System.String,System.String,System.Collections.Generic.IEnumerable{System.String},System.Boolean,System.Collections.Generic.IEnumerable{System.String})">
+      <summary>傳送指定的訊息給 SMTP 伺服器進行傳遞。</summary>
+      <param name="to">此電子郵件訊息的收件者。 您可以指定多位收件者，只要使用分號 (;) 隔開他們即可。</param>
+      <param name="subject">電子郵件訊息的主旨。</param>
+      <param name="body">電子郵件訊息的主體。 如果 <paramref name="isBodyHtml" /> 為 true，則將主體中的 HTML 解譯為標記。</param>
+      <param name="from">訊息寄件者的電子郵件地址。</param>
+      <param name="cc">電子郵件訊息的副本 (CC) 收件者 (如果有的話)。</param>
+      <param name="filesToAttach">檔案名稱的集合，這些檔案名稱指定要附加至電子郵件訊息的檔案。</param>
+      <param name="isBodyHtml">true 表示指定電子郵件訊息主體為 HTML 格式，false 表示指示電子郵件訊息主體為純文字格式。</param>
+      <param name="additionalHeaders">與此電子郵件訊息一起傳送之標頭的集合。</param>
+    </member>
+    <member name="P:System.Web.Helpers.WebMail.SmtpPort">
+      <summary>取得或設定用於 SMTP 交易的連接埠。</summary>
+      <returns>用於 SMTP 交易的連接埠。</returns>
+    </member>
+    <member name="P:System.Web.Helpers.WebMail.SmtpServer">
+      <summary>取得或設定用來傳送電子郵件訊息的 SMTP 伺服器。</summary>
+      <returns>SMTP 伺服器。</returns>
+    </member>
+    <member name="P:System.Web.Helpers.WebMail.SmtpUseDefaultCredentials">
+      <summary>取得或設定值，這個值表示是否隨著要求傳送預設認證。</summary>
+      <returns>如果認證與電子郵件訊息一起傳送，則為 true，否則為 false。</returns>
+    </member>
+    <member name="P:System.Web.Helpers.WebMail.UserName">
+      <summary>取得或設定使用者的名稱。</summary>
+      <returns>使用者的名稱。</returns>
+    </member>
+  </members>
+</doc>

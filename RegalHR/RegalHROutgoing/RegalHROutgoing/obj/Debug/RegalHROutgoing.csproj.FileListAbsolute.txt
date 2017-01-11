@@ -1,0 +1,20 @@
+\\Mac\Home\Documents\Visual Studio 2013\Projects\RegalHROutgoing\RegalHROutgoing\bin\Debug\RegalHROutgoing.exe
+\\Mac\Home\Documents\Visual Studio 2013\Projects\RegalHROutgoing\RegalHROutgoing\bin\Debug\RegalHROutgoing.pdb
+\\Mac\Home\Documents\Visual Studio 2013\Projects\RegalHROutgoing\RegalHROutgoing\obj\Debug\RegalHROutgoing.csprojResolveAssemblyReference.cache
+\\Mac\Home\Documents\Visual Studio 2013\Projects\RegalHROutgoing\RegalHROutgoing\obj\Debug\RegalHROutgoing.Main.resources
+\\Mac\Home\Documents\Visual Studio 2013\Projects\RegalHROutgoing\RegalHROutgoing\obj\Debug\RegalHROutgoing.Properties.Resources.resources
+\\Mac\Home\Documents\Visual Studio 2013\Projects\RegalHROutgoing\RegalHROutgoing\obj\Debug\RegalHROutgoing.csproj.GenerateResource.Cache
+\\Mac\Home\Documents\Visual Studio 2013\Projects\RegalHROutgoing\RegalHROutgoing\obj\Debug\RegalHROutgoing.exe
+\\Mac\Home\Documents\Visual Studio 2013\Projects\RegalHROutgoing\RegalHROutgoing\obj\Debug\RegalHROutgoing.pdb
+\\Mac\Dropbox\帝商\專案管理\RegalHR\RegalHROutgoing\RegalHROutgoing\obj\Debug\RegalHROutgoing.exe
+\\Mac\Dropbox\帝商\專案管理\RegalHR\RegalHROutgoing\RegalHROutgoing\obj\Debug\RegalHROutgoing.pdb
+C:\Users\tp00159\Dropbox\帝商\專案管理\RegalHR\RegalHROutgoing\RegalHROutgoing\obj\Debug\RegalHROutgoing.exe
+C:\Users\tp00159\Dropbox\帝商\專案管理\RegalHR\RegalHROutgoing\RegalHROutgoing\obj\Debug\RegalHROutgoing.pdb
+C:\Users\tp00159\Dropbox\帝商\專案管理\RegalHR\RegalHROutgoing\RegalHROutgoing\bin\Debug\RegalHROutgoing.exe
+C:\Users\tp00159\Dropbox\帝商\專案管理\RegalHR\RegalHROutgoing\RegalHROutgoing\bin\Debug\RegalHROutgoing.pdb
+C:\Users\tp00159\Dropbox\帝商\專案管理\RegalHR\RegalHROutgoing\RegalHROutgoing\obj\Debug\RegalHROutgoing.csprojResolveAssemblyReference.cache
+C:\Users\tp00159\Dropbox\帝商\專案管理\RegalHR\RegalHROutgoing\RegalHROutgoing\obj\Debug\RegalHROutgoing.Main.resources
+C:\Users\tp00159\Dropbox\帝商\專案管理\RegalHR\RegalHROutgoing\RegalHROutgoing\obj\Debug\RegalHROutgoing.Properties.Resources.resources
+C:\Users\tp00159\Dropbox\帝商\專案管理\RegalHR\RegalHROutgoing\RegalHROutgoing\obj\Debug\RegalHROutgoing.csproj.GenerateResource.Cache
+D:\Regal專案\RegalEIP\V1.1.1\RegalHR\RegalHROutgoing\RegalHROutgoing\obj\Debug\RegalHROutgoing.exe
+D:\Regal專案\RegalEIP\V1.1.1\RegalHR\RegalHROutgoing\RegalHROutgoing\obj\Debug\RegalHROutgoing.pdb

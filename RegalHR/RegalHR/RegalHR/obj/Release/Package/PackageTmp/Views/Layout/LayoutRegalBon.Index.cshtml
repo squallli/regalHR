@@ -1,0 +1,18 @@
+﻿@using RegalHR.ModelFactory
+@{
+    string Ver = GeneralModelFactory.Version;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>帝商BON</title>
+</head>
+<link href="../css/RegalBonStyle.css?@(Ver)" rel="stylesheet">
+
+<script src="../js/jquery.1.11.3.min.js"></script>
+<body>
+    @RenderBody()
+</body>
+</html>

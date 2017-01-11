@@ -1,0 +1,69 @@
+﻿@using RegalHRModel
+@using RegalHR.ModelFactory
+@{
+    string Ver = GeneralModelFactory.Version;
+    Layout = "~/Views/Layout/LayoutPage.AnguLarjs.cshtml";
+
+}
+
+
+<script src="../js/RegalAngular/ReportOutgoing/index.js?@(Ver)"></script>
+
+
+<div class="Contentbody" ng-controller="Ctrl" ng-app="index"  ng-cloak>
+    <div class="row">
+      <h4 class="col-xs-6">外出報表作業</h4>
+    </div>
+
+
+    
+        <div>
+            <table class="table  table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th style="width:15%;text-align:center">報表編號</th>
+                        <th style="width:60%;text-align:center">報表名稱</th>
+                        <th style="width:15%;text-align:center">視野範圍</th>
+                        <th style="width:10%;text-align:center">&nbsp;</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="Data in DataList"  ng-dblclick="Link(Data.URL)" >
+                        <td style="text-align:center">{{ Data.ReportId }}</td>
+                        <td>{{ Data.Title }}</td>
+                        <td style="text-align:center">
+                                <div ng-switch on="Data.ViewLevel">
+                                    <span ng-switch-when="A">企業級</span>
+                                    <span ng-switch-when="B">公司級</span>
+                                    <span ng-switch-when="C">部門級</span>
+                                </div>
+                        </td>
+                        <td style="text-align:center">
+                            <button type="button" class="btn btn-default"  ng-click="Link(Data.URL)">進入</button>
+                        </td>
+                        
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+</div>
+
+
+
+
+
+<script type="text/javascript">
+    $('.form_date').datetimepicker({
+        language: 'zh-TW',
+        weekStart: 1,
+        todayBtn: 1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        minView: 2,
+        forceParse: 0,
+        format: 'yyyymmdd'
+    });
+</script>

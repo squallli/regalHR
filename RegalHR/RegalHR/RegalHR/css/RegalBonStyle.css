@@ -1,0 +1,123 @@
+
+body {
+  background-color:#EEFFAA	;
+  padding: 0px;
+  margin:0px;
+}
+
+
+
+#head {
+    height :80px;
+    background-color:#EEFFAA;
+}
+
+
+
+#Login {
+    padding:5px;
+    padding-top:10px;
+    width : 500px;
+    background-color:#ffffff;
+    border :1px solid #000;
+}
+
+#LoginBtn {
+    margin: 10px;
+    font-size:24px;
+}
+.NumberBtn {
+    margin:2px;
+    background-color: #81DAF5;
+    font-size:48px;
+    width:120px;
+    height:90px;
+}
+
+.DelBtn {
+    margin:2px;
+    background-color: #E8CCFF;
+    font-size:48px;
+    width:120px;
+    height:90px;
+}
+
+.LoginBtn {
+    margin:2px;
+    background-color: #E8CCFF;
+    font-size:48px;
+    width:120px;
+    height:90px;
+}
+
+
+#LoginErrMsg {
+    color:#ff0000;
+}
+
+
+
+#CardNo {
+    text-align:center;
+    font-size:32px;
+    margin:2px;
+    
+    width:300px;
+    background-color: #fff;
+}
+
+
+
+#bodyContent{
+    padding:10px;
+    padding-left:25px;
+    padding-right:25px;
+
+}
+
+
+#confirmBtn {
+    margin:3px;
+    font-size:20px;
+    width:150px;
+    height:40px;
+    background-color:#E8CCFF;
+}
+
+
+#ChkAllBtn {
+    font-size:20px;
+}
+
+.ChkBox {
+    width:45px;
+    height:45px;
+}
+#OutgoingTable {
+    border-collapse: collapse;
+    width:100%;
+    border :1px solid #000;
+    
+    background-color:#ffffff;
+}
+
+
+
+#OutgoingTable th {
+    font-size:24px;
+    border :1px solid #000;
+    height:40px;
+    background-color:#81DAF5;
+}
+
+#OutgoingTable td {
+    font-size:24px;
+    border :1px solid #000;
+    height:60px;
+}
+
+
+#head {
+    text-align:center;
+    font-size:30px;
+}

@@ -1,0 +1,560 @@
+﻿@using RegalHRModel
+@using RegalHR.ModelFactory
+@{
+    string Ver = GeneralModelFactory.Version;
+    Layout = "~/Views/Layout/LayoutPage.cshtml";
+
+
+
+
+    UserModel LoginUserInfo = (UserModel)ViewData["LoginUserInfo"];
+    ProgramModel SysProgram = (ProgramModel)ViewData["SysProgram"];
+    UserFreeStyleModel UserFreeStyle = (UserFreeStyleModel)ViewData["UserFreeStyle"];
+    List<CompanyModel> CompanyList = null;
+    List<DepartMentModel> DepartMentList = null;
+
+
+ 
+
+    string DisplaySearch = "none";
+    string DisableCompany = "Disabled";
+    string DisableDepartMent = "Disabled";
+    
+    string DefaultCompany = LoginUserInfo.Company;
+    string DefaultDepartMent= LoginUserInfo.DepNo;
+
+    string DefaultEmp = "";
+    if (SysProgram !=null && SysProgram.ViewLevel == "A")
+    {
+        //企業級
+        DisplaySearch = "";
+        DisableCompany = "";
+        DisableDepartMent = "";
+        
+        CompanyList = GeneralModelFactory.GetCompanyList("");
+        DepartMentList = GeneralModelFactory.GetDepList("", "");
+        
+        //預設值
+        //DefaultCompany = "";
+        DefaultDepartMent = LoginUserInfo.DepNo;
+
+    }
+    else if (SysProgram != null && SysProgram.ViewLevel == "B")
+    {
+        //公司級
+        DisplaySearch = "";
+        //DisableCompany = "";
+        DisableDepartMent = "";
+        CompanyList = GeneralModelFactory.GetCompanyList(LoginUserInfo.Company);
+        DepartMentList = GeneralModelFactory.GetDepList(LoginUserInfo.Company, "");
+        //預設值
+        //DefaultCompany = "";
+        DefaultDepartMent = LoginUserInfo.DepNo;
+    }
+    
+    else if (SysProgram != null && SysProgram.ViewLevel == "C")
+    {
+        //部門等級
+        DisplaySearch = "";
+        //DisableCompany = "";
+        //DisableDepartMent = "";
+
+
+        CompanyList = GeneralModelFactory.GetCompanyList(LoginUserInfo.Company);
+        DepartMentList = GeneralModelFactory.GetDepList(LoginUserInfo.Company, LoginUserInfo.DepNo);
+
+        //預設值
+        //DefaultCompany = "";
+        //DefaultDepartMent = "";
+        
+    }
+    else{
+        CompanyList = GeneralModelFactory.GetCompanyList(LoginUserInfo.Company);
+        DepartMentList = GeneralModelFactory.GetDepList(LoginUserInfo.Company, LoginUserInfo.DepNo);
+    }
+
+}
+
+<link href='../css/fullcalendar.css?@(Ver)' rel='stylesheet' />
+<script src='../js/jquery-ui.custom.min.js'></script>
+<script src='../js/fullcalendar.min.js'></script>
+
+<style>
+    #calendar {
+        max-width: 1100px;
+        margin: 0 auto;
+    }
+
+    .DivSearchBar {
+        top:120px;
+        width:800px;
+        z-index:99;
+    }
+</style>
+
+<script>
+    var CompanyList = @Html.Raw(Json.Encode(CompanyList));
+
+    var DepartMentList = @Html.Raw(Json.Encode(DepartMentList));
+
+
+    var DefaultCompany = "@(DefaultCompany)";
+
+    var DefaultDepartMent= "@(DefaultDepartMent)";
+
+    var InsertTableRowNum = 1;
+
+    var tmpCompany="@(DefaultCompany)",tmpDepartMent="@(DefaultDepartMent)",tmpEmp="";
+
+    function Update() {
+        //刷新整個頁面
+        $('#calendar').fullCalendar('refetchEvents');
+        
+    }
+
+
+
+    $(document).ready(function() {
+
+        $('#calendar').fullCalendar({
+            //theme: true,
+            header: {
+                left:   '',
+                center: 'title',
+                right:  'prev,next'
+            },
+
+            editable: true,
+            monthNames: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
+            monthNamesShort: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
+            dayNames: ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'],
+            dayNamesShort: ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'],
+            buttonText: {
+                prev: '<',  // left triangle
+                next: '>',  // right triangle
+                prevYear: '<<', // <<
+                nextYear: '>>;', // >>
+                today: '今日',
+                month: '',
+                week: '',
+                day: ''
+            },
+            allDayText: '整日',
+            firstDay: 1,
+
+
+            eventResize: function(event,dayDelta,minuteDelta,revertFunc) {
+                //調整區間編輯
+                $('.tooltipevent').remove();
+                $("#EditModal").modal('show');
+
+                revertFunc();
+
+
+            },
+            eventDrop: function(event,dayDelta,minuteDelta,allDay,revertFunc) {
+                //拖曳編輯
+                $('.tooltipevent').remove();
+                revertFunc();
+            },
+            eventRender: function(event, element) {
+                $('.tooltipevent').remove();
+
+                element.bind('dblclick', function () {
+
+                    ShowList(tmpCompany,tmpDepartMent,tmpEmp,$.fullCalendar.formatDate(event.start, "yyyy-MM-dd"));
+                });
+
+            },
+            dayRender: function(Eventdate, element) {
+                $('.tooltipevent').remove();
+
+                element.bind('dblclick', function() {
+                    ShowList(tmpCompany,tmpDepartMent,tmpEmp,$.fullCalendar.formatDate(Eventdate, "yyyy-MM-dd"));
+                });
+
+
+            },
+
+            eventMouseover: function(event,calEvent, jsEvent) {
+                var tooltip = '<div class="tooltipevent"> ';
+                tooltip += event.EmployeeName + " - " + event.EmployeeEName;
+                for(i=0;i<event.EventList.length;i++){
+                    tooltip+="<li>"+event.EventList[i].title+"</li>";
+                }
+
+                tooltip +=' </div>';
+
+
+
+                $("body").append(tooltip);
+                $(this).mouseover(function(e) {
+
+
+                }).mousemove(function(e) {
+                    $('.tooltipevent').css('top', e.pageY + 10);
+                    $('.tooltipevent').css('left', e.pageX + 20);
+                });
+            },
+
+            eventMouseout: function (calEvent, jsEvent) {
+
+                $(this).css('z-index', 99);
+                $('.tooltipevent').remove();
+            },
+            events: function (start, end, callback) {
+
+
+
+                
+                if($("#SearchCompany").val() == undefined){
+                    tmpCompany = "";
+                }else{
+                    tmpCompany = $("#SearchCompany").val()
+                }
+                
+                if($("#SearchDepartMent").val() == undefined){
+                    tmpDepartMent="";
+                }else{
+                    tmpDepartMent = $("#SearchDepartMent").val()
+                }
+
+                if($("#SearchEmp").val() == undefined){
+                    tmpEmp="";
+                }else{
+                    tmpEmp = $("#SearchEmp").val()
+                }
+
+                $.ajax({
+                    url: '../Main/GetCalendarAllList',
+                    type: 'post',
+                    cache: false,
+                    async: false,
+                    dataType: "json",
+                    data: "Company="+tmpCompany+"&DepartMentNo="+tmpDepartMent+"&EmpNo="+tmpEmp+"&SDATE=" + $.fullCalendar.formatDate(start, "yyyyMMdd") + "&EDATE=" + $.fullCalendar.formatDate(end, "yyyyMMdd"),
+                    success: function (data) {
+                        callback(data);
+
+
+                        for(i=1;i<$(".fc-grid .fc-day-number").length+1;i++)
+                        {
+                            if(i%7==5 || i%7==6)
+                            {
+                                $(".fc-grid .fc-day-number").eq(i).css("color","red");
+                            }
+                        }
+            
+                    }
+                })
+            }
+        });
+
+
+
+
+
+
+
+
+
+        function ShowList(Company,DepartMent,Emp,SDATE) {
+            $("#ShowListModal #myModalLabel").html("<H3>"+SDATE+"</H3>");
+            //$("#ShowListModal .modal-body").html("Loading...");
+
+            $("#ShowListModal").modal('show');
+
+
+
+            
+
+            $.ajax({
+                type: "POST",
+                url: "../Main/GetEventListForTime",
+                dataType: 'Json',
+                data:"Company="+Company+"&DepartMentNo="+DepartMent+"&EmpNo="+Emp+"&SDATE="+SDATE,
+                async: false,
+                success: function (data) {
+
+                    //alert(JSON.stringify(data));
+                    var HtmlStr = ' <table class="table table-bordered table-hover"  >';
+
+
+                                       
+                    HtmlStr += '<thead><tr><th width="5%">序</th><th width="12%">預計外出時間</th><th width="12%">會議時間</th><th width="10%">人&nbsp;員&nbsp;姓&nbsp;名</th><th width="12%">英&nbsp;文&nbsp;姓&nbsp;名</th><th width="30%">人&nbsp;&nbsp;員&nbsp;&nbsp;行&nbsp;&nbsp;程</th> <th width="15%">最後編輯</th>  </tr></thead>';
+    
+
+
+                    HtmlStr += "<tbody>";
+                    for (i = 0; i < data.length;i++){
+                        HtmlStr += "<tr>";
+                        HtmlStr += "<td>" + (i+1)+"</td>";
+
+                        HtmlStr += "<td>" + data[i].start;
+                            
+                                                                          
+                        if(data[i].Status=="UM" || data[i].Status=="AM")
+                        {
+                            HtmlStr += " <font style='color:red'>(補登)</font>";
+                        }
+
+    
+                        HtmlStr += "</td>";
+
+                        HtmlStr += "<td>" + data[i].GoOutTime + "</td>";
+
+                        HtmlStr += "<td>" + data[i].EmployeeName + "</td>";
+
+                        HtmlStr += "<td>" + data[i].EmployeeEName + "</td>";
+                        
+                        HtmlStr += "<td>" + data[i].title + "</td>";
+
+                        HtmlStr += "<td>" + data[i].RecordMan+"<br>"+ data[i].UpdateTime + "</td>";
+
+                        HtmlStr += "</tr>";
+
+                    }
+                    HtmlStr += "</tbody>";
+                    HtmlStr += "</table>";
+
+
+                    $("#MenuListForTime").html(HtmlStr);
+                }
+            })
+
+
+
+            $.ajax({
+                type: "POST",
+                url: "../Main/GetEventList",
+                dataType: 'Json',
+                data:"Company="+Company+"&DepartMentNo="+DepartMent+"&EmpNo="+Emp+"&SDATE="+SDATE,
+                async: false,
+                success: function (data) {
+
+
+                    var HtmlStr = ' <table class="table table-bordered table-hover"  >';
+
+
+                                       
+                    HtmlStr += '<thead><tr><th width="5%">序</th><th width="15%">人&nbsp;員&nbsp;姓&nbsp;名</th><th width="15%">英&nbsp;文&nbsp;姓&nbsp;名</th><th width="60%">人&nbsp;&nbsp;員&nbsp;&nbsp;行&nbsp;&nbsp;程</th></tr></thead>';
+    
+
+
+                    HtmlStr += "<tbody>";
+                    for (i = 0; i < data.length;i++){
+                        HtmlStr += "<tr>";
+                        HtmlStr += "<td>" + (i+1) + "</td>";
+
+                        HtmlStr += "<td>" + data[i].EmployeeName + "</td>";
+
+                        HtmlStr += "<td>" + data[i].EmployeeEName + "</td>";
+
+                        HtmlStr += "<td>";
+                            for (j = 0; j < data[i].EventList.length; j++) {
+                                HtmlStr += "<li>" + data[i].EventList[j].title + "</li>";
+                            }
+                        HtmlStr += "</td>";
+
+                        HtmlStr += "</tr>";
+
+                    }
+                    HtmlStr += "</tbody>";
+                    HtmlStr += "</table>";
+
+
+                    $("#MenuList").html(HtmlStr);
+                }
+            })
+
+
+
+
+
+        }
+            
+  });
+
+
+
+</script>
+
+
+
+<div class="modal fade" id="ShowListModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="myModalLabel"></h4>
+            </div>
+
+            <div class="modal-body">
+
+
+
+                <ul class="nav nav-tabs">
+                      <li class="active"><a data-toggle="tab" href="#MenuList">清單列表</a></li>
+                      <li><a data-toggle="tab" href="#MenuListForTime">依照時間列表</a></li>
+                </ul>
+
+                <div class="tab-content">
+                      <div id="MenuList" class="tab-pane fade in active">
+                        清單列表
+                      </div>
+
+                      <div id="MenuListForTime" class="tab-pane fade">
+                        依照時間列表
+                      </div>
+                </div>
+
+
+
+            </div>
+
+            <div class="modal-footer">
+                <button data-dismiss="modal" class="btn btn-default" aria-label="Close" >關閉</button>
+            </div>
+          
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<div class="Contentbody">
+
+
+
+    
+<div class="DivSearchBar" style="display:none;">
+    <div class="input-group">
+            <span class="input-group-addon"><label>公司別</label></span>
+            <select class="selectpicker show-tick form-control" id="SearchCompany" @(DisableCompany)  >
+            </select>
+
+
+            <span class="input-group-addon">
+                <label>部門</label>
+            </span>
+            <select class="selectpicker show-tick form-control"  id="SearchDepartMent"  @(DisableDepartMent)>
+
+            </select>
+
+
+            <span class="input-group-addon">
+                <label>姓名 </label>
+            </span>
+            <select class="selectpicker show-tick form-control"  id="SearchEmp" >
+                <option value="">全部</option>
+            </select>
+
+            <span class="input-group-btn">
+                <button type="button" class="btn btn-default" id="SearchBtn"><span class="glyphicon glyphicon-search"></span></button>
+            </span>
+
+    </div>
+</div>
+
+
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div id='calendar'></div>
+        </div>
+
+
+
+    </div>
+</div>
+
+
+<script>
+
+
+    $(".DivSearchBar").css('display', '@(DisplaySearch)');
+
+
+    
+    function SetDepartMentList(Company,DepNo){
+
+        $("#SearchDepartMent").find('option').remove();
+        $("#SearchDepartMent").append($("<option></option>").attr("value", "").text("全部"));
+
+        for(i=0;i<DepartMentList.length;i++)
+        {
+            if(Company == DepartMentList[i].Company){
+                if(DepNo == DepartMentList[i].DepartMentNo)
+                {
+                    $("#SearchDepartMent").append($("<option selected></option>").attr("value", DepartMentList[i].DepartMentNo).text(DepartMentList[i].DepartMentName));
+                }else{
+                    $("#SearchDepartMent").append($("<option></option>").attr("value", DepartMentList[i].DepartMentNo).text(DepartMentList[i].DepartMentName));
+                }
+            }
+        }//for
+
+        SetEmpList(Company,DepNo);
+    }
+
+
+
+    function SetEmpList(Company,DepNo){
+        $("#SearchEmp").find('option').remove();
+        $("#SearchEmp").append($("<option></option>").attr("value", "").text("全部"));
+
+
+        if(DepNo==undefined){
+            DepNo="";
+        }
+
+
+        $.ajax({
+            type: "POST",
+            url: "../Emp/GetEmpList",
+            dataType: 'Json',
+            data: 'FulltimeFlag=&company=' +Company + "&DepartMentNo=" +DepNo + "&status=1&Sex=",
+            async: false,
+            success: function (data) {
+
+
+                for(i=0;i<data.length;i++){
+                    $("#SearchEmp").append($("<option></option>").attr("value", data[i].EmployeeNo).text(data[i].EmployeeName));
+                }
+            }
+        });
+    }
+
+
+
+
+
+    for(i=0;i<CompanyList.length;i++)
+    {
+        if(DefaultCompany == CompanyList[i].Company)
+        {
+            $("#SearchCompany").append($("<option selected></option>").attr("value", CompanyList[i].Company).text(CompanyList[i].CompanyName));
+        }else{
+            $("#SearchCompany").append($("<option></option>").attr("value", CompanyList[i].Company).text(CompanyList[i].CompanyName));
+        }
+
+    }
+
+    SetDepartMentList(DefaultCompany,DefaultDepartMent);//初始化
+    
+
+    $( "#SearchCompany" ).change(function() {
+        SetDepartMentList($(this).val(),"");
+    });
+
+    $( "#SearchDepartMent" ).change(function() {
+        SetEmpList($("#SearchCompany").val(),$(this).val());
+    });
+
+    $( "#SearchBtn" ).click(function() {
+        $('#calendar').fullCalendar( 'refetchEvents' );
+    });
+
+
+   
+</script>

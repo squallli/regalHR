@@ -1,0 +1,223 @@
+﻿@using RegalHRModel
+@using RegalHR.ModelFactory
+@{
+    string Ver = GeneralModelFactory.Version;
+    UserModel LoginUserInfo = (UserModel)ViewData["LoginUserInfo"];
+    
+    Layout = "~/Views/Layout/LayoutPage.AnguLarjs.cshtml";
+    ProgramModel SysProgram = (ProgramModel)ViewData["SysProgram"];
+
+    
+    ReportFormModel ReportForm = (ReportFormModel)ViewData["ReportForm"];
+
+
+    List<AttendanceModel> AttendanceList = (List<AttendanceModel>)ViewData["AttendanceList"];
+    List<CompanyModel> CompanyList = null;
+    List<DepartMentModel> DepartMentList = null;
+    List<ItemModel> EmpStatusList = GeneralModelFactory.GetEmpStatusList();
+
+
+
+
+    string DisableCompany = "Disabled";
+    string DisableDepartMent = "Disabled";
+    if (SysProgram.ViewLevel == "A")
+    {
+        //企業級
+        DisableCompany = "";
+        DisableDepartMent = "";
+        CompanyList = GeneralModelFactory.GetCompanyList("");
+        DepartMentList = GeneralModelFactory.GetDepList("", "");
+
+    }
+    else if (SysProgram.ViewLevel == "B")
+    {
+        //公司級
+        //DisableCompany = "";
+        DisableDepartMent = "";
+        CompanyList = GeneralModelFactory.GetCompanyList(LoginUserInfo.Company);
+        DepartMentList = GeneralModelFactory.GetDepList(LoginUserInfo.Company, "");
+
+    }
+    else if (SysProgram.ViewLevel == "C")
+    {
+        //部門等級
+        //DisableCompany = "";
+        //DisableDepartMent = "";
+
+
+        CompanyList = GeneralModelFactory.GetCompanyList(LoginUserInfo.Company);
+        DepartMentList = GeneralModelFactory.GetDepList(LoginUserInfo.Company, LoginUserInfo.DepNo);
+    }
+    else
+    {
+        //預設部門等級
+
+        CompanyList = GeneralModelFactory.GetCompanyList(LoginUserInfo.Company);
+        DepartMentList = GeneralModelFactory.GetDepList(LoginUserInfo.Company, LoginUserInfo.DepNo);
+
+    }
+
+}
+
+
+<script>
+    var ReportForm = @Html.Raw(Json.Encode(ReportForm));
+    var CompanyList = @Html.Raw(Json.Encode(CompanyList));
+
+    var DepartMentList = @Html.Raw(Json.Encode(DepartMentList));
+
+    
+    var EmpStatusList = @Html.Raw(Json.Encode(EmpStatusList));
+
+
+</script>
+<script src="../js/RegalAngular/ReportAttendance/RA02.js?@(Ver)"></script>
+
+
+
+
+
+
+
+
+
+<div class="Contentbody" ng-controller="Ctrl" ng-app="RA02" ng-cloak>
+
+    <h3>
+        <button type="button" class="btn btn-primary" ng-click="BackBtn()">返回</button>
+        @(SysProgram.ProgName)
+    </h3>
+
+
+
+
+
+
+
+
+<div class="FormBody">
+
+
+    <div class="EmpForm">
+
+
+        <div class="input-group">
+            <span class="input-group-addon">
+                <label>&nbsp;公&nbsp;司&nbsp;別&nbsp;</label>
+            </span>
+
+            <select class="selectpicker show-tick form-control" ng-model="ReportForm.Company" ng-change="GetEmpList()" @(DisableCompany) >
+                <option ng-repeat="Data in CompanyList" value="{{Data.Company}}">{{Data.CompanyName}}</option>
+            </select>
+        </div><!-- /input-group -->
+
+
+
+        <div class="input-group">
+                <span class="input-group-addon">
+                    <label>部&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;門 </label>
+                </span>
+                <select class="selectpicker show-tick form-control" ng-model="ReportForm.DepartMentNo" ng-change="GetEmpList()" @(DisableDepartMent)>
+                    <option value="">全部</option>
+                    <option ng-repeat="Data in DepartMentList | filter:ReportForm.Company" value="{{Data.DepartMentNo}}">{{Data.DepartMentName}}</option>
+                </select>
+        </div><!-- /input-group -->
+
+
+
+
+         <div class="input-group">
+            <span class="input-group-addon">
+                <label>員&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;工</label>
+            </span>
+           <select class="selectpicker show-tick form-control" ng-model="ReportForm.EmpNo" >
+              <option value="">全部</option>
+              <option ng-repeat="Data in EmpDropDownList" value="{{Data.EmployeeNo}}"> {{Data.EmployeeNo}} - {{Data.EmployeeName}}</option>
+           </select>
+        </div><!-- /input-group -->
+
+
+
+
+        
+        <div class="input-group">
+                <span class="input-group-addon">
+                    <label>狀&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;態 </label>
+                </span>
+                <select class="selectpicker show-tick form-control" ng-model="ReportForm.EmpStatus">
+                    <option ng-repeat="Data in EmpStatusList" value="{{Data.ItemID}}">{{Data.ItemName}}</option>
+                </select>
+        </div><!-- /input-group -->
+
+
+        <div class="input-group">
+            <span class="input-group-addon">
+                <label>外出日期</label>
+            </span>
+            <span class="input-group date form_date " data-date="" data-date-format="yyyy-mm-dd" data-link-field="dtp_input1" data-link-format="yyyy-mm-dd">
+                <input ng-model="ReportForm.StartDate" class="form-control" id="EDATE">
+            </span>
+            <input type="hidden" id="dtp_input1" value="" />
+
+
+            <span class="input-group-addon"><label>~</label></span>
+
+
+            <span class="input-group date form_date " data-date="" data-date-format="yyyy-mm-dd" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                <input ng-model="ReportForm.EndDate"  class="form-control" id="SDATE">
+            </span>
+            <input type="hidden" id="dtp_input2" value="" />
+        </div>
+
+
+
+
+
+
+
+
+
+        <div align="right">
+            <br>
+
+            <span >
+                <button type="button" class="btn btn-primary" ng-click="ExportExcel()">匯出Excel</button>
+            </span>
+        </div>
+    </div>
+</div>
+
+
+</div>
+
+
+
+
+
+<script type="text/javascript">
+    $('#SDATE').datetimepicker({
+        language: 'zh-TW',
+        weekStart: 1,
+        todayBtn: 1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        minView: 2,
+        forceParse: 0,
+        format: 'yyyy-mm-dd'
+    });
+
+    $('#EDATE').datetimepicker({
+        language: 'zh-TW',
+        weekStart: 1,
+        todayBtn: 1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        minView: 2,
+        forceParse: 0,
+        format: 'yyyy-mm-dd'
+    });
+
+</script>

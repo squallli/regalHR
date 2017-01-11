@@ -1,0 +1,649 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+此檔案是由您 Web 專案的發行/封裝處理程序所使用。您可以編輯此 MSBuild 檔案，
+以自訂此處理程序的行為。若要深入了解，請造訪 http://go.microsoft.com/fwlink/?LinkID=208121。
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <_PublishTargetUrl>\\192.168.0.41\EIP_TEST\</_PublishTargetUrl>
+  </PropertyGroup>
+  <ItemGroup>
+    <File Include="bin/DataAccess.dll">
+      <publishTime>04/30/2015 12:00:14</publishTime>
+    </File>
+    <File Include="bin/EntityFramework.dll">
+      <publishTime>12/31/2015 11:40:07</publishTime>
+    </File>
+    <File Include="bin/ICSharpCode.SharpZipLib.dll">
+      <publishTime>07/03/2014 10:56:50</publishTime>
+    </File>
+    <File Include="bin/Iteedee.ApkReader.dll">
+      <publishTime>05/17/2016 11:06:15</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Web.Infrastructure.dll">
+      <publishTime>12/31/2015 11:40:09</publishTime>
+    </File>
+    <File Include="bin/Newtonsoft.Json.dll">
+      <publishTime>10/02/2013 12:10:10</publishTime>
+    </File>
+    <File Include="bin/NPOI.dll">
+      <publishTime>08/01/2015 05:16:20</publishTime>
+    </File>
+    <File Include="bin/NPOI.OOXML.dll">
+      <publishTime>08/01/2015 05:16:24</publishTime>
+    </File>
+    <File Include="bin/NPOI.OpenXml4Net.dll">
+      <publishTime>08/01/2015 05:16:20</publishTime>
+    </File>
+    <File Include="bin/NPOI.OpenXmlFormats.dll">
+      <publishTime>08/01/2015 05:16:22</publishTime>
+    </File>
+    <File Include="bin/RegalCustEncrypt.dll">
+      <publishTime>10/01/2015 11:24:15</publishTime>
+    </File>
+    <File Include="bin/RegalEIP.dll">
+      <publishTime>12/24/2015 14:06:16</publishTime>
+    </File>
+    <File Include="bin/RegalEIPLoginKey.dll">
+      <publishTime>04/16/2016 13:41:12</publishTime>
+    </File>
+    <File Include="bin/RegalEIPModel.dll">
+      <publishTime>12/24/2015 14:06:15</publishTime>
+    </File>
+    <File Include="bin/RegalHR.dll">
+      <publishTime>09/12/2016 16:42:53</publishTime>
+    </File>
+    <File Include="bin/RegalHRModel.dll">
+      <publishTime>09/12/2016 16:04:34</publishTime>
+    </File>
+    <File Include="bin/System.Data.SqlClient.dll">
+      <publishTime>09/03/2005 06:55:28</publishTime>
+    </File>
+    <File Include="bin/System.Web.Helpers.dll">
+      <publishTime>12/31/2015 11:40:10</publishTime>
+    </File>
+    <File Include="bin/System.Web.Mvc.dll">
+      <publishTime>12/31/2015 11:40:10</publishTime>
+    </File>
+    <File Include="bin/System.Web.Providers.dll">
+      <publishTime>12/31/2015 11:40:10</publishTime>
+    </File>
+    <File Include="bin/System.Web.Razor.dll">
+      <publishTime>12/31/2015 11:40:10</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.Deployment.dll">
+      <publishTime>12/31/2015 11:40:10</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.dll">
+      <publishTime>12/31/2015 11:40:10</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.Razor.dll">
+      <publishTime>12/31/2015 11:40:10</publishTime>
+    </File>
+    <File Include="bin/zh-Hant/EntityFramework.resources.dll">
+      <publishTime>12/31/2015 11:40:12</publishTime>
+    </File>
+    <File Include="bin/zh-Hant/System.Web.Providers.resources.dll">
+      <publishTime>12/31/2015 11:40:12</publishTime>
+    </File>
+    <File Include="bootstrap/css/bootstrap-theme.css">
+      <publishTime>09/19/2015 06:48:04</publishTime>
+    </File>
+    <File Include="bootstrap/css/bootstrap-theme.min.css">
+      <publishTime>09/19/2015 06:48:04</publishTime>
+    </File>
+    <File Include="bootstrap/css/bootstrap.css">
+      <publishTime>11/20/2015 23:19:59</publishTime>
+    </File>
+    <File Include="bootstrap/css/bootstrap.min.css">
+      <publishTime>09/19/2015 06:48:04</publishTime>
+    </File>
+    <File Include="bootstrap/fonts/glyphicons-halflings-regular.eot">
+      <publishTime>09/19/2015 06:48:04</publishTime>
+    </File>
+    <File Include="bootstrap/fonts/glyphicons-halflings-regular.svg">
+      <publishTime>09/19/2015 06:48:04</publishTime>
+    </File>
+    <File Include="bootstrap/fonts/glyphicons-halflings-regular.ttf">
+      <publishTime>09/19/2015 06:48:04</publishTime>
+    </File>
+    <File Include="bootstrap/fonts/glyphicons-halflings-regular.woff">
+      <publishTime>09/19/2015 06:48:04</publishTime>
+    </File>
+    <File Include="bootstrap/js/bootstrap.js">
+      <publishTime>09/19/2015 06:48:04</publishTime>
+    </File>
+    <File Include="bootstrap/js/bootstrap.min.js">
+      <publishTime>09/19/2015 06:48:04</publishTime>
+    </File>
+    <File Include="Config/Conn.ini">
+      <publishTime>10/07/2015 11:27:12</publishTime>
+    </File>
+    <File Include="Config/System.ini">
+      <publishTime>10/07/2015 11:13:51</publishTime>
+    </File>
+    <File Include="css/bootstrap-datetimepicker.css">
+      <publishTime>09/19/2015 06:48:04</publishTime>
+    </File>
+    <File Include="css/bootstrap.min.css">
+      <publishTime>10/02/2015 09:29:52</publishTime>
+    </File>
+    <File Include="css/fullcalendar.2.5.0.min.css">
+      <publishTime>11/30/2015 00:43:06</publishTime>
+    </File>
+    <File Include="css/fullcalendar.css">
+      <publishTime>01/15/2016 23:00:50</publishTime>
+    </File>
+    <File Include="css/RegalBonStyle.css">
+      <publishTime>04/22/2016 16:55:32</publishTime>
+    </File>
+    <File Include="css/RegalStyle.css">
+      <publishTime>03/11/2016 13:44:58</publishTime>
+    </File>
+    <File Include="css/style.css">
+      <publishTime>04/12/2016 09:10:03</publishTime>
+    </File>
+    <File Include="css/TEST.css">
+      <publishTime>11/19/2015 23:54:04</publishTime>
+    </File>
+    <File Include="Global.asax">
+      <publishTime>12/25/2015 20:25:42</publishTime>
+    </File>
+    <File Include="Images/back_icon.png">
+      <publishTime>10/07/2015 21:41:35</publishTime>
+    </File>
+    <File Include="Images/bg1.jpg">
+      <publishTime>11/21/2015 01:34:41</publishTime>
+    </File>
+    <File Include="Images/car_icon.png">
+      <publishTime>10/02/2015 15:12:24</publishTime>
+    </File>
+    <File Include="Images/ExternalWork_icon.png">
+      <publishTime>10/26/2015 09:57:59</publishTime>
+    </File>
+    <File Include="Images/Outgoing_icon.png">
+      <publishTime>10/26/2015 09:57:59</publishTime>
+    </File>
+    <File Include="Images/regal.png">
+      <publishTime>11/21/2015 00:35:12</publishTime>
+    </File>
+    <File Include="Images/room_icon.png">
+      <publishTime>10/02/2015 15:14:28</publishTime>
+    </File>
+    <File Include="js/angular-1.4.7/angular-animate.js">
+      <publishTime>09/29/2015 15:59:00</publishTime>
+    </File>
+    <File Include="js/angular-1.4.7/angular-animate.min.js">
+      <publishTime>09/29/2015 15:59:20</publishTime>
+    </File>
+    <File Include="js/angular-1.4.7/angular-animate.min.js.map">
+      <publishTime>09/29/2015 15:59:20</publishTime>
+    </File>
+    <File Include="js/angular-1.4.7/angular-aria.js">
+      <publishTime>09/29/2015 15:59:00</publishTime>
+    </File>
+    <File Include="js/angular-1.4.7/angular-aria.min.js">
+      <publishTime>09/29/2015 15:59:20</publishTime>
+    </File>
+    <File Include="js/angular-1.4.7/angular-aria.min.js.map">
+      <publishTime>09/29/2015 15:59:20</publishTime>
+    </File>
+    <File Include="js/angular-1.4.7/angular-cookies.js">
+      <publishTime>09/29/2015 15:59:00</publishTime>
+    </File>
+    <File Include="js/angular-1.4.7/angular-cookies.min.js">
+      <publishTime>09/29/2015 15:59:14</publishTime>
+    </File>
+    <File Include="js/angular-1.4.7/angular-cookies.min.js.map">
+      <publishTime>09/29/2015 15:59:14</publishTime>
+    </File>
+    <File Include="js/angular-1.4.7/angular-csp.css">
+      <publishTime>09/29/2015 15:59:00</publishTime>
+    </File>
+    <File Include="js/angular-1.4.7/angular-loader.js">
+      <publishTime>09/29/2015 15:59:00</publishTime>
+    </File>
+    <File Include="js/angular-1.4.7/angular-loader.min.js">
+      <publishTime>09/29/2015 15:59:16</publishTime>
+    </File>
+    <File Include="js/angular-1.4.7/angular-loader.min.js.map">
+      <publishTime>09/29/2015 15:59:16</publishTime>
+    </File>
+    <File Include="js/angular-1.4.7/angular-message-format.js">
+      <publishTime>09/29/2015 15:59:00</publishTime>
+    </File>
+    <File Include="js/angular-1.4.7/angular-message-format.min.js">
+      <publishTime>09/29/2015 15:59:22</publishTime>
+    </File>
+    <File Include="js/angular-1.4.7/angular-message-format.min.js.map">
+      <publishTime>09/29/2015 15:59:22</publishTime>
+    </File>
+    <File Include="js/angular-1.4.7/angular-messages.js">
+      <publishTime>09/29/2015 15:59:00</publishTime>
+    </File>
+    <File Include="js/angular-1.4.7/angular-messages.min.js">
+      <publishTime>09/29/2015 15:59:20</publishTime>
+    </File>
+    <File Include="js/angular-1.4.7/angular-messages.min.js.map">
+      <publishTime>09/29/2015 15:59:20</publishTime>
+    </File>
+    <File Include="js/angular-1.4.7/angular-mocks.js">
+      <publishTime>09/29/2015 15:59:00</publishTime>
+    </File>
+    <File Include="js/angular-1.4.7/angular-resource.js">
+      <publishTime>09/29/2015 15:59:00</publishTime>
+    </File>
+    <File Include="js/angular-1.4.7/angular-resource.min.js">
+      <publishTime>09/29/2015 15:59:20</publishTime>
+    </File>
+    <File Include="js/angular-1.4.7/angular-resource.min.js.map">
+      <publishTime>09/29/2015 15:59:20</publishTime>
+    </File>
+    <File Include="js/angular-1.4.7/angular-route.js">
+      <publishTime>09/29/2015 15:59:00</publishTime>
+    </File>
+    <File Include="js/angular-1.4.7/angular-route.min.js">
+      <publishTime>09/29/2015 15:59:20</publishTime>
+    </File>
+    <File Include="js/angular-1.4.7/angular-route.min.js.map">
+      <publishTime>09/29/2015 15:59:20</publishTime>
+    </File>
+    <File Include="js/angular-1.4.7/angular-sanitize.js">
+      <publishTime>09/29/2015 15:59:00</publishTime>
+    </File>
+    <File Include="js/angular-1.4.7/angular-sanitize.min.js">
+      <publishTime>09/29/2015 15:59:20</publishTime>
+    </File>
+    <File Include="js/angular-1.4.7/angular-sanitize.min.js.map">
+      <publishTime>09/29/2015 15:59:20</publishTime>
+    </File>
+    <File Include="js/angular-1.4.7/angular-scenario.js">
+      <publishTime>09/29/2015 15:59:00</publishTime>
+    </File>
+    <File Include="js/angular-1.4.7/angular-touch.js">
+      <publishTime>09/29/2015 15:59:00</publishTime>
+    </File>
+    <File Include="js/angular-1.4.7/angular-touch.min.js">
+      <publishTime>09/29/2015 15:59:20</publishTime>
+    </File>
+    <File Include="js/angular-1.4.7/angular-touch.min.js.map">
+      <publishTime>09/29/2015 15:59:20</publishTime>
+    </File>
+    <File Include="js/angular-1.4.7/angular.js">
+      <publishTime>09/29/2015 15:59:00</publishTime>
+    </File>
+    <File Include="js/angular-1.4.7/angular.min.js">
+      <publishTime>09/29/2015 15:59:24</publishTime>
+    </File>
+    <File Include="js/angular-1.4.7/angular.min.js.map">
+      <publishTime>09/29/2015 15:59:24</publishTime>
+    </File>
+    <File Include="js/bootstrap-datetimepicker.js">
+      <publishTime>09/19/2015 06:48:04</publishTime>
+    </File>
+    <File Include="js/bootstrap.min.js">
+      <publishTime>10/02/2015 09:35:20</publishTime>
+    </File>
+    <File Include="js/draganddrop.js">
+      <publishTime>10/27/2015 13:33:31</publishTime>
+    </File>
+    <File Include="js/fullcalendar.2.5.0.js">
+      <publishTime>11/30/2015 00:43:06</publishTime>
+    </File>
+    <File Include="js/fullcalendar.2.5.0.min.js">
+      <publishTime>11/30/2015 00:43:06</publishTime>
+    </File>
+    <File Include="js/fullcalendar.js">
+      <publishTime>11/25/2014 23:57:54</publishTime>
+    </File>
+    <File Include="js/fullcalendar.min.js">
+      <publishTime>11/25/2014 23:57:54</publishTime>
+    </File>
+    <File Include="js/GeneralLib.js">
+      <publishTime>01/02/2016 21:32:45</publishTime>
+    </File>
+    <File Include="js/jquery-1.8.3.min.js">
+      <publishTime>11/13/2015 17:27:37</publishTime>
+    </File>
+    <File Include="js/jquery-ui.custom.min.js">
+      <publishTime>11/30/2015 00:43:06</publishTime>
+    </File>
+    <File Include="js/jquery.1.11.3.min.js">
+      <publishTime>10/02/2015 09:44:15</publishTime>
+    </File>
+    <File Include="js/jquery.min.js">
+      <publishTime>11/30/2015 00:43:06</publishTime>
+    </File>
+    <File Include="js/keyboard.js">
+      <publishTime>03/21/2016 09:58:04</publishTime>
+    </File>
+    <File Include="js/locales/bootstrap-datetimepicker.zh-CN.js">
+      <publishTime>09/19/2015 06:48:04</publishTime>
+    </File>
+    <File Include="js/locales/bootstrap-datetimepicker.zh-TW.js">
+      <publishTime>09/19/2015 06:48:04</publishTime>
+    </File>
+    <File Include="js/moment.min.js">
+      <publishTime>11/30/2015 00:43:06</publishTime>
+    </File>
+    <File Include="js/RegalAngular/Attendance/AttendanceCheckIn.js">
+      <publishTime>03/25/2016 11:16:56</publishTime>
+    </File>
+    <File Include="js/RegalAngular/Attendance/index.js">
+      <publishTime>04/02/2016 18:38:27</publishTime>
+    </File>
+    <File Include="js/RegalAngular/Attendance/Manage.js">
+      <publishTime>03/06/2016 12:51:22</publishTime>
+    </File>
+    <File Include="js/RegalAngular/BookingCar/index.js">
+      <publishTime>10/13/2015 22:06:27</publishTime>
+    </File>
+    <File Include="js/RegalAngular/Emp/EmpForm.js">
+      <publishTime>01/04/2016 15:01:23</publishTime>
+    </File>
+    <File Include="js/RegalAngular/Emp/index.js">
+      <publishTime>01/09/2016 14:49:35</publishTime>
+    </File>
+    <File Include="js/RegalAngular/EmpGroup/EmpGroupForm.js">
+      <publishTime>01/06/2016 15:42:00</publishTime>
+    </File>
+    <File Include="js/RegalAngular/EmpGroup/index.js">
+      <publishTime>01/09/2016 14:53:38</publishTime>
+    </File>
+    <File Include="js/RegalAngular/ExternalWork/index.js">
+      <publishTime>12/11/2015 11:15:08</publishTime>
+    </File>
+    <File Include="js/RegalAngular/Group/GroupForm.js">
+      <publishTime>01/06/2016 15:25:33</publishTime>
+    </File>
+    <File Include="js/RegalAngular/Group/index.js">
+      <publishTime>11/15/2015 21:47:59</publishTime>
+    </File>
+    <File Include="js/RegalAngular/Holiday/index.js">
+      <publishTime>01/10/2016 18:56:24</publishTime>
+    </File>
+    <File Include="js/RegalAngular/Login/index.js">
+      <publishTime>01/14/2016 13:44:34</publishTime>
+    </File>
+    <File Include="js/RegalAngular/Main/Login.js">
+      <publishTime>11/12/2015 14:03:09</publishTime>
+    </File>
+    <File Include="js/RegalAngular/Outgoing/History.js">
+      <publishTime>04/25/2016 12:58:42</publishTime>
+    </File>
+    <File Include="js/RegalAngular/Outgoing/Manage.js">
+      <publishTime>03/25/2016 11:12:37</publishTime>
+    </File>
+    <File Include="js/RegalAngular/Program/index.js">
+      <publishTime>11/15/2015 21:47:59</publishTime>
+    </File>
+    <File Include="js/RegalAngular/Program/ProgramForm.js">
+      <publishTime>12/17/2015 14:01:54</publishTime>
+    </File>
+    <File Include="js/RegalAngular/RegalIndexedDB.js">
+      <publishTime>10/10/2015 10:06:14</publishTime>
+    </File>
+    <File Include="js/RegalAngular/ReportAttendance/index.js">
+      <publishTime>05/11/2016 10:26:19</publishTime>
+    </File>
+    <File Include="js/RegalAngular/ReportAttendance/RA01.js">
+      <publishTime>06/04/2016 09:55:04</publishTime>
+    </File>
+    <File Include="js/RegalAngular/ReportAttendance/RA02.js">
+      <publishTime>07/11/2016 11:17:35</publishTime>
+    </File>
+    <File Include="js/RegalAngular/ReportOutgoing/index.js">
+      <publishTime>05/11/2016 09:47:47</publishTime>
+    </File>
+    <File Include="js/RegalAngular/ReportOutgoing/RG01.js">
+      <publishTime>05/12/2016 11:22:55</publishTime>
+    </File>
+    <File Include="js/RegalAngular/Role/GroupRole.js">
+      <publishTime>10/10/2015 23:41:43</publishTime>
+    </File>
+    <File Include="js/RegalAngular/Role/index.js">
+      <publishTime>10/11/2015 09:26:23</publishTime>
+    </File>
+    <File Include="js/RegalAngular/TempEmp/index.js">
+      <publishTime>01/09/2016 14:51:55</publishTime>
+    </File>
+    <File Include="js/RegalAngular/TempEmp/TempEmpForm.js">
+      <publishTime>01/04/2016 14:37:06</publishTime>
+    </File>
+    <File Include="js/RegalAngular/test/index.js">
+      <publishTime>02/05/2016 10:25:56</publishTime>
+    </File>
+    <File Include="js/RegalAngular/test/index2.js">
+      <publishTime>02/29/2016 00:14:41</publishTime>
+    </File>
+    <File Include="js/RegalAngular/test/tmp.html">
+      <publishTime>02/28/2016 22:41:21</publishTime>
+    </File>
+    <File Include="js/RegalAngular/test/tmp2.html">
+      <publishTime>02/28/2016 23:25:52</publishTime>
+    </File>
+    <File Include="js/ui-bootstrap-tpls-0.14.1.min.js">
+      <publishTime>10/13/2015 21:13:53</publishTime>
+    </File>
+    <File Include="packages.config">
+      <publishTime>10/03/2015 11:05:56</publishTime>
+    </File>
+    <File Include="Scripts/jquery-1.7.1.js">
+      <publishTime>10/03/2015 11:05:54</publishTime>
+    </File>
+    <File Include="Scripts/jquery-1.7.1.min.js">
+      <publishTime>10/03/2015 11:05:54</publishTime>
+    </File>
+    <File Include="Scripts/jquery-ui-1.8.20.js">
+      <publishTime>10/03/2015 11:05:55</publishTime>
+    </File>
+    <File Include="Scripts/jquery-ui-1.8.20.min.js">
+      <publishTime>10/03/2015 11:05:55</publishTime>
+    </File>
+    <File Include="Scripts/jquery.unobtrusive-ajax.js">
+      <publishTime>10/03/2015 11:05:49</publishTime>
+    </File>
+    <File Include="Scripts/jquery.unobtrusive-ajax.min.js">
+      <publishTime>10/03/2015 11:05:49</publishTime>
+    </File>
+    <File Include="Scripts/jquery.validate.js">
+      <publishTime>10/03/2015 11:05:54</publishTime>
+    </File>
+    <File Include="Scripts/jquery.validate.min.js">
+      <publishTime>10/03/2015 11:05:54</publishTime>
+    </File>
+    <File Include="Scripts/jquery.validate.unobtrusive.js">
+      <publishTime>10/03/2015 11:05:49</publishTime>
+    </File>
+    <File Include="Scripts/jquery.validate.unobtrusive.min.js">
+      <publishTime>10/03/2015 11:05:49</publishTime>
+    </File>
+    <File Include="Scripts/MicrosoftAjax.debug.js">
+      <publishTime>10/03/2015 11:05:49</publishTime>
+    </File>
+    <File Include="Scripts/MicrosoftAjax.js">
+      <publishTime>10/03/2015 11:05:49</publishTime>
+    </File>
+    <File Include="Scripts/MicrosoftMvcAjax.debug.js">
+      <publishTime>10/03/2015 11:05:49</publishTime>
+    </File>
+    <File Include="Scripts/MicrosoftMvcAjax.js">
+      <publishTime>10/03/2015 11:05:49</publishTime>
+    </File>
+    <File Include="Scripts/MicrosoftMvcValidation.debug.js">
+      <publishTime>10/03/2015 11:05:49</publishTime>
+    </File>
+    <File Include="Scripts/MicrosoftMvcValidation.js">
+      <publishTime>10/03/2015 11:05:49</publishTime>
+    </File>
+    <File Include="Scripts/modernizr-2.5.3.js">
+      <publishTime>10/03/2015 11:05:55</publishTime>
+    </File>
+    <File Include="Views/Attendance/AttendanceCheckIn.cshtml">
+      <publishTime>05/16/2016 17:40:17</publishTime>
+    </File>
+    <File Include="Views/Attendance/Index.cshtml">
+      <publishTime>05/16/2016 17:40:17</publishTime>
+    </File>
+    <File Include="Views/Attendance/Manage.cshtml">
+      <publishTime>05/16/2016 17:40:17</publishTime>
+    </File>
+    <File Include="Views/BookingCar/Index.cshtml">
+      <publishTime>10/13/2015 23:28:25</publishTime>
+    </File>
+    <File Include="Views/BookingRoom/Index.cshtml">
+      <publishTime>10/02/2015 14:59:51</publishTime>
+    </File>
+    <File Include="Views/Emp/EmpForm.cshtml">
+      <publishTime>06/26/2016 12:59:24</publishTime>
+    </File>
+    <File Include="Views/Emp/Index.cshtml">
+      <publishTime>01/09/2016 14:37:37</publishTime>
+    </File>
+    <File Include="Views/EmpGroup/EmpGroupForm.cshtml">
+      <publishTime>01/07/2016 14:27:37</publishTime>
+    </File>
+    <File Include="Views/EmpGroup/Index.cshtml">
+      <publishTime>01/06/2016 15:38:56</publishTime>
+    </File>
+    <File Include="Views/ExternalWork/Index.cshtml">
+      <publishTime>11/20/2015 20:43:21</publishTime>
+    </File>
+    <File Include="Views/Group/GroupForm.cshtml">
+      <publishTime>01/07/2016 14:27:37</publishTime>
+    </File>
+    <File Include="Views/Group/Index.cshtml">
+      <publishTime>02/24/2016 12:11:33</publishTime>
+    </File>
+    <File Include="Views/Holiday/HolidayForm.cshtml">
+      <publishTime>09/02/2016 11:24:59</publishTime>
+    </File>
+    <File Include="Views/Holiday/Index.cshtml">
+      <publishTime>01/10/2016 18:47:17</publishTime>
+    </File>
+    <File Include="Views/Layout/LayoutLogin.AnguLarjs.cshtml">
+      <publishTime>12/25/2015 20:25:43</publishTime>
+    </File>
+    <File Include="Views/Layout/LayoutPage.AnguLarjs.cshtml">
+      <publishTime>01/02/2016 23:53:19</publishTime>
+    </File>
+    <File Include="Views/Layout/LayoutPage.cshtml">
+      <publishTime>12/26/2015 01:15:45</publishTime>
+    </File>
+    <File Include="Views/Layout/LayoutPage.Index.cshtml">
+      <publishTime>12/26/2015 01:19:20</publishTime>
+    </File>
+    <File Include="Views/Layout/LayoutRegalBon.Index.cshtml">
+      <publishTime>04/22/2016 18:10:12</publishTime>
+    </File>
+    <File Include="Views/Layout/LayoutRegalBonPage.cshtml">
+      <publishTime>04/27/2016 11:30:31</publishTime>
+    </File>
+    <File Include="Views/Login/Index.cshtml">
+      <publishTime>03/21/2016 11:29:56</publishTime>
+    </File>
+    <File Include="Views/Login/test.cshtml">
+      <publishTime>12/19/2015 00:24:51</publishTime>
+    </File>
+    <File Include="Views/Main/bottom.cshtml">
+      <publishTime>01/02/2016 21:43:49</publishTime>
+    </File>
+    <File Include="Views/Main/Index.cshtml">
+      <publishTime>05/16/2016 17:40:17</publishTime>
+    </File>
+    <File Include="Views/Main/Login.cshtml">
+      <publishTime>10/27/2015 11:56:12</publishTime>
+    </File>
+    <File Include="Views/Main/Menu.cshtml">
+      <publishTime>05/12/2016 09:11:35</publishTime>
+    </File>
+    <File Include="Views/Main/test.cshtml">
+      <publishTime>11/14/2015 13:33:10</publishTime>
+    </File>
+    <File Include="Views/Main/test1.cshtml">
+      <publishTime>12/19/2015 00:19:39</publishTime>
+    </File>
+    <File Include="Views/Main/test2.cshtml">
+      <publishTime>01/02/2016 23:57:31</publishTime>
+    </File>
+    <File Include="Views/Outgoing/History.cshtml">
+      <publishTime>05/16/2016 17:40:17</publishTime>
+    </File>
+    <File Include="Views/Outgoing/Index.cshtml">
+      <publishTime>06/18/2016 09:46:53</publishTime>
+    </File>
+    <File Include="Views/Outgoing/Manage.cshtml">
+      <publishTime>01/07/2016 11:09:36</publishTime>
+    </File>
+    <File Include="Views/Outgoing/ManageOutMan.cshtml">
+      <publishTime>05/16/2016 17:40:17</publishTime>
+    </File>
+    <File Include="Views/Program/Index.cshtml">
+      <publishTime>01/02/2016 23:57:31</publishTime>
+    </File>
+    <File Include="Views/Program/ProgramForm.cshtml">
+      <publishTime>01/02/2016 23:57:31</publishTime>
+    </File>
+    <File Include="Views/RegalBon/index.cshtml">
+      <publishTime>04/28/2016 14:04:08</publishTime>
+    </File>
+    <File Include="Views/RegalBon/OutgoingInfo.cshtml">
+      <publishTime>04/27/2016 14:44:28</publishTime>
+    </File>
+    <File Include="Views/RegalBon/OutgoingInfo22.cshtml">
+      <publishTime>04/27/2016 11:14:07</publishTime>
+    </File>
+    <File Include="Views/ReportAttendance/Index.cshtml">
+      <publishTime>05/12/2016 09:11:35</publishTime>
+    </File>
+    <File Include="Views/ReportAttendance/RA01.cshtml">
+      <publishTime>06/04/2016 10:28:58</publishTime>
+    </File>
+    <File Include="Views/ReportAttendance/RA02.cshtml">
+      <publishTime>07/11/2016 10:35:28</publishTime>
+    </File>
+    <File Include="Views/ReportOutgoing/Index.cshtml">
+      <publishTime>05/12/2016 09:11:35</publishTime>
+    </File>
+    <File Include="Views/ReportOutgoing/RG01.cshtml">
+      <publishTime>06/04/2016 10:30:28</publishTime>
+    </File>
+    <File Include="Views/Role/GroupRole.cshtml">
+      <publishTime>10/10/2015 23:40:00</publishTime>
+    </File>
+    <File Include="Views/Role/Index.cshtml">
+      <publishTime>10/13/2015 20:47:28</publishTime>
+    </File>
+    <File Include="Views/SysMsg/Error.cshtml">
+      <publishTime>10/07/2015 21:02:46</publishTime>
+    </File>
+    <File Include="Views/SysMsg/NoAccess.cshtml">
+      <publishTime>11/21/2015 02:18:59</publishTime>
+    </File>
+    <File Include="Views/TempEmp/Index.cshtml">
+      <publishTime>01/02/2016 23:57:31</publishTime>
+    </File>
+    <File Include="Views/TempEmp/TempEmpForm.cshtml">
+      <publishTime>01/04/2016 14:26:40</publishTime>
+    </File>
+    <File Include="Views/Test/Index.cshtml">
+      <publishTime>07/07/2016 12:47:51</publishTime>
+    </File>
+    <File Include="Views/Test/Index2.cshtml">
+      <publishTime>02/28/2016 22:44:18</publishTime>
+    </File>
+    <File Include="Views/Test/index3.cshtml">
+      <publishTime>03/21/2016 10:21:11</publishTime>
+    </File>
+    <File Include="Views/Test/TestForm.cshtml">
+      <publishTime>06/18/2016 09:00:32</publishTime>
+    </File>
+    <File Include="Views/Web.config">
+      <publishTime>10/03/2015 11:05:49</publishTime>
+    </File>
+    <File Include="Web.config">
+      <publishTime>09/12/2016 16:43:04</publishTime>
+    </File>
+  </ItemGroup>
+</Project>

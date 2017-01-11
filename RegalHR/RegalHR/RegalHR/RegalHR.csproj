@@ -1,0 +1,393 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{E56699FF-A693-4566-8BB0-7D4C9AC9079C}</ProjectGuid>
+    <ProjectTypeGuids>{E53F8FEA-EAE0-44A6-8774-FFD645390401};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>RegalHR</RootNamespace>
+    <AssemblyName>RegalHR</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>false</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <MvcProjectUpgradeChecked>true</MvcProjectUpgradeChecked>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>4.0</OldToolsVersion>
+    <UseGlobalApplicationHostFile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DataAccess, Version=1.3.0.21607, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\DataAccess.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>..\..\..\..\..\..\..\Desktop\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Iteedee.ApkReader">
+      <HintPath>..\..\..\..\..\..\Desktop\getVersion\Iteedee.ApkReader.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>\\psf\Home\Desktop\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI">
+      <HintPath>..\..\..\..\..\..\..\Desktop\NPOI.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OOXML">
+      <HintPath>..\..\..\..\..\..\..\Desktop\NPOI.OOXML.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OpenXml4Net">
+      <HintPath>..\..\..\..\..\..\..\Desktop\NPOI.OpenXml4Net.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OpenXmlFormats">
+      <HintPath>..\..\..\..\..\..\..\Desktop\NPOI.OpenXmlFormats.dll</HintPath>
+    </Reference>
+    <Reference Include="RegalCustEncrypt">
+      <HintPath>..\..\..\..\..\Desktop\RegalCustEncrypt.dll</HintPath>
+    </Reference>
+    <Reference Include="RegalEIPLoginKey">
+      <HintPath>..\..\..\..\..\..\Desktop\RegalEIPLoginKey.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.SqlClient, Version=3.0.3600.0, Culture=neutral, PublicKeyToken=3be235df1c8d2ad3, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Desktop\System.Data.SqlClient.dll</HintPath>
+    </Reference>
+    <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net40\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.1.0.20105.408\lib\net40\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.3.0.20105.1\lib\net40\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Providers">
+      <HintPath>..\packages\Microsoft.AspNet.Providers.Core.1.1\lib\net40\System.Web.Providers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.1.0.20105.408\lib\net40\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.1.0.20105.408\lib\net40\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.1.0.20105.408\lib\net40\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.1.0.20105.408\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Controllers\RegalBonController.cs" />
+    <Compile Include="Controllers\AppController.cs" />
+    <Compile Include="Controllers\AttendanceController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\EmpGroupController.cs" />
+    <Compile Include="Controllers\OutgoingController.cs" />
+    <Compile Include="Controllers\MainController.cs" />
+    <Compile Include="Controllers\GroupController.cs" />
+    <Compile Include="Controllers\ProgramController.cs" />
+    <Compile Include="Controllers\EmpController.cs" />
+    <Compile Include="Controllers\Report\ReportAttendanceController.cs" />
+    <Compile Include="Controllers\TempEmpController.cs" />
+    <Compile Include="Controllers\HolidayController.cs" />
+    <Compile Include="Controllers\TestController.cs" />
+    <Compile Include="Controllers\Report\ReportOutgoingController.cs" />
+    <Compile Include="Controllers\HRMailController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Lib\DataTableRenderToExcel.cs" />
+    <Compile Include="ModelFactory\EmpGroupModelFactory.cs" />
+    <Compile Include="ModelFactory\GeneralModelFactory.cs" />
+    <Compile Include="Lib\RegalLib.cs" />
+    <Compile Include="ModelFactory\MainModelFactory.cs" />
+    <Compile Include="ModelFactory\OutgoingModelFactory.cs" />
+    <Compile Include="ModelFactory\GroupModelFactory.cs" />
+    <Compile Include="ModelFactory\ProgramModelFactory.cs" />
+    <Compile Include="ModelFactory\EmpModelFactory.cs" />
+    <Compile Include="ModelFactory\AttendanceModelFactory.cs" />
+    <Compile Include="ModelFactory\LoginModelFactory.cs" />
+    <Compile Include="ModelFactory\Report\ReportAttendanceModelFactory.cs" />
+    <Compile Include="ModelFactory\TempEmpModelFactory.cs" />
+    <Compile Include="ModelFactory\HolidayModelFactory.cs" />
+    <Compile Include="ModelFactory\RegalBonModelFactory.cs" />
+    <Compile Include="ModelFactory\Report\ReportOutgoingModelFactory.cs" />
+    <Compile Include="ModelFactory\HRMailModelFactory.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="bootstrap\css\bootstrap-theme.css" />
+    <Content Include="bootstrap\css\bootstrap-theme.min.css" />
+    <Content Include="bootstrap\css\bootstrap.css" />
+    <Content Include="bootstrap\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="bootstrap\js\bootstrap.js" />
+    <Content Include="bootstrap\js\bootstrap.min.js" />
+    <Content Include="css\bootstrap-datetimepicker.css" />
+    <Content Include="css\fullcalendar.2.5.0.min.css" />
+    <Content Include="css\fullcalendar.css" />
+    <Content Include="css\RegalBonStyle.css" />
+    <Content Include="css\style.css" />
+    <Content Include="Global.asax" />
+    <Content Include="bootstrap\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="bootstrap\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="bootstrap\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Images\bg1.jpg" />
+    <Content Include="Images\regal.png" />
+    <Content Include="js\angular-1.4.7\angular-animate.min.js.map" />
+    <Content Include="js\angular-1.4.7\angular-aria.min.js.map" />
+    <Content Include="js\angular-1.4.7\angular-cookies.min.js.map" />
+    <Content Include="js\angular-1.4.7\angular-loader.min.js.map" />
+    <Content Include="js\angular-1.4.7\angular-message-format.min.js.map" />
+    <Content Include="js\angular-1.4.7\angular-messages.min.js.map" />
+    <Content Include="js\angular-1.4.7\angular-resource.min.js.map" />
+    <Content Include="js\angular-1.4.7\angular-route.min.js.map" />
+    <Content Include="js\angular-1.4.7\angular-sanitize.min.js.map" />
+    <Content Include="js\angular-1.4.7\angular-touch.min.js.map" />
+    <Content Include="js\angular-1.4.7\angular.min.js.map" />
+    <Content Include="js\keyboard.js" />
+    <Content Include="js\RegalAngular\Attendance\AttendanceCheckIn.js" />
+    <Content Include="js\RegalAngular\Holiday\index.js" />
+    <Content Include="js\RegalAngular\Outgoing\History.js" />
+    <Content Include="js\RegalAngular\ReportAttendance\index.js" />
+    <Content Include="js\RegalAngular\ReportAttendance\RA01.js" />
+    <Content Include="js\RegalAngular\ReportAttendance\RA02.js" />
+    <Content Include="js\RegalAngular\ReportOutgoing\index.js" />
+    <Content Include="js\RegalAngular\ReportOutgoing\RG01.js" />
+    <Content Include="js\RegalAngular\test\index.js" />
+    <Content Include="js\RegalAngular\test\index2.js" />
+    <Content Include="js\RegalAngular\test\tmp.html" />
+    <Content Include="js\RegalAngular\test\tmp2.html" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Views\Holiday\Index.cshtml" />
+    <Content Include="Views\Holiday\HolidayForm.cshtml" />
+    <Content Include="Views\Test\Index.cshtml" />
+    <Content Include="Views\Test\Index2.cshtml" />
+    <Content Include="Views\Attendance\AttendanceCheckIn.cshtml" />
+    <Content Include="Views\Test\TestForm.cshtml" />
+    <Content Include="Views\RegalBon\index.cshtml" />
+    <Content Include="Views\Layout\LayoutRegalBon.Index.cshtml" />
+    <Content Include="Views\Layout\LayoutRegalBonPage.cshtml" />
+    <Content Include="Views\RegalBon\OutgoingInfo.cshtml" />
+    <Content Include="Views\Test\index3.cshtml" />
+    <Content Include="Views\Outgoing\History.cshtml" />
+    <Content Include="Views\ReportOutgoing\Index.cshtml" />
+    <Content Include="Views\ReportOutgoing\RG01.cshtml" />
+    <Content Include="Views\ReportAttendance\RA01.cshtml" />
+    <Content Include="Views\ReportAttendance\Index.cshtml" />
+    <Content Include="Views\ReportAttendance\RA02.cshtml" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Properties\PublishProfiles\192.168.0.41.pubxml" />
+    <Content Include="Images\back_icon.png" />
+    <Content Include="Images\car_icon.png" />
+    <Content Include="Images\Outgoing_icon.png" />
+    <Content Include="Images\room_icon.png" />
+    <Content Include="js\angular-1.4.7\angular-animate.js" />
+    <Content Include="js\angular-1.4.7\angular-animate.min.js" />
+    <Content Include="js\angular-1.4.7\angular-aria.js" />
+    <Content Include="js\angular-1.4.7\angular-aria.min.js" />
+    <Content Include="js\angular-1.4.7\angular-cookies.js" />
+    <Content Include="js\angular-1.4.7\angular-cookies.min.js" />
+    <Content Include="js\angular-1.4.7\angular-csp.css" />
+    <Content Include="js\angular-1.4.7\angular-loader.js" />
+    <Content Include="js\angular-1.4.7\angular-loader.min.js" />
+    <Content Include="js\angular-1.4.7\angular-message-format.js" />
+    <Content Include="js\angular-1.4.7\angular-message-format.min.js" />
+    <Content Include="js\angular-1.4.7\angular-messages.js" />
+    <Content Include="js\angular-1.4.7\angular-messages.min.js" />
+    <Content Include="js\angular-1.4.7\angular-mocks.js" />
+    <Content Include="js\angular-1.4.7\angular-resource.js" />
+    <Content Include="js\angular-1.4.7\angular-resource.min.js" />
+    <Content Include="js\angular-1.4.7\angular-route.js" />
+    <Content Include="js\angular-1.4.7\angular-route.min.js" />
+    <Content Include="js\angular-1.4.7\angular-sanitize.js" />
+    <Content Include="js\angular-1.4.7\angular-sanitize.min.js" />
+    <Content Include="js\angular-1.4.7\angular-scenario.js" />
+    <Content Include="js\angular-1.4.7\angular-touch.js" />
+    <Content Include="js\angular-1.4.7\angular-touch.min.js" />
+    <Content Include="js\angular-1.4.7\angular.js" />
+    <Content Include="js\angular-1.4.7\angular.min.js" />
+    <Content Include="js\bootstrap-datetimepicker.js" />
+    <Content Include="js\draganddrop.js" />
+    <Content Include="js\fullcalendar.2.5.0.js" />
+    <Content Include="js\fullcalendar.2.5.0.min.js" />
+    <Content Include="js\fullcalendar.min.js" />
+    <Content Include="js\GeneralLib.js" />
+    <Content Include="js\jquery-1.8.3.min.js" />
+    <Content Include="js\jquery.min.js" />
+    <Content Include="js\locales\bootstrap-datetimepicker.zh-CN.js" />
+    <Content Include="js\locales\bootstrap-datetimepicker.zh-TW.js" />
+    <Content Include="js\RegalAngular\Attendance\Manage.js" />
+    <Content Include="js\RegalAngular\EmpGroup\index.js" />
+    <Content Include="js\RegalAngular\EmpGroup\EmpGroupForm.js" />
+    <Content Include="js\RegalAngular\Group\GroupForm.js" />
+    <Content Include="js\RegalAngular\Group\index.js" />
+    <Content Include="js\RegalAngular\Login\index.js" />
+    <Content Include="js\jquery-ui.custom.min.js" />
+    <Content Include="js\jquery.1.11.3.min.js" />
+    <Content Include="js\moment.min.js" />
+    <Content Include="js\RegalAngular\Outgoing\Manage.js" />
+    <Content Include="js\RegalAngular\Program\ProgramForm.js" />
+    <Content Include="js\RegalAngular\Program\index.js" />
+    <Content Include="js\RegalAngular\Emp\index.js" />
+    <Content Include="js\RegalAngular\Emp\EmpForm.js" />
+    <Content Include="js\RegalAngular\Attendance\index.js" />
+    <Content Include="js\RegalAngular\TempEmp\TempEmpForm.js" />
+    <Content Include="js\RegalAngular\TempEmp\index.js" />
+    <Content Include="js\ui-bootstrap-tpls-0.14.1.min.js" />
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Views\Layout\LayoutPage.cshtml" />
+    <Content Include="Views\Main\bottom.cshtml" />
+    <Content Include="Views\Main\Index.cshtml" />
+    <Content Include="Views\Main\Menu.cshtml" />
+    <Content Include="Views\Layout\LayoutPage.AnguLarjs.cshtml" />
+    <Content Include="Views\SysMsg\Error.cshtml" />
+    <Content Include="Views\SysMsg\NoAccess.cshtml" />
+    <Content Include="Views\Main\test.cshtml" />
+    <Content Include="Views\Outgoing\Index.cshtml" />
+    <Content Include="Views\Layout\LayoutLogin.AnguLarjs.cshtml" />
+    <Content Include="Views\Main\test1.cshtml" />
+    <Content Include="Views\Group\Index.cshtml" />
+    <Content Include="Views\Group\GroupForm.cshtml" />
+    <Content Include="Views\Program\Index.cshtml" />
+    <Content Include="Views\Program\ProgramForm.cshtml" />
+    <Content Include="Views\Emp\Index.cshtml" />
+    <Content Include="Views\Emp\EmpForm.cshtml" />
+    <Content Include="Views\Attendance\Index.cshtml" />
+    <Content Include="Views\EmpGroup\EmpGroupForm.cshtml" />
+    <Content Include="Views\Main\test2.cshtml" />
+    <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="Views\Attendance\Manage.cshtml" />
+    <Content Include="Views\Login\test.cshtml" />
+    <None Include="Properties\PublishProfiles\MyHome.pubxml" />
+    <Content Include="Views\TempEmp\TempEmpForm.cshtml" />
+    <Content Include="Views\TempEmp\Index.cshtml" />
+    <Content Include="Views\Outgoing\ManageOutMan.cshtml" />
+    <Content Include="Views\Outgoing\Manage.cshtml" />
+    <Content Include="Views\EmpGroup\Index.cshtml" />
+    <Content Include="Views\Layout\LayoutPage.Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Download\" />
+    <Folder Include="files\" />
+    <Folder Include="Log\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RegalHRModel\RegalHRModel.csproj">
+      <Project>{0c9bbf24-3c56-4dd5-a151-2d5ee9d469f5}</Project>
+      <Name>RegalHRModel</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>6268</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:81/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

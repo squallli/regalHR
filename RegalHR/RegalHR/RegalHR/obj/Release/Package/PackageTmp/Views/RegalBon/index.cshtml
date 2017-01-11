@@ -1,0 +1,96 @@
+﻿@{
+    Layout = "~/Views/Layout/LayoutRegalBon.Index.cshtml";
+}
+<div  align="center">
+    <h1>帝商科技</h1>
+    <div id="Login">
+        <H2 id="LoginErrMsg"></H2>
+        <H2>請放上員工識別證或輸入手機代碼</H2>
+
+        <input id="CardNo"  type="text" />
+        <table  border="0" cellspacing="0" cellpadding="0">
+			<tr><td><button class="NumberBtn">1</button></td><td><button class="NumberBtn">2</button></td><td><button class="NumberBtn">3</button></td></tr>
+			<tr><td><button class="NumberBtn">4</td><td><button class="NumberBtn">5</button></td><td><button class="NumberBtn">6</button></td></tr>
+			<tr><td><button class="NumberBtn">7</td><td><button class="NumberBtn">8</button></td><td><button class="NumberBtn">9</button></td></tr>
+			<tr><td style="background-color:#D3D9DF;"><button class="DelBtn">清除</button></td><td><button class="NumberBtn">0</button></td>
+			<td style="background-color:#D3D9DF;"><button class="LoginBtn">登入</button></td></tr>
+		</table>
+    </div>
+
+</div>
+
+
+<script>
+    $("#CardNo").focus();
+
+
+    $('#CardNo').keypress(function (e) {
+        var key = window.event ? e.keyCode : e.which;
+        if (key == 13)
+            Login();
+       
+    });
+
+    $("#CardNo").blur(function () {
+        $("#CardNo").focus();
+    })
+
+    $(".NumberBtn").click(function () {
+        var Tmp = $("#CardNo").val() + $(this).html();
+        $("#CardNo").val(Tmp);
+
+        $("#CardNo").focus();
+
+        $("#LoginErrMsg").html("");
+    })
+
+
+    $(".LoginBtn").click(function(){
+        Login();
+    });
+
+
+    $(".DelBtn").click(function () {
+        $("#CardNo").val("");
+        $("#CardNo").focus();
+        $("#LoginErrMsg").html("");
+    })
+
+    function Login()
+    {
+
+        $(".LoginBtn").attr("disabled", true);
+        $("#LoginErrMsg").html("登入中..");
+
+        var tmpCardNo = $("#CardNo").val();
+        $("#CardNo").val("");
+
+        $.ajax({
+            type: "POST",
+            url: "../RegalBon/Login",
+            data: "CardNo=" + tmpCardNo,
+            timeout: 8000,
+            async: false,
+            success: function (data) {
+                
+                var str = data.split("|");
+
+
+                if (str[0]=="1") {
+                    location.href = "./OutgoingInfo?EmpNo=" + str[1];
+                }
+                else
+                {
+                    $("#LoginErrMsg").html(str[1]);
+                }
+                $(".LoginBtn").attr("disabled", false);
+            },
+            error: function () {
+                $("#LoginErrMsg").html("系統發生錯誤!");
+                $(".LoginBtn").attr("disabled", false);
+            }
+        })
+
+
+    }
+</script>

@@ -1,0 +1,49 @@
+﻿@using RegalHRModel
+@using RegalHR.ModelFactory
+@{
+    string Ver = GeneralModelFactory.Version;
+    Layout = "~/Views/Layout/LayoutLogin.AnguLarjs.cshtml";
+    
+
+}
+<script src="../js/RegalAngular/test/index2.js?@(Ver)"></script>
+
+<div  ng-controller="Ctrl" ng-app="index2">
+  <test1></test1>
+  <test1></test1>
+  <test2></test2>
+    <button ng-click="expression()">#hi#</button>
+  <br><br><br>
+
+
+
+  <table>
+    <tr  ng-repeat="Item in Data ">
+        <td width="70px">{{ Item.No }}</td>
+        <td width="70px">{{ Item.Ans1 }}</td>
+        <td width="70px">{{ Item.Ans2 }}</td>
+        <td width="70px">{{ Item.Ans3 }}</td>
+        <td width="70px">{{ Item.Ans4 }}</td>
+
+        <td width="70px">{{ Item.Ans5 }}</td>
+        <td width="70px">{{ Item.Ans6 }}</td>
+        <td width="70px">{{ Item.Ans7 }}</td>
+        <td width="70px">{{ Item.Ans8 }}</td>
+
+        <td width="70px">{{ Item.Ans9 }}</td>
+        <td width="70px">{{ Item.Ans10 }}</td>
+    </tr>
+  </table>
+
+
+    
+
+    <div id="ABC"><test1></test1></div>
+</div>
+
+
+
+
+
+
+

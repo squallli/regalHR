@@ -1,0 +1,8 @@
+C:\Users\tp00159\Dropbox\帝商\專案管理\RegalHR\RegalHROutgoing\RegalHROutgoing\bin\Release\RegalHROutgoing.exe
+C:\Users\tp00159\Dropbox\帝商\專案管理\RegalHR\RegalHROutgoing\RegalHROutgoing\bin\Release\RegalHROutgoing.pdb
+C:\Users\tp00159\Dropbox\帝商\專案管理\RegalHR\RegalHROutgoing\RegalHROutgoing\obj\Release\RegalHROutgoing.Main.resources
+C:\Users\tp00159\Dropbox\帝商\專案管理\RegalHR\RegalHROutgoing\RegalHROutgoing\obj\Release\RegalHROutgoing.Properties.Resources.resources
+C:\Users\tp00159\Dropbox\帝商\專案管理\RegalHR\RegalHROutgoing\RegalHROutgoing\obj\Release\RegalHROutgoing.csproj.GenerateResource.Cache
+C:\Users\tp00159\Dropbox\帝商\專案管理\RegalHR\RegalHROutgoing\RegalHROutgoing\obj\Release\RegalHROutgoing.exe
+C:\Users\tp00159\Dropbox\帝商\專案管理\RegalHR\RegalHROutgoing\RegalHROutgoing\obj\Release\RegalHROutgoing.pdb
+C:\Users\tp00159\Dropbox\帝商\專案管理\RegalHR\RegalHROutgoing\RegalHROutgoing\obj\Release\RegalHROutgoing.csprojResolveAssemblyReference.cache

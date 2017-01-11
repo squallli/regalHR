@@ -1,0 +1,108 @@
+﻿@using RegalHRModel
+@using RegalHR.ModelFactory
+@{
+    string Ver = GeneralModelFactory.Version;
+    Layout = "~/Views/Layout/LayoutPage.AnguLarjs.cshtml";
+
+    ProgramModel Program = (ProgramModel)ViewData["Program"];
+    
+    
+    
+}
+<script>
+    var Program = @Html.Raw(Json.Encode(Program));
+    //var NewProgram = Html.Raw(Json.Encode(Program));
+</script>
+
+
+<script src="../js/RegalAngular/Program/ProgramForm.js?@(Ver)"></script>
+
+<div class="Contentbody" ng-app="ProgramForm" ng-controller="Ctrl"  ng-cloak>
+<H3>
+    <button type="button" class="btn btn-primary" ng-click="BackBtn()">返回</button>
+    作業參數設定
+</H3>
+
+
+<div class="FormBody">
+    <div class="ProgramForm">
+        <div class="input-group">
+          <span class="input-group-addon">
+            <label>作業代碼</label>
+          </span>
+          <input type="text"  ng-model="Program.ProgID" class="form-control" ng-maxlength="4" maxlength="4" >
+
+
+
+        </div><!-- /input-group -->
+
+
+        <div class="input-group">
+          <span class="input-group-addon">
+            <label>作業名稱</label>
+          </span>
+          <input type="text"  ng-model="Program.ProgName" class="form-control" >
+        </div><!-- /input-group -->
+
+        
+
+
+         <div class="input-group">
+          <span class="input-group-addon">
+            <label>Power &nbsp;&nbsp;&nbsp;</label>
+          </span>
+          <input type="number"  ng-model="Program.Power" class="form-control" >
+        </div><!-- /input-group -->
+
+
+
+         <div class="input-group">
+          <span class="input-group-addon">
+            <label>Url &nbsp;&nbsp;&nbsp;</label>
+          </span>
+          <input type="text"  ng-model="Program.Url" class="form-control" >
+        </div><!-- /input-group -->
+
+
+
+
+         <div class="input-group">
+          <span class="input-group-addon">
+            <label>作業屬性</label>
+          </span>
+          <input type="text"  ng-model="Program.FlagType" class="form-control" >
+        </div><!-- /input-group -->
+        
+                     
+         <span class="error" ng-show="!CheckForm()">
+             {{AlarmMsg}} 
+         </span>
+
+
+
+
+        <div align="right">
+            <br>
+            <span ng-if="Program.Mode=='EDIT'" >
+                <button type="button" class="btn btn-default" ng-disabled="!CheckResult" ng-click="EditBtn(Program.Mode)">儲存</button>
+            </span>
+
+            <span ng-if="Program.Mode=='ADD'" >
+                <button type="button" class="btn btn-default" ng-disabled="!CheckResult" ng-model="SaveBtn"  ng-click="AddBtn(Program.Mode)">儲存</button>
+            </span>
+        </div>
+    </div>
+</div>
+
+</div>
+
+
+<script>
+
+
+    showalert("Error","alert-success");
+    showalert("Error","alert-warning");
+    showalert("Error","alert-danger");
+    showalert("Error","alert-warning alert-dismissible");
+
+</script>

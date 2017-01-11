@@ -1,0 +1,110 @@
+﻿@using RegalHRModel
+@using RegalHR.ModelFactory
+@{
+    string Ver = GeneralModelFactory.Version;
+    Layout = "~/Views/Layout/LayoutPage.AnguLarjs.cshtml";
+    UserFreeStyleModel UserFreeStyle = (UserFreeStyleModel)ViewData["UserFreeStyle"];
+    
+}
+
+<script src="../js/RegalAngular/Program/index.js?@(Ver)"></script>
+
+
+<script>
+    var UserFreeStyle = @Html.Raw(Json.Encode(UserFreeStyle));
+</script>
+
+<div class="Contentbody" ng-app="index" ng-controller="Ctrl"  ng-cloak >
+    
+    
+
+     
+    
+
+    <div class="row">
+      <h4 class="col-xs-6 ">作業參數設定</h4>
+      <div class="col-xs-6"><div class="pull-right"><button type="button" class="btn btn-primary"  ng-click="Add()" >新增資料</button></div></div>
+    </div>
+
+     <div class="input-group">
+      <input type="text" class="form-control"  placeholder="請輸入搜尋關鍵字"  ng-model="UserFreeStyle.SearchText" ng-keyup="$event.keyCode == 13 && Search()" >
+      <span class="input-group-btn">
+      <button type="button" class="btn btn-default" ng-click="Search()" >搜尋</button>
+      </span>
+    </div>
+
+
+        <div>
+	        <table  id="DataGridView" class="table  table-bordered table-hover">
+		        <thead>
+			        <tr>
+                        <th width="40px">序</th>
+                        <th  data-id="1" ng-dblclick="Orderby(1,'ProgID')">作業代碼<span></span></th>
+                        <th  data-id="2" ng-dblclick="Orderby(2,'ProgName')">作業名稱<span></span></th>
+                        <th  data-id="3" ng-dblclick="Orderby(3,'Power')">Power<span></span></th>
+                        <th width="150px">&nbsp;</th>
+			        </tr>
+		        </thead>
+		        <tbody>
+			        <tr ng-repeat="Data in DataList "  ng-dblclick="Link(Data.ProgID)" ng-style="Data.ProgID === SignId && {'background-color': '#F7F4E5'}  " >
+                        <td>{{ Serial+$index }} </td>
+				        <td >{{ Data.ProgID }}  </td>
+				        <td>{{ Data.ProgName }}  </td>
+				        <td>{{ Data.Power }}</td>
+
+
+                        <td>
+                            <center>
+                            <button type="button" class="btn btn-default" ng-click="Link(Data.ProgID)" >修改</button>
+                            &nbsp;
+                            <button type="button" class="btn btn-default" ng-click="DelMsgBtn(Data.ProgID,Data.ProgName)" >刪除</button>
+                            </center>
+                        </td>
+			        </tr>
+		        </tbody>
+	        </table>
+        </div>
+        
+
+
+    <ul class="pagination" ng-repeat="Pagination in PaginationList | limitTo:10:PageBegin">
+
+        <li ng-if="$first"><a href="#" ng-click="update(Pagination.Url,0)" >第1頁</a></li>
+        
+        <li ng-if="Pagination.PageNum==Page" class="active"><a href="#" ng-click="update(Pagination.Url,Pagination.PageNum)" >{{ Pagination.PageDisplay }}</a></li>
+        <li ng-if="Pagination.PageNum!=Page"><a href="#" ng-click="update(Pagination.Url,Pagination.PageNum)" >{{ Pagination.PageDisplay }}</a></li>
+     
+
+        <li ng-if="$last"><a href="#" ng-click="update(Pagination.Url,PageTotal)" >最終頁</a></li>
+    </ul>
+
+
+
+    <!-- 刪除訊息 -->
+    <div class="modal fade" id="DeleteMsgModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <h4 class="modal-title" id="myModalLabel">刪除訊息</h4>
+          </div>
+
+
+          <div class="modal-body">
+            您確定要刪除 {{DeleteRecordName}} ? 
+          </div>
+
+
+          <div class="modal-footer">
+              <button type="button" class="btn btn-primary" ng-click="DelBtn()" >確定</button>
+              <button type="button" class="btn btn-primary" data-dismiss="modal" >取消</button>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+
+
+
+

@@ -1,0 +1,260 @@
+﻿@using RegalHRModel
+@using RegalHR.ModelFactory
+@{
+    string Ver = GeneralModelFactory.Version;
+    Layout = "~/Views/Layout/LayoutPage.AnguLarjs.cshtml";
+    UserFreeStyleModel UserFreeStyle = (UserFreeStyleModel)ViewData["UserFreeStyle"];
+    
+    UserModel LoginUserInfo = (UserModel)ViewData["LoginUserInfo"];
+
+    ProgramModel SysProgram = (ProgramModel)ViewData["SysProgram"];
+    List<ItemModel> EmpStatusList = GeneralModelFactory.GetEmpStatusList() ;
+    List<CompanyModel> CompanyList = null;
+    List<DepartMentModel> DepartMentList = null ;
+    List<ItemModel> EmpSexList = GeneralModelFactory.GetEmpSexList();
+
+
+    string DisableCompany = "Disabled";
+    string DisableDepartMent = "Disabled";
+    if (SysProgram.ViewLevel == "A")
+    {
+        //企業級
+        DisableCompany = "";
+        DisableDepartMent = "";
+        CompanyList = GeneralModelFactory.GetCompanyList("");
+        DepartMentList = GeneralModelFactory.GetDepList("", "");
+
+    }
+    else if (SysProgram.ViewLevel == "B")
+    {
+        //公司級
+        //DisableCompany = "";
+        DisableDepartMent = "";
+        CompanyList = GeneralModelFactory.GetCompanyList(LoginUserInfo.Company);
+        DepartMentList = GeneralModelFactory.GetDepList(LoginUserInfo.Company, "");
+
+    }
+    else if (SysProgram.ViewLevel == "C")
+    {
+        //部門等級
+        //DisableCompany = "";
+        //DisableDepartMent = "";
+
+
+        CompanyList = GeneralModelFactory.GetCompanyList(LoginUserInfo.Company);
+        DepartMentList = GeneralModelFactory.GetDepList(LoginUserInfo.Company, LoginUserInfo.DepNo);
+    }
+    else
+    {
+        //預設部門等級
+
+
+        CompanyList = GeneralModelFactory.GetCompanyList(LoginUserInfo.Company);
+        DepartMentList = GeneralModelFactory.GetDepList(LoginUserInfo.Company, LoginUserInfo.DepNo);
+
+    }
+    
+}
+
+<script src="../js/RegalAngular/Emp/index.js?@(Ver)"></script>
+
+
+
+
+<script>
+    var UserFreeStyle = @Html.Raw(Json.Encode(UserFreeStyle));
+
+    var CompanyList = @Html.Raw(Json.Encode(CompanyList));
+
+    var DepartMentList = @Html.Raw(Json.Encode(DepartMentList));
+
+    var EmpStatusList = @Html.Raw(Json.Encode(EmpStatusList));
+
+    var EmpSexList = @Html.Raw(Json.Encode(EmpSexList));
+    
+</script>
+
+<div class="Contentbody" ng-app="index" ng-controller="Ctrl"  ng-cloak >
+    
+    <div class="row">
+      <h4 class="col-xs-6">@(SysProgram.ProgName)</h4>
+    </div>
+
+
+
+
+     <div class="row">
+      <div class="col-xs-12" >
+      <div class="input-group" >
+        
+
+        
+        <span class="input-group-addon"><label>狀態</label></span>
+          <select class="selectpicker show-tick form-control" ng-model="UserFreeStyle.SearchEmpStatus" ng-change="GetEmpList()">
+              <option value="">全部</option>
+              <option ng-repeat="Data in EmpStatusList" value="{{Data.ItemID}}">{{Data.ItemName}}</option>
+          </select>
+
+
+
+          <span class="input-group-addon"><label>性別</label></span>
+          <select class="selectpicker show-tick form-control" ng-model="UserFreeStyle.SearchText2" ng-change="GetEmpList()">
+              <option value="">全部</option>
+              <option ng-repeat="Data in EmpSexList" value="{{Data.ItemID}}">{{Data.ItemName}}</option>
+          </select>
+
+        <span class="input-group-addon"><label>公司別</label></span>
+          <select class="selectpicker show-tick form-control" ng-model="UserFreeStyle.SearchCompany" ng-Change="GetEmpList()" @(DisableCompany)>
+              <option value="">全部</option>
+              <option ng-repeat="Data in CompanyList" value="{{Data.Company}}">{{Data.CompanyName}}</option>
+          </select>
+
+
+
+        <span class="input-group-addon">
+        <label>部&nbsp;&nbsp;&nbsp;&nbsp;門 </label>
+        </span>
+          <select class="selectpicker show-tick form-control" ng-model="UserFreeStyle.SearchDepartMentNo" ng-Change="GetEmpList()" @(DisableDepartMent)>
+              <option value="">全部</option>
+              <option ng-repeat="Data in DepartMentList | filter:UserFreeStyle.SearchCompany" value="{{Data.DepartMentNo}}">{{Data.DepartMentName}}</option>
+          </select>
+
+
+        <span class="input-group-addon">
+        <label>姓&nbsp;&nbsp;名</label>
+        </span>
+          <select class="selectpicker show-tick form-control" ng-model="UserFreeStyle.SearchEmpNo" >
+              <option value="">全部</option>
+              <option ng-repeat="Data in EmpDropDownList" value="{{Data.EmployeeNo}}">{{Data.EmployeeName}}</option>
+          </select>
+
+
+        <span class="input-group-addon">
+        <label>關鍵字</label>
+        </span>
+        <input type="text" ng-model="UserFreeStyle.SearchText"  placeholder="搜尋員工編號、姓名、英文名、卡號"  class="form-control" ng-keypress="($event.which === 13)?Search():''">
+
+        <span class="input-group-btn">
+        <button type="button" class="btn btn-default" ng-click="Search()"  ><span class="glyphicon glyphicon-search"></span></button>
+        </span>
+
+      </div>
+      </div>
+    </div>
+
+
+
+
+        <div>
+	        <table id="DataGridView"  class="table table-bordered table-hover">
+		        <thead>
+			        <tr>
+                        <th width="40px">序</th>
+                        <th ng-dblclick="Orderby(1,'CompanyName')" data-id="1">公司別 <span></span></th>
+                        <th ng-dblclick="Orderby(2,'DepartMentName')" data-id="2">部門 <span></span></th>
+                        <th ng-dblclick="Orderby(3,'EmployeeNo')" data-id="3">員工編號 <span></span></th>
+                        <th ng-dblclick="Orderby(4,'EmployeeName')" data-id="4">姓名 <span></span></th>
+                        <th ng-dblclick="Orderby(5,'EmployeeEName')" data-id="5">英文名 <span></span></th>
+                         <th ng-dblclick="Orderby(6,'Sex')" data-id="6">性別<span></span></th>
+                        <th ng-dblclick="Orderby(7,'CardNo')" data-id="7">卡號 <span></span></th> 
+                        <th ng-dblclick="Orderby(8,'dayofduty')" data-id="8">到職日 <span></span></th>
+                        <th ng-dblclick="Orderby(9,'offDutyDate')" data-id="9">離職日 <span></span></th>
+                        <th>年資</th>
+                        <th>權限群組</th>
+                        <th width="70px">&nbsp;</th>
+			        </tr>
+		        </thead>
+		        <tbody>
+			        <tr ng-repeat="Data in DataList "  ng-dblclick="Link(Data.EmployeeNo)" ng-style="Data.EmployeeNo === SignId && {'background-color': '#F7F4E5'}  "  >
+                        <td>{{ Serial+$index }} </td>
+                        <td >{{ Data.CompanyName }}  </td>
+				        <td >{{ Data.DepartMentName }}  </td>
+				        <td>{{ Data.EmployeeNo }}  </td>
+				        <td>{{ Data.EmployeeName }}</td>
+                        <td>{{ Data.EmployeeEName }}</td>
+                        <td>{{ Data.Sex }}</td>
+                        <td>{{ Data.CardNo }}</td>
+                        <td>{{ Data.dayofduty }}</td>
+                        <td>{{ Data.offDutyDate }}</td>
+                        <td title="共{{ Data.WorkDuration }}天">{{ Math.floor(Data.WorkDuration/365) }}年 {{  Math.floor(Data.WorkDuration%365) }}天 </td>
+
+                        <td><li ng-repeat="Data2 in Data.Group " >{{ Data2.ViewLevelName }} - {{ Data2.GroupName }}</li></td>
+                        <td>
+                            <center>
+                            <button type="button" class="btn btn-default" ng-click="Link(Data.EmployeeNo)" >修改</button>
+                            <!--
+                            <button type="button" class="btn btn-default" ng-click="DelMsgBtn(Data.EmployeeNo,Data.EmployeeName)" >離職</button>
+                            -->
+                            </center>
+                        </td>
+			        </tr>
+		        </tbody>
+	        </table>
+        </div>
+        
+
+
+    <ul class="pagination" ng-repeat="Pagination in PaginationList | limitTo:10:PageBegin">
+
+        <li ng-if="$first"><a href="#" ng-click="update(Pagination.Url,0)" >第1頁</a></li>
+        
+        <li ng-if="Pagination.PageNum==Page" class="active"><a href="#" ng-click="update(Pagination.Url,Pagination.PageNum)" >{{ Pagination.PageDisplay }}</a></li>
+        <li ng-if="Pagination.PageNum!=Page"><a href="#" ng-click="update(Pagination.Url,Pagination.PageNum)" >{{ Pagination.PageDisplay }}</a></li>
+     
+
+        <li ng-if="$last"><a href="#" ng-click="update(Pagination.Url,PageTotal)" >最終頁</a></li>
+    </ul>
+
+
+
+    <!-- 刪除訊息 -->
+    <div class="modal fade" id="DeleteMsgModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <h4 class="modal-title" id="myModalLabel">離職訊息</h4>
+          </div>
+
+
+          <div class="modal-body">
+           <h3>您確定要將員工 {{DeleteRecordID}}({{DeleteRecordName}}) 設為離職?</h3>          
+           <div class="input-group" >
+                <span class="input-group-addon" >
+                <label>離職日期</label>
+                </span>
+                <span class="input-group date form_date " data-date="" data-date-format="yyyymmdd" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                    <input ng-model="offDutyDate" class="form-control"  id="form_date" >
+				    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                </span>
+			    <input type="hidden" id="dtp_input2" value="" />
+            </div>
+
+          </div>
+
+
+          <div class="modal-footer">
+              <button type="button" class="btn btn-primary" ng-click="DelBtn(offDutyDate)"  ng-disabled="!CheckDelResult()" >確定離職</button>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+
+
+
+
+<script type="text/javascript">
+    $('.form_date').datetimepicker({
+        language: 'zh-TW',
+        weekStart: 1,
+        todayBtn: 1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        minView: 2,
+        forceParse: 0,
+        format: 'yyyymmdd'
+    });
+</script>

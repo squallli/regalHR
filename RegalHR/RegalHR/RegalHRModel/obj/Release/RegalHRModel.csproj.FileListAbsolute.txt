@@ -1,0 +1,14 @@
+C:\Users\tp00159\Dropbox\帝商\專案管理\RegalHR\RegalHR\RegalHRModel\bin\Release\RegalHRModel.dll
+C:\Users\tp00159\Dropbox\帝商\專案管理\RegalHR\RegalHR\RegalHRModel\bin\Release\RegalHRModel.pdb
+C:\Users\tp00159\Dropbox\帝商\專案管理\RegalHR\RegalHR\RegalHRModel\obj\Release\RegalHRModel.dll
+C:\Users\tp00159\Dropbox\帝商\專案管理\RegalHR\RegalHR\RegalHRModel\obj\Release\RegalHRModel.pdb
+\\psf\Dropbox\帝商\專案管理\RegalHR\RegalHR\RegalHRModel\bin\Release\RegalHRModel.dll
+\\psf\Dropbox\帝商\專案管理\RegalHR\RegalHR\RegalHRModel\bin\Release\RegalHRModel.pdb
+\\psf\Dropbox\帝商\專案管理\RegalHR\RegalHR\RegalHRModel\obj\Release\RegalHRModel.dll
+\\psf\Dropbox\帝商\專案管理\RegalHR\RegalHR\RegalHRModel\obj\Release\RegalHRModel.pdb
+C:\Users\tp00159\Dropbox\帝商\專案管理\RegalHR\RegalHR\RegalHRModel\obj\Release\RegalHRModel.csprojResolveAssemblyReference.cache
+D:\Regal專案\Regal出勤\V1.1.1\RegalHR\RegalHR\RegalHRModel\bin\Release\RegalHRModel.dll
+D:\Regal專案\Regal出勤\V1.1.1\RegalHR\RegalHR\RegalHRModel\bin\Release\RegalHRModel.pdb
+D:\Regal專案\Regal出勤\V1.1.1\RegalHR\RegalHR\RegalHRModel\obj\Release\RegalHRModel.csprojResolveAssemblyReference.cache
+D:\Regal專案\Regal出勤\V1.1.1\RegalHR\RegalHR\RegalHRModel\obj\Release\RegalHRModel.dll
+D:\Regal專案\Regal出勤\V1.1.1\RegalHR\RegalHR\RegalHRModel\obj\Release\RegalHRModel.pdb

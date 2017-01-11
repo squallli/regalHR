@@ -1,0 +1,724 @@
+﻿@using RegalHRModel
+@using RegalHR.ModelFactory
+@{
+    string Ver = GeneralModelFactory.Version;
+    Layout = "~/Views/Layout/LayoutPage.cshtml";
+    //Layout = "~/Views/Layout/LayoutPage.AnguLarjs.cshtml";
+
+    EmpModel Emp = (EmpModel)ViewData["Emp"];
+    
+}
+
+<link href='../css/fullcalendar.css?@(Ver)' rel='stylesheet' />
+<script src='../js/jquery-ui.custom.min.js'></script>
+<script src='../js/fullcalendar.min.js'></script>
+
+<style>
+
+	#calendar {
+		max-width: 900px;
+		margin: 0 auto;
+	}
+
+</style>
+
+<script>
+
+
+    var InsertTableRowNum = 1;
+
+
+    function Update() {
+        //刷新整個頁面
+        $('#calendar').fullCalendar('refetchEvents');
+
+    }
+
+
+
+    $(document).ready(function() {
+
+
+        $('#calendar').fullCalendar({
+            //theme: true,
+            header: {
+                left:   '',
+                center: 'title',
+                right:  'prev,next'
+            },
+
+            editable: true,
+            monthNames: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
+            monthNamesShort: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
+            dayNames: ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'],
+            dayNamesShort: ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'],
+            buttonText: {
+                prev: '<',  // left triangle
+                next: '>',  // right triangle
+                prevYear: '<<', // <<
+                nextYear: '>>;', // >>
+                today: '今日',
+                month: '',
+                week: '',
+                day: ''
+            },
+            allDayText: '整日',
+            firstDay: 1,
+
+
+            eventResize: function(event,dayDelta,minuteDelta,revertFunc) {
+                //調整區間編輯
+                $('.tooltipevent').remove();
+                $("#EditModal").modal('show');
+
+                revertFunc();
+			    
+
+            },
+            eventDrop: function(event,dayDelta,minuteDelta,allDay,revertFunc) {
+                //拖曳編輯
+                $('.tooltipevent').remove();
+
+                /* 停用
+                $("#EditModal").modal('show');
+
+                $("#EditOutId").val(event.OutId);
+                $("#EditOutgoingDate").val($.fullCalendar.formatDate(event.start, "yyyy-MM-dd"));
+                $("#EditOutgoingLocal").val(event.title);
+                $("#EditOutgoingContent").val("");
+                */
+
+                revertFunc();
+
+            },
+            eventRender: function(event, element) {
+                $('.tooltipevent').remove();
+
+                element.bind('dblclick', function () {
+
+
+                    //代表滑鼠滑到公休或上班日
+                    if(event.OutId=="")
+                    {
+                        return ;
+                    }
+
+
+                    //點兩下編輯
+                    $("#EditOutId").val(event.OutId);
+                    $("#EditOutgoingGoOutTime").val(event.GoOutTime);
+
+                    $("#EditOutgoingOutDate").val(event.OutDate);
+                    $("#EditOutgoingOutTime").val(event.OutTime);
+                    $("#EditOutgoingLocation").val(event.Location);
+                    $("#EditOutgoingCustomerName").val(event.CustomerName);
+
+
+
+                    $("#EditOutgoingDesc").val(event.OutDescription);
+
+                    
+                    $("#EditModal").modal('show');
+                });
+
+            },
+            dayRender: function(Eventdate, element) {
+                $('.tooltipevent').remove();
+
+                element.bind('dblclick', function() {
+
+
+                    var today = new Date();
+                    today = new Date(today.getFullYear(),today.getMonth(),today.getDate());
+ 
+
+                    //點兩下新增
+                    $("#InsertModal").modal('show');
+                    $("#InsertOutgoingOutDate").val($.fullCalendar.formatDate(Eventdate, "yyyy-MM-dd"));
+ 
+
+
+                    if ( (Date.parse(Eventdate)).valueOf() == (Date.parse(today)).valueOf())
+                    {
+                        $("#InsertOutgoingOutTime").val($.fullCalendar.formatDate(new Date(), "HH:mm"));
+                    }else{
+                        $("#InsertOutgoingOutTime").val("09:00");
+                    }
+
+                    
+                    $("#InsertOutgoingDesc").val("");//備註
+
+
+                    document.getElementById("InsertList").getElementsByTagName('tbody')[0].innerHTML="";
+                    InsertTableRowNum=1;
+                    InsertTableRow($("#InsertOutgoingOutTime").val());
+                });
+
+			   
+            },
+
+            eventMouseover: function(event,calEvent, jsEvent) {
+
+                //代表滑鼠滑到公休或上班日
+                if(event.OutId=="")
+                {
+                    return ;
+                }
+                var tmpInfo ="";
+
+                if(event.Status =="AM" || event.Status =="UM" )
+                {
+                    tmpInfo="<br>補登原因:"+event.OutDescription;//增加補登原因
+                }
+
+
+
+                var tooltip = '<div class="tooltipevent"> 外出時間:'+event.OutDate+' '+event.OutTime+' <br> 實際時間:'+event.GoOutTime+' <br> 外出地點:'+event.Location+' <br> 客戶名稱:'+event.CustomerName+tmpInfo+' <br>最後編輯:'+event.UpdateDate +' by '+event.RecordMan+' </div>';
+                $("body").append(tooltip);
+                $(this).mouseover(function(e) {
+        
+                
+                }).mousemove(function(e) {
+                    $('.tooltipevent').css('top', e.pageY + 10);
+                    $('.tooltipevent').css('left', e.pageX + 20);
+                });
+            },
+
+            eventMouseout: function (calEvent, jsEvent) {
+
+                $(this).css('z-index', 99);
+                $('.tooltipevent').remove();
+            },
+            events: function (start, end, callback) {
+
+                for(i=1;i<$(".fc-grid .fc-day-number").length+1;i++)
+                {
+                    if(i%7==5 || i%7==6)
+                    {
+                        $(".fc-grid .fc-day-number").eq(i).css("color","red");
+                    }
+                }
+
+                $.ajax({
+                    url: 'GetOutManEventList',
+                    type: 'post',
+                    cache: false,
+                    async: false,
+                    dataType: "json",
+                    data: "Company=@(Emp.Company.ToString().Trim())&OutMan=@(Emp.EmployeeNo.ToString().Trim())&SDATE=" + $.fullCalendar.formatDate(start, "yyyyMMdd") + "&EDATE=" + $.fullCalendar.formatDate(end, "yyyyMMdd"),
+                    success: function (data) {
+                        callback(data);
+
+
+                        //更新我的清單
+                        var out = "";
+                        for (i = 0; i < data.length; i++) {
+
+                            
+                            if (data[i].OutId=="")
+                            {
+                                continue;
+                            }
+
+                            out += "<tr class='OutgogingList' IsEdit='"+data[i].IsEdit+"'  OutId='"+data[i].OutId+"' OutDate='"+$.fullCalendar.formatDate(data[i].start, "yyyy-MM-dd")+"' OutTime='"+data[i].OutTime+"' Location='"+data[i].Location+"'  CustomerName='"+data[i].CustomerName+"' OutDescription='"+data[i].OutDescription+"' GoOutTime='"+data[i].GoOutTime+"' >"
+                                   +"<td align='center'>"+$.fullCalendar.formatDate(data[i].start, "yyyy-MM-dd")  +"<br>"+data[i].OutTime+"</td>"
+
+                                   +"<td align='center'>"+data[i].GoOutTime +"</td>"
+                                   +"<td>"+data[i].Location +"</td>"
+                                   +"<td>"+data[i].CustomerName +"</td>"
+                                   +"</tr>";
+                        }
+
+                        $("#MyList tbody").html(out);
+
+
+
+
+
+                        //賦予重新事件
+                        $(".OutgogingList").dblclick(function() {
+                            $("#EditOutId").val($(this).attr("OutId"));
+ 
+                            $("#EditOutgoingGoOutTime").val($(this).attr("GoOutTime"));
+                            $("#EditOutgoingOutDate").val($(this).attr("OutDate"));
+                            $("#EditOutgoingOutTime").val($(this).attr("OutTime"));
+                            $("#EditOutgoingLocation").val($(this).attr("Location"));
+                            $("#EditOutgoingCustomerName").val($(this).attr("CustomerName"));
+
+
+                            $("#EditOutgoingDesc").val($(this).attr("OutDescription"));
+                            $("#EditModal").modal('show');
+                        })
+                    }
+		            
+                })
+            }
+        });
+		
+         
+
+
+        function InsertTableRow(OutgoingTime){
+            var table = document.getElementById("InsertList").getElementsByTagName('tbody')[0];
+            var row = table.insertRow(table.rows.length);
+            var cell0 = row.insertCell(0);
+            var cell1 = row.insertCell(1);
+            var cell2 = row.insertCell(2);
+            var cell3 = row.insertCell(3);
+            var cell4 = row.insertCell(4);
+
+
+
+            cell0.innerHTML  = '<input type="text" class="form-control" placeholder="預計外出時間" name="InsertOutgoingTime" value="'+OutgoingTime+'"   >';
+
+            cell1.innerHTML  = '<input type="text" class="form-control" placeholder="會議時間" name="InsertOutgoingGoOutTime" value="'+OutgoingTime+'"   >';
+
+            cell2.innerHTML  = '<input type="text" class="form-control" placeholder="請輸入地點" name="InsertOutgoingLocation" >';
+            cell3.innerHTML  = '<input type="text" class="form-control" placeholder="請輸入客戶名稱" name="InsertOutgoingCustomerName" >';
+
+
+            if(table.rows.length==1)
+            {
+                cell4.innerHTML  = '&nbsp;';
+            }
+            else
+            {
+                cell4.innerHTML  = '<button onclick="RemoveTableRow(this)"><span class="glyphicon glyphicon-trash">移除</span></button>';
+            }
+
+            InsertTableRowNum++;
+
+
+            $('.form-control[name="InsertOutgoingTime"]').datetimepicker({
+                language: 'zh-TW',
+                weekStart: 0,
+                todayBtn: 0,
+                autoclose: 0,
+                todayHighlight: 0,
+                startView: 1,
+                minView: 0,
+                maxView: 0,
+                pickDate: false,
+                autoclose: true,
+                forceParse: 0,
+                format: 'hh:ii'
+            });
+
+
+            $('.form-control[name="InsertOutgoingGoOutTime"]').datetimepicker({
+                language: 'zh-TW',
+                weekStart: 0,
+                todayBtn: 0,
+                autoclose: 0,
+                todayHighlight: 0,
+                startView: 1,
+                minView: 0,
+                maxView: 0,
+                pickDate: false,
+                autoclose: true,
+                forceParse: 0,
+                format: 'hh:ii'
+            });
+
+
+
+        }
+
+
+
+        //移除
+        window.RemoveTableRow = function(r) {
+            var i = r.parentNode.parentNode.rowIndex;
+            document.getElementById("InsertList").getElementsByTagName('tbody')[0].deleteRow(i-1);
+        }
+
+
+
+        $( "#DeleteOutgoingBtn" ).click(function() {
+            //刪除事件
+
+            var Model =  @Html.Raw(Json.Encode(new OutgoingEventModel()));
+                Model.OutId= $("#EditOutId").val();
+
+
+                $.ajax({
+                    type: "POST",
+                    url: "DeleteOutgoingManage",
+                    dataType: 'Json',
+                    data: "OutMan=@(Emp.EmployeeNo.ToString().Trim())&OutgoingJson="+JSON.stringify(Model),
+                    async: false,
+                    success: function (data) {
+
+                        if (data == "1") {
+                            Update();
+
+                            $("#EditModal").modal('hide');
+
+                        } else {
+                            $("#EditModal").modal('hide');
+                            SysShowAlert("刪除失敗!"+data, "alert-danger");
+                        }
+                    }
+                })
+
+
+
+
+
+            })
+
+
+
+        $( "#EditOutgoingBtn" ).click(function() {
+
+
+            var Model =  @Html.Raw(Json.Encode(new OutgoingEventModel()));
+                 Model.OutId= $("#EditOutId").val();
+                 Model.GoOutTime = $("#EditOutgoingGoOutTime").val();
+                 Model.OutDate= $("#EditOutgoingOutDate").val();
+                 Model.OutTime= $("#EditOutgoingOutTime").val();
+                 Model.Location= $("#EditOutgoingLocation").val();
+                 Model.CustomerName= $("#EditOutgoingCustomerName").val();
+                 Model.OutDescription= $("#EditOutgoingDesc").val();
+                 
+                                                 
+                 if(Model.OutDate=="" || Model.OutTime=="" || Model.Location=="" || Model.CustomerName==""){
+                     alert("您尚有資料未填寫!");
+                     return;
+                 }
+
+     
+                 //修改事件
+                 $.ajax({
+                     type: "POST",
+                     url: "EditOutgoingManage",
+                     dataType: 'Json',
+                     data: "OutMan=@(Emp.EmployeeNo.ToString().Trim())&OutgoingJson="+encodeURIComponent(JSON.stringify(Model)),
+                     async: false,
+                     success: function (data) {
+
+                         if (data == "1") {
+                             Update();
+
+                             $("#EditModal").modal('hide');
+
+                         } else {
+                             $("#EditModal").modal('hide');
+                             SysShowAlert("編輯失敗!"+data, "alert-danger");
+                         }
+                     }
+                 })
+             })
+
+		
+        $( "#InsertOutgoingBtn" ).click(function() {
+            //新增事件資料
+            if($("#InsertList input[name=InsertOutgoingLocation]").length==0)
+            {
+                alert("尚無任何資料");
+                return;
+            }
+
+
+
+            var OutgoingList=[];
+            for(i=0;i<$("#InsertList input[name=InsertOutgoingLocation]").length;i++)
+            {
+                var Model =  @Html.Raw(Json.Encode(new OutgoingEventModel()));
+
+
+                //Model.OutDate=$("#InsertOutgoingOutDate]").val();
+                //Model.OutTime=$("#InsertOutgoingOutTime]").val();
+                Model.GoOutTime=$("#InsertList input[name=InsertOutgoingGoOutTime]").eq(i).val();
+                Model.OutTime=$("#InsertList input[name=InsertOutgoingTime]").eq(i).val();
+                Model.Location=$("#InsertList input[name=InsertOutgoingLocation]").eq(i).val();
+                Model.CustomerName=$("#InsertList input[name=InsertOutgoingCustomerName]").eq(i).val();
+
+                if(Model.Location=="" || Model.CustomerName==""){
+                    alert("您尚有資料未填寫!");
+                    return;
+                }
+
+
+                OutgoingList.push(Model);
+            }
+
+
+
+                var FormModel =  @Html.Raw(Json.Encode(new OutgoingFormModel()));
+                FormModel.SDate=$("#InsertOutgoingOutDate").val();
+                //FormModel.STime=$("#InsertOutgoingOutTime").val();
+                FormModel.OutDescription=$("#InsertOutgoingDesc").val();
+                
+                //alert(JSON.stringify(FormModel));
+                $.ajax({
+                    type: "POST",
+                    url: "InsertOutgoingManage",
+                    dataType: 'Json',
+                    data: "OutMan=@(Emp.EmployeeNo.ToString().Trim())&OutgoingJson="+encodeURIComponent(JSON.stringify(OutgoingList))+"&OutgoingFormJson="+encodeURIComponent(JSON.stringify(FormModel)),
+                    async: false,
+                    success: function (data) {
+		            
+                        if(data=="1"){
+                            Update();
+                            $("#InsertModal").modal('hide');
+                        }else{
+                            $("#InsertModal").modal('hide');
+                            SysShowAlert("新增失敗!"+data, "alert-danger");
+                        }
+                    }
+                })
+            
+            });
+
+
+
+
+        
+        $('.form_date').datetimepicker({
+            language: 'zh-TW',
+            weekStart: 1,
+            todayBtn: 1,
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 2,
+            minView: 2,
+            forceParse: 0,
+            format: 'yyyy-mm-dd'
+        });
+
+
+        $('.form_time').datetimepicker({
+            language: 'zh-TW',
+            weekStart: 0,
+            todayBtn: 0,
+            autoclose: 0,
+            todayHighlight: 0,
+            startView: 1,
+            minView: 0,
+            maxView: 0,
+            pickDate: false,
+            forceParse: 0,
+            autoclose: true,
+            format: 'hh:ii'
+        });
+
+
+
+        $("#InsertTableBtn").click(function() {
+            InsertTableRow($("#InsertOutgoingOutTime").val());
+        })
+
+        $("#BackBtn").click(function() {
+            document.location.href = "../Outgoing/Manage?action=BACK";
+        })
+
+        
+    });
+
+
+</script>
+
+
+
+
+
+<!-- 編輯 -->
+<div class="modal fade" id="EditModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">編輯外出記錄</h4>
+      </div>
+
+
+      <div class="modal-body">
+
+
+
+        <div class="row">
+            <span class="col-xs-2">預計外出時間</span>
+            <span class="input-group date form_date col-xs-4" data-date="" data-date-format="yyyymmdd" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                <input class="form-control" id="EditOutgoingOutDate">
+                <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+            </span>
+
+            <span class="input-group date form_time col-xs-4" data-date="" data-date-format="hh:ii" data-link-field="dtp_input3" data-link-format="hh:ii">
+                <input class="form-control" size="16" type="text" value="" id="EditOutgoingOutTime" >
+                <span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
+            </span>
+            <input type="hidden" id="dtp_input3" value="" /><br />
+            <input type="hidden" id="dtp_input2" value="" />
+
+        </div>
+
+          
+        <div class="row">
+            <span class="col-xs-2">會議時間</span>
+
+            <span class="input-group date form_time col-xs-4" data-date="" data-date-format="hh:ii" data-link-field="dtp_input3" data-link-format="hh:ii">
+                <input class="form-control" size="16" type="text" value="" id="EditOutgoingGoOutTime" >
+                <span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
+            </span>
+            <input type="hidden" id="dtp_input3" value="" /><br />
+            <input type="hidden" id="dtp_input2" value="" />
+        </div>
+
+
+        <div>
+            補登原因 : 
+            <input class="form-control" size="16" type="text" value=""  id="EditOutgoingDesc" placeholder="請輸入原因" >
+        </div>
+
+
+
+ 
+         <div class="input-group">
+          <span class="input-group-addon">
+            <label>外出地點</label>
+          </span>
+
+          <input type="text" class="form-control"  id="EditOutgoingLocation" >
+        </div><!-- /input-group -->
+
+
+          <div class="input-group">
+          <span class="input-group-addon">
+            <label>客戶名稱</label>
+          </span>
+
+          <input type="text" class="form-control" id="EditOutgoingCustomerName" >
+        </div><!-- /input-group -->
+
+
+      </div>
+
+
+      <div class="modal-footer">
+
+        <div class="row">
+            <div class="col-xs-6" align="left"><button type="button" class="btn btn-danger" id="DeleteOutgoingBtn" ><span class="glyphicon glyphicon-trash"> 刪除</span></button></div>
+            <div class="col-xs-6"><button type="button" class="btn btn-primary" id="EditOutgoingBtn" ><span class="glyphicon glyphicon glyphicon-pencil"> 儲存</button></div>
+        </div>
+      </div>
+       <input type="hidden" id="EditOutId" >
+
+    </div>
+  </div>
+</div>
+
+
+
+<!-- 新增 -->
+<div class="modal fade" id="InsertModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">新增外出記錄</h4>
+      </div>
+
+
+      <div class="modal-body">
+
+
+
+        <div class="row">
+            <span class="col-xs-2">外出時間</span>
+            <span class="input-group date  col-xs-4" data-date="" data-date-format="yyyymmdd" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                <input class="form-control" id="InsertOutgoingOutDate" disabled="disabled" >
+                <span class="input-group-addon"><span class="glyphicon glyphicon-calendar" ></span></span>
+            </span>
+            <input class="form-control" size="16" type="hidden" value="" id="InsertOutgoingOutTime" >
+
+
+        </div>
+
+          
+        <div>
+            補登原因 : 
+            <input class="form-control" size="16" type="text" value=""  id="InsertOutgoingDesc" placeholder="請輸入原因" >
+        </div>
+          
+         <br>
+
+
+         <table class="table table-bordered table-hover" id="InsertList" >
+             <thead>
+                <tr>
+                    <th width="15%">預計外出時間</th> 
+                    <th width="15%">會議時間</th> 
+                    <th width="25%">外出地點</th>   
+                    <th width="30%">客戶名稱</th> 
+                    <th width="15%"><button id="InsertTableBtn"><span class="glyphicon glyphicon-plus">新增地點</span></button></th>           
+                </tr>
+            </thead>
+             <tbody></tbody>
+        </table>
+
+          
+          
+      </div>
+
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" id="InsertOutgoingBtn" >儲存</button>
+      </div>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+<div class="Contentbody">
+<div class="DivBackBtn">
+    <button type="button" class="btn btn-primary" id="BackBtn" >返回</button>
+</div>
+<div class="row">
+  <div class="col-xs-8">
+      <div id='calendar'></div>
+  </div>
+
+    
+
+
+
+  <div class="col-xs-4" ng-app="indexs">
+
+
+    <h3>員工外出補登作業</h3>
+    <H4>員工編號 : @(Emp.EmployeeNo)</H4>
+    <H4>員工姓名 : @(Emp.EmployeeName)  &nbsp;&nbsp;&nbsp;&nbsp; 英文姓名 : @(Emp.EmployeeEName) </H4>
+
+
+
+    <div>
+
+        <table class="table  table-bordered table-hover" id="MyList">
+            <thead>
+                <tr>
+                    <th>預計外出時間</th>
+                    <th>會議時間</th>
+                    <th>外出地點</th>   
+                    <th>客戶名稱</th>       
+                </tr>
+            </thead>
+
+            <tbody></tbody>
+        </table>
+
+
+    </div>
+ </div>
+
+
+</div>
+</div>
+
+

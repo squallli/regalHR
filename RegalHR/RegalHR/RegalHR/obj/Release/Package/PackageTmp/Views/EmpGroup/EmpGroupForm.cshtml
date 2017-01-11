@@ -1,0 +1,118 @@
+﻿@using RegalHRModel
+@using RegalHR.ModelFactory
+@{
+    string Ver = GeneralModelFactory.Version;
+    Layout = "~/Views/Layout/LayoutPage.AnguLarjs.cshtml";
+    UserFreeStyleModel UserFreeStyle = (UserFreeStyleModel)ViewData["UserFreeStyle"];
+
+    
+    ProgramModel SysProgram = (ProgramModel)ViewData["SysProgram"];
+    EmpGroupModel EmpGroup = (EmpGroupModel)ViewData["EmpGroup"];
+    
+}
+<script>
+    
+    var EmpGroup = @Html.Raw(Json.Encode(EmpGroup));
+</script>
+
+<script src="../js/RegalAngular/EmpGroup/EmpGroupForm.js?@(Ver)"></script>
+
+
+<div class="Contentbody" ng-app="EmpGroupForm" ng-controller="Ctrl">
+    <h3>
+        <button type="button" class="btn btn-primary" ng-click="BackBtn()">返回</button>
+        @(SysProgram.ProgName)
+    </h3>
+
+
+    <div class="row">
+      <div class="col-xs-12" >
+      <div class="input-group" >
+        
+        <span class="input-group-addon"><label>公司別 : {{ EmpGroup.Emp.CompanyName }}</label></span>
+
+        <span class="input-group-addon"><label>部門 : {{ EmpGroup.Emp.DepartMentName }}</label></span>
+        
+        <span class="input-group-addon"><label>員工編號 : {{ EmpGroup.Emp.EmployeeNo }}</label></span>
+
+        <span class="input-group-addon"><label>姓名 : {{ EmpGroup.Emp.EmployeeName }}</label></span>
+        <span class="input-group-addon"><label>英文名 : {{ EmpGroup.Emp.EmployeeEName }}</label></span>
+      </div>
+      </div>
+
+
+    </div>
+
+
+
+    <center>
+        <table width="100%">
+            <tr>
+                <td width="50%"><h4>尚未加入權限</h4></td>
+                <td width="50%"><h4>使用權限</h4></td>
+            </tr>
+            <tr>
+                <td valign="top">
+                    <div class="EmpGroupList">
+                        <table class="table  table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th width="15%">權限代碼</th>
+                                    <th width="20%">權限名稱</th>
+                                    <th width="15%">視野範圍</th>
+                                    <th width="40%">作業名稱</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr ng-repeat="Data in EmpGroup.NoGroupList" ng-dblclick="InGroup(Data,$index)" >
+                                    <td>{{Data.GroupID}}</td>
+                                    <td>{{Data.GroupName}}</td>
+                                    <td>{{Data.ViewLevel}}</td>
+                                    <td>
+                                        <li ng-repeat="Program in Data.GroupProgramList">{{Program.ProgName}}</li>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </td>
+                <td valign="top">
+                    <div class="EmpGroupList">
+                        <table class="table  table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th width="15%">權限代碼</th>
+                                    <th width="20%">權限名稱</th>
+                                    <th width="15%">視野範圍</th>
+                                    <th width="40%">作業名稱</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr ng-repeat="Data in EmpGroup.GroupList" ng-dblclick="OutGroup(Data,$index)">
+                                    <td>{{Data.GroupID}}</td>
+                                    <td>{{Data.GroupName}}</td>
+                                    <td>{{Data.ViewLevel}}</td>
+                                    <td>
+                                        <li ng-repeat="Program in Data.GroupProgramList">{{Program.ProgName}}</li>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+
+
+                </td>
+            </tr>
+        </table>
+    </center>
+
+
+    <div class="pull-right">
+        <button type="button"  class="btn btn-primary" ng-click="SaveBtn()" >儲&nbsp;&nbsp;&nbsp;&nbsp;存</button>
+    </div>
+
+    <br>
+</div>

@@ -1,0 +1,168 @@
+﻿@using RegalHRModel
+@using Newtonsoft.Json;
+@{
+    Layout = "~/Views/Layout/LayoutRegalBonPage.cshtml";
+
+    EmpOutingInfoModel EmpOutingInfo = (EmpOutingInfoModel)ViewData["EmpOutingInfo"];
+
+    string StartTime = DateTime.Now.AddMinutes(20).ToString("yyyy-MM-dd HH:mm");
+    string EndTime = DateTime.Now.AddMinutes(-20).ToString("yyyy-MM-dd HH:mm");
+    
+    
+}
+<div id="head">
+    @(EmpOutingInfo.OutgoingDate) 外出行程<BR>
+    員工編號: @(EmpOutingInfo.EmployeeNo) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 姓名: @(EmpOutingInfo.EmployeeName)
+</div>
+
+<div id="bodyContent" >
+    <table id="OutgoingTable">
+        <tr style="background-color:#58D3F7">
+            <td width="8%" align="center" ><button id="ChkAllBtn">全選</button></td>
+            <td width="12%" align="center">外出時間</td>
+            <td width="35%" align="center">客戶名稱</td>
+            <td width="35%" align="center">客戶地點</td>
+        </tr>
+        @for (int i = 0; i < EmpOutingInfo.OutgoingList.Count;i++ )
+        {
+            <tr>
+                <td align="center">
+
+                    @if(EmpOutingInfo.OutgoingList[i].GoOutTime=="")
+                    {
+                        @:<input type="checkbox" class="ChkBox" alt="@(EmpOutingInfo.OutgoingList[i].CustomerName)" title="@(EmpOutingInfo.OutgoingList[i].OutTime)" value="@(EmpOutingInfo.OutgoingList[i].OutId)" />
+                    }
+
+                </td>
+                <td align="center">@( EmpOutingInfo.OutgoingList[i].OutTime)</td>
+                <td>&nbsp; @( EmpOutingInfo.OutgoingList[i].CustomerName)</td>
+                <td>&nbsp; @( EmpOutingInfo.OutgoingList[i].Location)</td>
+            </tr>
+
+        }
+
+
+    </table>
+
+    <div align="right"><Button id="confirmBtn">確定時間</Button></div>
+</div>
+
+
+
+
+
+<!-- 新增 -->
+<div class="modal fade" id="MessageModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">系統訊息</h4>
+      </div>
+
+
+      <div class="modal-body">
+          <h3>勾選項目超出原定時間20分鐘</h3>
+          <h3 id="Message"></h3>
+      </div>
+
+
+      <div class="modal-footer">
+        <div class="row">
+            <div class="col-xs-6" align="left"><button type="button" class="btn btn-danger btn-lg" onclick="Cancel()" > 取&nbsp;&nbsp;&nbsp;&nbsp;消</button></div>
+            <div class="col-xs-6"><button type="button" class="btn btn-primary btn-lg" onclick="Send()">確&nbsp;&nbsp;&nbsp;&nbsp;認</button></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+<script>
+
+    var OutIdAry = "";
+
+    var StartTime = "@(StartTime)";
+    var EndTime = "@(EndTime)";
+
+    $("#ChkAllBtn").click(function () {
+        $(".ChkBox").prop("checked", true);
+    })
+
+
+
+    $("#confirmBtn").click(function () {
+
+
+
+
+        OutIdAry = "";
+        var CheckList=$(".ChkBox:checked");
+        var Msg = "";
+
+        if (CheckList.length==0) {
+            alert("尚無勾選任何資料");
+            return;
+        }
+
+
+
+
+        for(var i=0;i<CheckList.length;i++)
+        {
+            
+            var d = "@(DateTime.Now.ToString("yyyy-MM-dd")) " + CheckList[i].title;
+
+            if (StartTime < d || EndTime> d)
+            {
+                Msg += " 外出時間:" + CheckList[i].title + " , 客戶名稱:" + CheckList[i].alt + " \n";
+            }
+            
+
+            OutIdAry +=CheckList[i].value;
+
+            if(CheckList.length-1!=i){
+                OutIdAry+=",";
+            }
+        }
+        
+
+
+
+        if (Msg != "") {
+            var r = confirm("外出時間與實際出門時間差距20分鐘 , 請確認勾選是否正確? \n" + Msg);
+            if (!r) {
+                return;
+            }
+        }
+
+
+        Send();
+    })
+
+    function Cancel() {
+        $("#MessageModal").modal('hide');
+    }
+
+    function Send() {
+        $.ajax({
+            type: "POST",
+            url: "../RegalBon/UpdateOutgoing",
+            data: "OutMan=@(EmpOutingInfo.EmployeeNo)&OutIdAry=" + OutIdAry,
+            async: false,
+            success: function (data) {
+                location.href = "../RegalBon/";
+            },
+            error: function () {
+                location.href = "./OutgoingInfo?EmpNo=@(EmpOutingInfo.EmployeeNo)";
+            }
+        })
+    }
+
+</script>

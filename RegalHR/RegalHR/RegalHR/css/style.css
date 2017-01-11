@@ -1,0 +1,134 @@
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
+}
+
+
+body {
+  padding-top: 45px;
+  overflow-y: auto; overflow-x: hidden;
+  padding-left: 5px;
+  padding-right:5px;
+
+}
+
+.EventMore{
+    text-align:right;
+}
+
+.Contentbody
+{
+    min-height: 480px;
+    padding:12px;
+
+}
+
+nav {
+
+	height:20px;
+}
+.navbar {
+  
+}
+
+.navbar li a:hover{ border-bottom: 1px solid #295698}
+
+
+
+footer
+{
+    text-align:center;
+    background-color: #eee;
+    padding: 20px;
+    padding-left: -5px;
+    padding-right: -5px;
+}
+
+.table thead 
+{
+    background-color:#87cefa;
+
+}
+
+.tooltipevent {
+    padding:5px;
+    z-index:99;
+    position:absolute;
+    background-color:#f0f8ff;
+    border: 1px solid;
+}
+
+.Login
+{
+    margin:0 auto;
+    padding:20px;
+    width:300px;
+}
+
+.error {
+    font-size : 18px;
+    color:red;
+}
+
+.ProgramForm 
+{
+    margin:0 auto;
+    padding:20px;
+    width:450px;
+}
+
+.EmpForm 
+{
+    margin:0 auto;
+    padding:20px;
+    width:450px;
+}
+
+
+.GroupForm 
+{
+    margin:0 auto;
+    padding:20px;
+    width:450px;
+}
+
+
+
+.MessageBar 
+{
+    z-index:99;
+    position:fixed;
+    right:0px;
+    top:60px;
+    width:30%;
+    font-size:28px;
+
+}
+
+
+.EmpGroupList 
+{
+    height:300px;
+    overflow:auto;
+}
+
+.input-group {
+    padding-bottom: 4px;
+}
+
+#ShowListModal .modal-dialog {
+    width:75%;
+}
+
+#ShowDtlModal .modal-dialog {
+    width:85%;
+}
+
+
+#ShowCheckInFormModal .modal-dialog {
+    width:60%;
+}
+
+
+#InsertModal .modal-dialog {
+    width:70%;
+}

@@ -1,0 +1,659 @@
+﻿@using RegalHRModel
+@using RegalHR.ModelFactory
+@{
+    string Ver = GeneralModelFactory.Version;
+    Layout = "~/Views/Layout/LayoutPage.cshtml";
+    //Layout = "~/Views/Layout/LayoutPage.AnguLarjs.cshtml";
+
+
+
+    HolidayModel Holiday = (HolidayModel)ViewData["Holiday"];
+
+    string DefaultMonth = "";
+    if (DateTime.Now.ToString("yyyy") == Holiday.YearId)
+    {
+        DefaultMonth = (DateTime.Now.Month-1).ToString();
+    }else{
+        DefaultMonth = "0";
+    }
+
+    
+}
+
+<link href='../css/fullcalendar.css?@(Ver)' rel='stylesheet' />
+<script src='../js/jquery-ui.custom.min.js'></script>
+<script src='../js/fullcalendar.min.js'></script>
+
+<style>
+
+	#calendar {
+		max-width: 900px;
+		margin: 0 auto;
+	}
+
+</style>
+
+<script>
+
+    var YearId = "@(Holiday.YearId)";
+    var DefaultMonth = "@(DefaultMonth)";
+
+    function Update() {
+        //刷新整個頁面
+        $('#calendar').fullCalendar('refetchEvents');
+
+    }
+
+
+
+    $(document).ready(function() {
+
+
+        $('#calendar').fullCalendar({
+            //theme: true,
+            header: {
+                left:   '',
+                center: 'title',
+                right:  'prev,next'
+            },
+
+
+            year: YearId,
+            month: DefaultMonth,
+
+            editable: true,
+            monthNames: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
+            monthNamesShort: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
+            dayNames: ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'],
+            dayNamesShort: ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'],
+            buttonText: {
+                prev: '<',  // left triangle
+                next: '>',  // right triangle
+                prevYear: '<<', // <<
+                nextYear: '>>;', // >>
+                today: '今日',
+                month: '',
+                week: '',
+                day: ''
+            },
+            allDayText: '整日',
+            firstDay: 1,
+
+
+            eventResize: function(event,dayDelta,minuteDelta,revertFunc) {
+                //調整區間編輯
+                $('.tooltipevent').remove();
+                $("#EditModal").modal('show');
+
+                revertFunc();
+            },
+            eventDrop: function(event,dayDelta,minuteDelta,allDay,revertFunc) {
+                //拖曳編輯
+                $('.tooltipevent').remove();
+
+                revertFunc();
+
+            },
+            eventRender: function(event, element) {
+                $('.tooltipevent').remove();
+
+                element.bind('dblclick', function () {
+
+                    //點兩下編輯
+                    $("#EditHolidayId").val(event.id);
+                    $("#EditHolidayDate").val($.fullCalendar.formatDate(event.start, "yyyy-MM-dd"));
+                    $("#EditHolidayCtype").val(event.Ctype);
+                    $("#EditHolidayDisplay").val(event.Display);
+                    $("#EditHolidayMemo").val(event.Memo);
+                    $("#EditModal").modal('show');
+                });
+
+            },
+            dayRender: function(Eventdate, element) {
+                $('.tooltipevent').remove();
+
+                element.bind('dblclick', function() {
+
+
+                    
+
+                    //不能點選其他年之日期
+                    if($.fullCalendar.formatDate(Eventdate, "yyyy") != YearId)
+                    {
+                        return;
+                    }
+
+
+
+
+                    var ObjAry = $('#calendar').fullCalendar('clientEvents',$.fullCalendar.formatDate(Eventdate, "yyyyMMdd"));
+
+                    
+
+                    if(ObjAry.length==1)
+                    {
+                        //點兩下編輯 - 已存在資料
+
+                        $("#EditHolidayId").val(ObjAry[0].id);
+                        $("#EditHolidayDate").val($.fullCalendar.formatDate(ObjAry[0].start, "yyyy-MM-dd"));
+                        $("#EditHolidayCtype").val(ObjAry[0].Ctype);
+                        $("#EditHolidayDisplay").val(ObjAry[0].Display);
+                        $("#EditHolidayMemo").val(ObjAry[0].Memo);
+                        $("#EditModal").modal('show');
+
+                    }
+                    else
+                    {
+                        //點兩下新增
+                        $("#InsertModal").modal('show');
+                        $("#InsertHolidayDate").val($.fullCalendar.formatDate(Eventdate, "yyyy-MM-dd"));
+                        $("#InsertHolidayCtype").val("0");
+                        $("#InsertHolidayDisplay").val("0");
+                        $("#InsertHolidayMemo").val("");
+
+                    }
+  
+
+                });
+
+			   
+            },
+
+            eventMouseover: function(event,calEvent, jsEvent) {
+                var tooltip = '<div class="tooltipevent"> 日 期:'+$.fullCalendar.formatDate(event.start,"yyyy-MM-dd")+' <br> 性  質:'+event.CtypeName+' <br> 標  註:'+event.Memo+' <br> 顯示於首頁:'+event.DisplayName+' </div>';
+                $("body").append(tooltip);
+                $(this).mouseover(function(e) {
+        
+                
+                }).mousemove(function(e) {
+                    $('.tooltipevent').css('top', e.pageY + 10);
+                    $('.tooltipevent').css('left', e.pageX + 20);
+                });
+            },
+
+            eventMouseout: function (calEvent, jsEvent) {
+
+                $(this).css('z-index', 99);
+                $('.tooltipevent').remove();
+            },
+            events: function (start, end, callback) {
+
+                
+                var moment = $('#calendar').fullCalendar('getDate');
+
+
+                //不能跨越其他年份--------
+                if($.fullCalendar.formatDate(moment, "MM")=="01")
+                {
+                    $(".fc-button-prev").addClass('fc-state-disabled');
+                }else{
+                    $(".fc-button-prev").removeClass('fc-state-disabled'); 
+                }
+                
+
+                //不能跨越其他年份--------
+                if($.fullCalendar.formatDate(moment, "MM")=="12")
+                {
+                    $(".fc-button-next").addClass('fc-state-disabled');
+                }else{
+                    $(".fc-button-next").removeClass('fc-state-disabled'); 
+                }
+                
+                for(i=1;i<$(".fc-grid .fc-day-number").length+1;i++)
+                {
+                    if(i%7==5 || i%7==6)
+                    {
+                        $(".fc-grid .fc-day-number").eq(i).css("color","red");
+                    }
+                }
+                
+                $.ajax({
+                    url: 'GetEventList',
+                    type: 'post',
+                    cache: false,
+                    async: false,
+                    dataType: "json",
+                    data: "Company=@(Holiday.Company)&YearId=@(Holiday.YearId)&SDATE="+$.fullCalendar.formatDate(start, "yyyyMMdd") + "&EDATE=" + $.fullCalendar.formatDate(end, "yyyyMMdd"),
+                    success: function (data) {
+                        callback(data);
+
+
+
+
+
+
+
+
+                        //更新我的清單
+                        var out = "";
+                        for (i = 0; i < data.length; i++) {
+
+
+                            out += "<tr class='HolidayList' HolidayId='"+data[i].id+"'  >"
+                                   +"<td>"+$.fullCalendar.formatDate(data[i].start, "yyyy-MM-dd")+"</td>"
+                                   +"<td>"+data[i].CtypeName +"</td>"
+                                   +"<td>"+data[i].Memo +"</td>"
+                                   +"<td>"+data[i].DisplayName +"</td>"
+                                   +"</tr>";
+                        }
+
+                        $("#MyList tbody").html(out);
+
+
+                        //賦予重新事件
+                        $(".HolidayList").dblclick(function() {
+                            
+                            var ObjAry = $('#calendar').fullCalendar('clientEvents',$(this).attr("HolidayId"));
+
+                            if(ObjAry.length==1)
+                            {
+                                //點兩下編輯 - 已存在資料
+
+                                $("#EditHolidayId").val(ObjAry[0].id);
+                                $("#EditHolidayDate").val($.fullCalendar.formatDate(ObjAry[0].start, "yyyy-MM-dd"));
+                                $("#EditHolidayCtype").val(ObjAry[0].Ctype);
+                                $("#EditHolidayDisplay").val(ObjAry[0].Display);
+                                $("#EditHolidayMemo").val(ObjAry[0].Memo);
+                                $("#EditModal").modal('show');
+                            }
+
+
+                        })
+                    }
+		            
+                })
+            }
+        });
+		
+         
+
+
+
+
+
+        $( "#DeleteHolidayBtn" ).click(function() {
+            //刪除事件
+
+            var Model =  @Html.Raw(Json.Encode(new HolidayDtlModel()));
+                Model.id= $("#EditHolidayId").val();
+                Model.YearId="@(Holiday.YearId)";
+                Model.Company="@(Holiday.Company)";
+
+                $.ajax({
+                    type: "POST",
+                    url: "DeleteHolidayDtl",
+                    dataType: 'Json',
+                    data: "HolidayJson="+JSON.stringify(Model) ,
+                    async: false,
+                    success: function (data) {
+
+                        if (data == "1") {
+                            Update();
+                            $("#EditModal").modal('hide');
+
+                        } else {
+                            $("#EditModal").modal('hide');
+                            SysShowAlert("刪除失敗!"+data, "alert-danger");
+                        }
+                    }
+                })
+
+
+
+
+
+            })
+
+
+
+        $( "#EditHolidayBtn" ).click(function() {
+            
+            var Model =  @Html.Raw(Json.Encode(new HolidayDtlModel()));
+            
+            Model.Ctype=$("#EditHolidayCtype").val();
+            Model.Display=$("#EditHolidayDisplay").val();
+            Model.Memo=$("#EditHolidayMemo").val();
+            
+            Model.id= $("#EditHolidayId").val();
+            Model.YearId="@(Holiday.YearId)";
+            Model.Company="@(Holiday.Company)";
+
+
+            $.ajax({
+                type: "POST",
+                url: "EditHolidayDtl",
+                dataType: 'Json',
+                data: "HolidayJson="+encodeURIComponent(JSON.stringify(Model)),
+                async: false,
+                success: function (data) {
+                    if(data=="1"){
+                        Update();
+                        $("#EditModal").modal('hide');
+                    }else{
+                        $("#EditModal").modal('hide');
+                        SysShowAlert("編輯失敗!"+data, "alert-danger");
+                    }
+                }
+            })
+
+        })
+
+		
+        $( "#InsertHolidayBtn" ).click(function() {
+            //新增事件資料
+                
+
+
+                var Model =  @Html.Raw(Json.Encode(new HolidayDtlModel()));
+                    Model.Holiday=$("#InsertHolidayDate").val();
+                    Model.Ctype=$("#InsertHolidayCtype").val();
+                    Model.Display=$("#InsertHolidayDisplay").val();
+                    Model.Memo=$("#InsertHolidayMemo").val();
+                    Model.YearId="@(Holiday.YearId)";
+                    Model.Company="@(Holiday.Company)";
+
+
+                $.ajax({
+                    type: "POST",
+                    url: "InsertHolidayDtl",
+                    dataType: 'Json',
+                    data: "HolidayJson="+encodeURIComponent(JSON.stringify(Model)),
+                    async: false,
+                    success: function (data) {
+                        if(data=="1"){
+                            Update();
+                            $("#InsertModal").modal('hide');
+                        }else{
+                            $("#InsertModal").modal('hide');
+                            SysShowAlert("新增失敗!"+data, "alert-danger");
+                        }
+                    }
+                })
+            
+            });
+
+
+
+
+        
+        $('.form_date').datetimepicker({
+            language: 'zh-TW',
+            weekStart: 1,
+            todayBtn: 1,
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 2,
+            minView: 2,
+            forceParse: 0,
+            format: 'yyyy-mm-dd'
+        });
+
+
+        $('.form_time').datetimepicker({
+            language: 'zh-TW',
+            weekStart: 0,
+            todayBtn: 0,
+            autoclose: 0,
+            todayHighlight: 0,
+            startView: 1,
+            minView: 0,
+            maxView: 0,
+            pickDate: false,
+            forceParse: 0,
+            format: 'hh:ii'
+        });
+
+
+
+
+        $("#BackBtn").click(function() {
+            document.location.href = "../Holiday/?action=BACK";
+        })
+
+
+
+
+
+
+        
+
+        
+    });
+
+
+</script>
+
+
+
+
+
+<!-- 編輯 -->
+<div class="modal fade" id="EditModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">編輯行事曆</h4>
+      </div>
+
+
+      <div class="modal-body">
+
+
+
+
+
+
+        <div class="row">
+            <div class="col-xs-6">
+                <div class="input-group">
+                  <span class="input-group-addon">
+                    <label>日&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;期 </label>
+                  </span>
+                  <input type="text"  class="form-control" id="EditHolidayDate"  readonly >
+                </div><!-- /input-group -->
+            </div>
+        </div>
+
+
+        <div class="row">
+
+
+            
+            <div class="col-xs-6">
+             <div class="input-group">
+                  <span class="input-group-addon">
+                    <label>性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;質</label>
+                  </span>
+
+                  <select class="selectpicker show-tick form-control" id="EditHolidayCtype"  >
+                      <option value="0">上班日(備註用)</option>
+                      <option value="1">公休</option>
+                      <option value="2">國定假日</option>
+                      <option value="3">休假</option>
+                      <option value="4">颱風假</option>
+                  </select>
+
+
+             </div>
+           </div>
+
+            <div class="col-xs-6">
+                  <div class="input-group">
+                      <span class="input-group-addon">
+                        <label>顯示於首頁</label>
+                      </span>
+
+                      <select class="selectpicker show-tick form-control" id="EditHolidayDisplay"  >
+                          <option value="0">否</option>
+                          <option value="1">是</option>
+                      </select>
+                 </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+         <div class="col-xs-12">
+             <div class="input-group">
+                  <span class="input-group-addon">
+                    <label>標&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;註</label>
+                  </span>
+                  <input type="text" class="form-control"  id="EditHolidayMemo" >
+             </div>
+        </div>
+        </div>
+
+      </div>
+
+
+      <div class="modal-footer">
+
+        <div class="row">
+            <div class="col-xs-6" align="left"><button type="button" class="btn btn-danger" id="DeleteHolidayBtn" ><span class="glyphicon glyphicon-trash"> 刪除</span></button></div>
+            <div class="col-xs-6"><button type="button" class="btn btn-primary" id="EditHolidayBtn" ><span class="glyphicon glyphicon glyphicon-pencil"> 儲存</button></div>
+        </div>
+      </div>
+       <input type="hidden" id="EditHolidayId" >
+
+    </div>
+  </div>
+</div>
+
+
+
+<!-- 新增 -->
+<div class="modal fade" id="InsertModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">新增行事曆</h4>
+      </div>
+
+
+      <div class="modal-body">
+
+
+
+
+        <div class="row">
+            <div class="col-xs-6">
+                <div class="input-group">
+                  <span class="input-group-addon">
+                    <label>日&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;期 </label>
+                  </span>
+                  <input type="text"  class="form-control" id="InsertHolidayDate"  readonly >
+                </div><!-- /input-group -->
+            </div>
+        </div>
+
+
+        <div class="row">
+
+
+            
+            <div class="col-xs-6">
+             <div class="input-group">
+                  <span class="input-group-addon">
+                    <label>性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;質</label>
+                  </span>
+
+                  <select class="selectpicker show-tick form-control" id="InsertHolidayCtype"  >
+                      <option value="0">上班日(備註用)</option>
+                      <option value="1">公休</option>
+                      <option value="2">國定假日</option>
+                      <option value="3">休假</option>
+                      <option value="4">颱風假</option>
+                  </select>
+
+
+             </div>
+           </div>
+
+            <div class="col-xs-6">
+                  <div class="input-group">
+                      <span class="input-group-addon">
+                        <label>顯示於首頁</label>
+                      </span>
+
+                      <select class="selectpicker show-tick form-control" id="InsertHolidayDisplay"  >
+                          <option value="0">否</option>
+                          <option value="1">是</option>
+                      </select>
+                 </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+         <div class="col-xs-12">
+             <div class="input-group">
+                  <span class="input-group-addon">
+                    <label>標&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;註</label>
+                  </span>
+                  <input type="text" class="form-control"  id="InsertHolidayMemo" >
+             </div>
+        </div>
+        </div>
+      </div>
+
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" id="InsertHolidayBtn" >儲存</button>
+      </div>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+<div class="Contentbody">
+<div class="DivBackBtn">    <button type="button" class="btn btn-primary" id="BackBtn" >返回</button></div>
+<div class="row">
+  <div class="col-xs-8">
+      <div id='calendar'></div>
+  </div>
+
+    
+
+
+
+  <div class="col-xs-4" ng-app="indexs">
+
+
+    <h3>工作日設定作業</h3>
+    <H4>年份 : <b>@(Holiday.YearId)</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;公司別 : <b>@(Holiday.CompanyName)</b></H4>
+
+
+
+
+    <div>
+
+        <table class="table table-bordered table-hover" id="MyList">
+            <thead>
+                <tr>
+                    <th>日 期</th>  
+                    <th>性 質</th>
+                    <th>標 註</th> 
+                    <th>顯示於首頁</th>       
+                </tr>
+            </thead>
+
+            <tbody></tbody>
+        </table>
+
+
+    </div>
+ </div>
+
+
+</div>
+</div>
+
+

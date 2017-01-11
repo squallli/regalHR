@@ -1,0 +1,303 @@
+﻿@using RegalHRModel
+@using RegalHR.ModelFactory
+@{
+    
+    string Ver = GeneralModelFactory.Version;
+    Layout = "~/Views/Layout/LayoutPage.AnguLarjs.cshtml";
+
+    EmpModel Emp = (EmpModel)ViewData["Emp"];
+    ProgramModel SysProgram = (ProgramModel)ViewData["SysProgram"];
+
+
+    List<CompanyModel> CompanyList = null;
+    List<DepartMentModel> DepartMentList = null;
+    CompanyList = GeneralModelFactory.GetCompanyList("");
+    DepartMentList = GeneralModelFactory.GetDepList("", "");
+}
+<script>
+    var Emp = @Html.Raw(Json.Encode(Emp));
+
+    var CompanyList = @Html.Raw(Json.Encode(CompanyList));
+
+    var DepartMentList = @Html.Raw(Json.Encode(DepartMentList));
+
+
+</script>
+
+
+<script src="../js/RegalAngular/TempEmp/TempEmpForm.js?@(Ver)"></script>
+
+<div class="Contentbody" ng-app="TempEmpForm" ng-controller="Ctrl"  ng-cloak>
+<H3>
+    <button type="button" class="btn btn-primary" ng-click="BackBtn()">返回</button>
+    @(SysProgram.ProgName)
+</H3>
+
+<div class="FormBody">
+
+
+    <div class="EmpForm">
+        <button  ng-if="Emp.Mode=='EDIT'" type="button" class="btn btn-default" ng-click="TurnEmpMsgBtn()">轉正式員工</button>
+
+
+        <div class="input-group">
+            <span class="input-group-addon">
+                <label>&nbsp;公&nbsp;司&nbsp;別&nbsp;</label>
+            </span>
+
+
+            <select class="selectpicker show-tick form-control" id="multipleSelect" ng-model="Emp.Company">
+                <option ng-repeat="Data in CompanyList" value="{{Data.Company}}">{{Data.CompanyName}}</option>
+            </select>
+        </div><!-- /input-group -->
+
+
+
+        <div class="input-group">
+          <span class="input-group-addon">
+            <label>部&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;門</label>
+          </span>
+
+
+          <select class="selectpicker show-tick form-control"  id="multipleSelect" ng-model="Emp.DepartMentNo">
+              <option ng-repeat="Data in DepartMentList | filter:Emp.Company" value="{{Data.DepartMentNo}}">{{Data.DepartMentName}}</option>
+          </select>
+        </div><!-- /input-group -->
+
+
+
+        <div class="input-group">
+          <span class="input-group-addon">
+            <label>臨時員工編號</label>
+          </span>
+          <input type="text"  ng-model="Emp.EmployeeNo" class="form-control" ng-maxlength="6" maxlength="6" readonly="true" >
+
+        </div><!-- /input-group -->
+
+
+        <div class="input-group">
+          <span class="input-group-addon">
+            <label>姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名</label>
+          </span>
+          <input type="text"  ng-model="Emp.EmployeeName" class="form-control" >
+        </div><!-- /input-group -->
+
+
+
+         <div class="input-group">
+          <span class="input-group-addon">
+            <label>英文姓名</label>
+          </span>
+          <input type="text"  ng-model="Emp.EmployeeEName" class="form-control" >
+        </div><!-- /input-group -->
+
+
+
+        
+         <div class="input-group">
+          <span class="input-group-addon">
+            <label>卡&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;號</label>
+          </span>
+
+          <input type="text" ng-if="Emp.Mode=='ADD'" ng-model="Emp.CardNo" class="form-control" >
+
+          <input type="text" ng-if="Emp.Mode=='EDIT'" ng-model="Emp.CardNo" class="form-control" readonly="true" > 
+
+            <span ng-if="Emp.CardStatus=='1'" class="input-group-btn" ng-click="CardDelMsgBtn()">
+                <button  type="button" class="btn btn-default" >
+                <span class="glyphicon glyphicon glyphicon-pencil"></span> 
+                註銷卡號
+                </button>
+            </span>
+
+
+
+
+
+            <span ng-if="Emp.CardStatus=='0'" class="input-group-btn" ng-click="CardAddMsgBtn()"> 
+                
+                
+                <button  type="button" class="btn btn-default" >
+                <span class="glyphicon glyphicon glyphicon-pencil"></span> 
+                新增卡號
+                </button>
+            </span>
+
+        </div><!-- /input-group -->
+
+
+       
+
+           <div class="input-group"
+                @if(Emp.CardStatus=="0"){
+                    @:ng-if="Emp.CardStatus=='1'"
+                }  
+           >
+                <span class="input-group-addon" >
+                <label>卡片生效日</label>
+                </span>
+                <span class="input-group date form_date " data-date="" data-date-format="yyyymmdd" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                    <input ng-model="Emp.CardEffectiveDate" class="form-control"  id="form_date" >
+				    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                </span>
+			    <input type="hidden" id="dtp_input2" value="" />
+            </div>
+
+        
+
+           <div class="input-group"
+                @if(Emp.CardStatus=="0"){
+                    @:ng-if="Emp.CardStatus=='1'"
+                }  
+           >
+                <span class="input-group-addon" >
+                <label>卡片失效日</label>
+                </span>
+                <span class="input-group date form_date " data-date="" data-date-format="yyyymmdd" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                    <input ng-model="Emp.CardExpiryDate" class="form-control"  id="form_date" >
+				    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default"  ng-click="SetExpiryDateBtn()">設為無期限</button>
+                    </span>
+                </span>
+			    <input type="hidden" id="dtp_input2" value="" />
+            </div>
+
+
+                    
+         <span class="error" ng-show="!CheckForm()">
+             {{AlarmMsg}} 
+         </span>
+
+
+
+
+        <div align="right">
+            <br>
+            <span ng-if="Emp.Mode=='EDIT'" >
+                <button type="button" class="btn btn-primary" ng-disabled="!CheckResult" ng-click="EditBtn(Emp.Mode)">儲存</button>
+            </span>
+
+            <span ng-if="Emp.Mode=='ADD'" >
+                <button type="button" class="btn btn-primary" ng-disabled="!CheckResult" ng-model="SaveBtn"  ng-click="AddBtn(Emp.Mode)">儲存</button>
+            </span>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+        <!-- 刪除訊息 -->
+    <div class="modal fade" id="CardDelMsgModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <h4 class="modal-title" id="myModalLabel">註銷訊息</h4>
+          </div>
+
+          <div class="modal-body">
+            您確定要註銷卡號? 
+          </div>
+
+          <div class="modal-footer">
+              <button type="button" class="btn btn-primary" ng-click="CardDelBtn()" >確定</button>
+              <button type="button" class="btn btn-primary" data-dismiss="modal" >取消</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+    
+
+        <!-- 新增卡號 -->
+    <div class="modal fade" id="CardAddMsgModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <h4 class="modal-title" id="myModalLabel">新增卡號</h4>
+          </div>
+
+          <div class="modal-body">
+             <div class="input-group">
+              <span class="input-group-addon">
+                <label>卡&nbsp;&nbsp;&nbsp;&nbsp;號 </label>
+              </span>
+              <input type="text" ng-model="NewCardNo" class="form-control" >
+            </div><!-- /input-group -->
+          </div>
+
+          <div class="modal-footer">
+              <button type="button" class="btn btn-primary" ng-click="CardAddBtn(NewCardNo)" >儲存</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+    
+
+    <!-- 轉正式員工 -->
+    <div class="modal fade" id="TurnEmpMsgModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <h4 class="modal-title" id="myModalLabel">轉正式員工</h4>
+          </div>
+          <div class="modal-body">
+                  <h4>請選擇正式員工編號 :</h4> 
+                 <select class="selectpicker show-tick form-control"  id="multipleSelect" ng-model="TurnEmpNo">
+                     <option ng-repeat="Data in TurnEmpList" value ="{{Data.EmployeeNo}}" >{{Data.EmployeeNo}} - {{Data.EmployeeName}}</option>
+                 </select>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-primary" ng-click="TurnEmpBtn(TurnEmpNo)" ng-disabled="!CheckTurnEmpNo()"  >確定</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+    $('.form_date').datetimepicker({
+        language: 'zh-TW',
+        weekStart: 1,
+        todayBtn: 1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        minView: 2,
+        forceParse: 0,
+        format: 'yyyy-mm-dd'
+    });
+</script>

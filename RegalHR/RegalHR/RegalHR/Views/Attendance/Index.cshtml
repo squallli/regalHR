@@ -1,0 +1,295 @@
+﻿@using RegalHRModel
+@using RegalHR.ModelFactory
+
+@{
+    string Ver = GeneralModelFactory.Version;
+    Layout = "~/Views/Layout/LayoutPage.AnguLarjs.cshtml";
+    List<AttendanceModel> AttendanceList = (List<AttendanceModel>)ViewData["AttendanceList"];
+
+    
+    ProgramModel SysProgram = (ProgramModel)ViewData["SysProgram"];
+}
+
+<script src="../js/RegalAngular/Attendance/index.js?@(Ver)"></script>
+
+
+<script>
+    var AttendanceList = @Html.Raw(Json.Encode(AttendanceList));
+
+</script>
+
+<div class="Contentbody" ng-app="index" ng-controller="Ctrl"  ng-cloak>
+    
+    
+
+     
+    
+
+    <div class="row">
+      <h4 class="col-xs-6 ">@(SysProgram.ProgName)</h4>
+      <div class="col-xs-6">&nbsp;</div>
+    </div>
+
+
+
+
+
+      <div class="input-group col-xs-4" >
+
+        <span class="input-group-addon">
+        <label>日期</label>
+        </span>
+        <span class="input-group date SDATE " data-date="" data-date-format="yyyy-mm-dd" data-link-field="dtp_input1" data-link-format="yyyy-mm-dd" >
+            <input ng-model="SDATE" class="form-control"  id="SDATE">
+        </span>
+		<input type="hidden" id="dtp_input1" value="" />
+
+
+        <span class="input-group-addon"><label>~</label></span>
+
+
+        <span class="input-group date EDATE " data-date="" data-date-format="yyyy-mm-dd" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd"  >
+            <input ng-model="EDATE" class="form-control"  id="EDATE" >
+        </span>
+		<input type="hidden" id="dtp_input2" value="" />
+
+        <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="Search()">搜尋</button>
+         </span>
+
+
+      </div>
+
+
+
+        <div>
+            <table class="table  table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th width="30px">序</th>
+                        <th>公司別</th>
+                        <th>部門</th>
+                        <th>員工編號</th>
+                        <th>姓名</th>
+                        <th>英文名</th>
+                        <th>上班日期</th>
+                        <th>上班時間</th>
+                        <th>下班時間</th>
+                        <th>遲到</th>
+                        <th>加班上班</th>
+                        <th>加班下班</th>
+                        <th>出勤描述</th>
+                        <th  width="80px">&nbsp;</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="Data in AttendanceList ">
+                        <td title="{{ Data.AttendanceDesc2 }}">{{ Data.RowNumID }}</td>
+                        <td>{{ Data.CompanyName }}</td>
+                        <td>{{ Data.DepartMentName }}</td>
+                        <td>{{ Data.EmployeeNo }}</td>
+                        <td>{{ Data.EmployeeName }}</td>
+                        <td>{{ Data.EmployeeEName }}</td>
+                        <td title="上班日期">{{ Data.WorkDay }}</td>
+                        <td title="上班時間">{{ Data.StartWorkTime }}</td>
+                        <td title="上班時間">{{ Data.EndWorkTime }}</td>
+                        <td title="遲到分鐘">
+                            <span ng-if="Data.LateMin=='0'">{{ Data.LateMinFormat }}</span>
+
+
+
+                            <span ng-if="Data.LateMin > 5" style="color: red; "><b>{{ Data.LateMinFormat }}</b></span>
+                            <span ng-if="Data.LateMin <= 5 && Data.LateMin >= 1" style="color:#298A08">{{ Data.LateMinFormat }}</span>
+
+
+                        </td>
+
+                        <td title="加班上班">{{ Data.StartWorkOvertime }}</td>
+                        <td title="加班下班">{{ Data.EndWorkOvertime }}</td>
+                        <td title="出勤描述" ng-style="AttendanceDescBgColor(Data.AttendanceDesc)">{{ Data.AttendanceDesc }}</td>
+                        
+                        <td> 
+                            <button type="button" class="btn btn-default"  ng-click="ShowDtl(Data.WorkDay)"><span class="glyphicon glyphicon-list-alt"></span> 詳細</button>
+                        </td>
+                        
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+
+    
+    
+    <ul class="pagination" ng-repeat="Pagination in PaginationList | limitTo:10:PageBegin">
+
+        <li ng-if="$first"><a href="#" ng-click="update(0)" >第1頁</a></li>
+        
+        <li ng-if="Pagination.PageNum==Page" class="active"><a href="#" ng-click="update(Pagination.PageNum)" >{{ Pagination.PageDisplay }}</a></li>
+        <li ng-if="Pagination.PageNum!=Page"><a href="#" ng-click="update(Pagination.PageNum)" >{{ Pagination.PageDisplay }}</a></li>
+     
+
+        <li ng-if="$last"><a href="#" ng-click="update(PageTotal)" >最終頁</a></li>
+    </ul>
+
+
+
+
+    
+
+
+        <div class="modal fade" id="ShowDtlModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h3 class="modal-title" id="myModalLabel">{{ AttendanceShowDtl.ThisDate.start }} {{ AttendanceShowDtl.ThisDate.title }}  </h3>
+                    </div>
+
+                    <div class="modal-body">
+                        
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><label>公司別 : {{ AttendanceShowDtl.Emp.CompanyName }}</label></span>
+
+                                    <span class="input-group-addon"><label>部門 : {{ AttendanceShowDtl.Emp.DepartMentName }}</label></span>
+
+
+                                    <span class="input-group-addon"><label>員工編號 : {{ AttendanceShowDtl.Emp.EmployeeNo }}</label></span>
+
+                                    <span class="input-group-addon"><label>姓名 : {{ AttendanceShowDtl.Emp.EmployeeName }}</label></span>
+
+                                    <span class="input-group-addon"><label>英文名 : {{ AttendanceShowDtl.Emp.EmployeeEName }}</label></span>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+
+                    <div>
+                        <h3><span class="glyphicon glyphicon-list-alt"></span> 外出記錄</h3>
+                        <table class="table  table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th width="20%">預計外出時間</th>
+                                    <th width="20%">會議時間</th>
+                                    <th width="20%">外出地點</th>
+                                    <th width="20%">客戶名稱</th>
+                                    <th width="20%">最後編輯</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="Data in AttendanceShowDtl.OutgoingList ">
+
+                                    <td>
+                                        {{ Data.start }}
+
+                                        <span ng-if="Data.Status == 'AM' || Data.Status == 'UM' " style="color:red">
+                                            (補登) {{ Data.OutDescription }}
+                                        </span>
+
+                                    </td>
+
+                                    
+                                    <td>
+                                        {{ Data.GoOutTime }}
+                                    </td>
+
+
+
+                                    <td>{{ Data.Location }}</td>
+                                    <td>{{ Data.CustomerName }}</td>
+
+                                    <td>
+                                        {{ Data.UpdateDate }} {{ Data.RecordMan }}
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+
+
+                      
+
+                    <div>
+                        <h3><span class="glyphicon glyphicon-list-alt"></span> 卡鐘記錄</h3>
+                        <table class="table  table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th width="33%">卡鐘時間</th>
+                                    <th width="33%">卡鐘模式</th>
+                                    <th width="33%">補登時間</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="Data in AttendanceShowDtl.AttendanceList ">
+                                    <td>
+                                        {{ Data.StartWorkTime }}
+
+
+                                             <span ng-if="Data.CheckInFlag == '1'" style="color:red">
+                                             (補登) {{ Data.CheckInDescription }}
+                                            </span>                                                                               
+                                    </td>
+                                    <td>{{ Data.CardTypeName }}</td>
+
+                                    <td>
+                                        {{ Data.CheckInDate }} {{ Data.CheckInEmployeeName }}
+                                    </td>
+
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button data-dismiss="modal" class="btn btn-default" aria-label="Close" >關閉</button>
+                    </div>
+          
+                </div>
+            </div>
+        </div>
+
+
+
+</div>
+
+
+
+
+
+<script type="text/javascript">
+    $('#SDATE').datetimepicker({
+        language: 'zh-TW',
+        weekStart: 1,
+        todayBtn: 1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        minView: 2,
+        forceParse: 0,
+        format: 'yyyy-mm-dd'
+    });
+
+    $('#EDATE').datetimepicker({
+        language: 'zh-TW',
+        weekStart: 1,
+        todayBtn: 1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        minView: 2,
+        forceParse: 0,
+        format: 'yyyy-mm-dd'
+    });
+
+</script>
+
+

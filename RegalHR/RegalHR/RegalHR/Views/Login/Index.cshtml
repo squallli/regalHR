@@ -1,0 +1,52 @@
+﻿@using RegalHRModel
+@using RegalHR.ModelFactory
+@{
+    string Ver = GeneralModelFactory.Version;
+    Layout = "~/Views/Layout/LayoutLogin.AnguLarjs.cshtml";
+    
+
+}
+<script src="../js/RegalAngular/Login/index.js?@(Ver)"></script>
+
+
+<div class="Contentbody" align="center"  ng-controller="Ctrl"  ng-cloak ng-app="index" >
+
+
+<div class="Login" ui-keypress="{13:LoginBtn(LoginId,LoginPwd)}">
+
+    <h2><img src="../images/regal.png" width="80%" /></h2>
+    <div class="input-group">
+      <span class="input-group-addon">
+        <label>帳&nbsp;&nbsp;&nbsp;&nbsp;號 </label>
+      </span>
+      <input type="text "ng-model="LoginId" class="form-control" ng-init="LoginId = '' "  ng-keypress="($event.which === 13)?LoginBtn(LoginId,LoginPwd):ClearErrMsg() ">
+    </div><!-- /input-group -->
+
+    <div class="input-group">
+      <span class="input-group-addon">
+        <label>密&nbsp;&nbsp;&nbsp;&nbsp;碼 </label>
+      </span>
+      <input type="password"  ng-model="LoginPwd" class="form-control" ng-init="LoginPwd = '' " ng-keypress="($event.which === 13)?LoginBtn(LoginId,LoginPwd):ClearErrMsg()">
+    </div><!-- /input-group -->
+
+
+
+    
+    <div align="right">
+        <br />
+        <button type="button" class="btn btn-default" ng-click="LoginBtn(LoginId,LoginPwd)">登入</button>
+    </div>
+
+    <div>{{ErrMsg}}</div>
+</div>
+
+
+
+
+
+</div>
+
+
+
+
+

@@ -1,0 +1,167 @@
+﻿@using RegalHRModel
+@{
+    UserModel LoginUserInfo = (UserModel)ViewData["LoginUserInfo"];      
+}
+
+
+    <nav class="navbar navbar-default navbar-fixed-top">
+
+          <ul class="nav navbar-nav">
+              <li>
+                <h4  onclick="javascript:location.href='../'">&nbsp;&nbsp;<img src="../images/regal.png" height="30px">帝商科技 &nbsp;&nbsp;</h4>
+              </li>
+
+
+              <li>
+                  <a href="#" onclick="javascript:location.href='../'" >首頁</a>
+              </li>
+
+                 <li id="dropdown_1" style="display:none" >
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">員工基本資料<span class="caret"></span></a>
+                     <ul class="dropdown-menu">
+                     
+                     @foreach (var item in LoginUserInfo.ProgramList)
+                     {
+                         if (item.ProgID == "E001" || item.ProgID == "E002")
+                        {
+                            @Html.Raw("<li><a href='" + item.Url + "'>" + item.ProgName + "</a></li>");
+                            
+                        }
+                     }
+                    </ul>
+                </li>
+
+
+
+                <li id="dropdown_2" style="display:none" >
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">權限設定<span class="caret"></span></a>
+                     <ul class="dropdown-menu">
+                     
+                     @foreach (var item in LoginUserInfo.ProgramList)
+                     {
+                         if (item.ProgID == "G001" || item.ProgID == "G002")
+                        {
+                            @Html.Raw("<li><a href='" + item.Url + "'>" + item.ProgName + "</a></li>");
+                            
+                        }
+                     }
+                    </ul>
+                </li>
+
+
+
+
+
+                <li id="dropdown_3" style="display:none" >
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">系統設定<span class="caret"></span></a>
+                     <ul class="dropdown-menu">
+                    
+                     @foreach (var item in LoginUserInfo.ProgramList)
+                     {
+
+                        if (item.ProgID == "Z001")
+                        {
+                            @Html.Raw("<li><a href='" + item.Url + "'>" + item.ProgName + "</a></li>");
+                            
+                        }
+
+                     }
+                    </ul>
+                </li>
+
+
+
+
+
+                <li id="dropdown_4" style="display:none" >
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">出勤作業<span class="caret"></span></a>
+                     <ul class="dropdown-menu">
+                    
+                     @foreach (var item in LoginUserInfo.ProgramList)
+                     {
+
+                        if (item.ProgID == "W001" || item.ProgID == "W002" || item.ProgID == "W003" || item.ProgID == "W004" || item.ProgID == "W005" || item.ProgID == "W006")
+                        {
+                            @Html.Raw("<li><a href='" + item.Url + "'>" + item.ProgName + "</a></li>");
+                            
+                        }
+
+                     }
+
+                    </ul>
+                </li>
+
+
+              
+                <li id="dropdown_5" style="display:none" >
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">報表作業<span class="caret"></span></a>
+                     <ul class="dropdown-menu">
+                    
+                     @foreach (var item in LoginUserInfo.ProgramList)
+                     {
+
+                        if (item.ProgID == "RG01" )
+                        {
+                            @Html.Raw("<li><a href='../ReportOutgoing/'>外出報表作業</a></li>");
+
+
+                            break;
+                        }
+
+                     }
+                    
+                     @foreach (var item in LoginUserInfo.ProgramList)
+                     {
+
+                        if (item.ProgID == "RA01" )
+                        {
+                            @Html.Raw("<li><a href='../ReportAttendance/'>出勤報表作業</a></li>");
+                            break;
+                        }
+
+                     }
+                    
+
+                    </ul>
+                </li>
+
+
+
+
+
+
+
+               <script>
+                    if ($("#dropdown_1 .dropdown-menu").children().length!=0) {
+                        $("#dropdown_1").css("display", "");
+                    }
+
+                    if ($("#dropdown_2 .dropdown-menu").children().length!=0) {
+                        $("#dropdown_2").css("display", "");
+                    }
+
+                    if ($("#dropdown_3 .dropdown-menu").children().length != 0) {
+                        $("#dropdown_3").css("display", "");
+                    }
+
+
+                    if ($("#dropdown_4 .dropdown-menu").children().length != 0) {
+                        $("#dropdown_4").css("display", "");
+                    }
+
+                    if ($("#dropdown_5 .dropdown-menu").children().length != 0) {
+                        $("#dropdown_5").css("display", "");
+                    }
+               </script>
+
+
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="../">@(LoginUserInfo.UserEName) 您好!</a></li>
+            <li><a href="../Login/LoginOut">登出</a></li>
+          </ul>
+
+    </nav>
+
+
+<div class="MessageBar" id="MessageBar"></div>

@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<settings>
+
+  <setup>
+    <Url>http://portal.regalscan.com.tw:81/RegalBon/</Url>
+    <CountDown>30000</CountDown>
+  </setup>
+
+</settings>

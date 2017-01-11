@@ -1,0 +1,36 @@
+﻿<footer>
+帝商科技股份有限公司版權所有©2016
+</footer>
+
+
+
+<!-- 強制登出訊息 -->
+<div class="modal fade" id="LogOutMsgModal" tabindex="-1" role="dialog" data-backdrop="static" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">系統訊息</h4>
+                </div>
+
+
+                <div class="modal-body">
+                    <h1>很抱歉! 您已超出系統有效之登入時間!</h1>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" onclick="UserLogin()">重新登入</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script>
+
+
+        setTimeout(function () {
+            ExistsSession();
+        }, 30000);
+
+    </script>
